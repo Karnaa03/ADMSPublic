@@ -25,23 +25,6 @@ type Server struct {
 
 func (srv *Server) InitRouter() (err error) {
 	srv.router = gin.Default()
-
-	// srv.AuthParam, err = auth.InitAuth(srv.Config, srv.router)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// srv.CookieStore = cookie.NewStore([]byte("secret"))
-
-	// srv.router.Use(sessions.Sessions("agritracking", srv.CookieStore))
-	// // manage authentication
-	// srv.router.Use(ginoidc.Init(srv.AuthParam))
-	// // manage authorization
-	// enforcer, err := casbin.NewEnforcer("authz_model.conf", "authz_policy.csv")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// srv.router.Use(ginoidc.NewAuthorizer(enforcer))
-
 	srv.registerStatic()
 	srv.registerPages()
 	return
