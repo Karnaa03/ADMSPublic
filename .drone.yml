@@ -1,0 +1,146 @@
+---
+kind: pipeline
+name: prebuild
+
+steps:
+  - name: code-analysis
+    image: registry.solutions.im/drone-sonar-plugin:0.0.4
+    settings:
+      sonar_host:
+        from_secret: sonar_host
+      sonar_token:
+        from_secret: sonar_token
+
+trigger:
+  event:
+    - tag
+    - release
+---
+kind: pipeline
+name: arm64
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+  - name: build
+    image: golang
+    volumes:
+      - name: deps
+        path: /go
+    commands:
+      - go build -ldflags "-X main.Version=${DRONE_TAG}" -o agriTracking
+    environment:
+      GOARCH: arm64
+      GOOS: linux
+      CGO_ENABLED: 0
+      GOPRIVATE: "*.solutions.im"
+
+  - name: docker
+    image: plugins/docker
+    tag: [ linux-arm64 ]
+    environment:
+      PLUGIN_MTU: 1300
+    settings:
+      dockerfile: Dockerfile
+      repo: registry.solutions.im/agritracking
+      registry: registry.solutions.im
+      auto_tag: true
+      auto_tag_suffix: linux-arm64
+
+volumes:
+  - name: deps
+    temp: { }
+
+trigger:
+  event:
+    - tag
+    - release
+
+---
+kind: pipeline
+name: amd64
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: build
+    image: golang
+    volumes:
+      - name: deps
+        path: /go
+    commands:
+      - go build -ldflags "-X main.Version=${DRONE_TAG}" -o agriTracking
+    environment:
+      GOARCH: amd64
+      GOOS: linux
+      CGO_ENABLED: 0
+      GOPRIVATE: "*.solutions.im"
+
+  - name: docker
+    image: plugins/docker
+    tag: [ linux-amd64 ]
+    environment:
+      PLUGIN_MTU: 1300
+    settings:
+      dockerfile: Dockerfile
+      repo: registry.solutions.im/agritracking
+      registry: registry.solutions.im
+      auto_tag: true
+      auto_tag_suffix: linux-amd64
+
+volumes:
+  - name: deps
+    temp: { }
+
+trigger:
+  event:
+    - tag
+    - release
+
+---
+kind: pipeline
+name: manifest_and_deployment
+
+steps:
+  - name: manifest
+    image: plugins/manifest
+    settings:
+      target: registry.solutions.im/agritracking
+      spec: manifest.tmpl
+      auto_tag: true
+      platforms:
+        - linux/amd64
+        - linux/arm64
+
+  - name: send
+    image: plugins/webhook
+    settings:
+      urls: https://chat.solutions.im/hooks/u7dufgd17tro8nqxg97akey3ky
+      content_type: application/json
+      template: |
+        {
+          "text": "{{ repo.name }} {{ build.tag }} build finished with {{ build.status }}.\nCommit message : {{ commit.message }}"
+        }
+
+#  - name : deploy
+#    image: quay.io/honestbee/drone-kubernetes
+#    kubernetes_server: https://kubernetes.company.org
+#      namespace: agritracking
+#      deployment: web
+#      repo: registry.solutions.im/agritracking
+#      container: web
+#      tag: latest
+
+
+trigger:
+  event:
+    - tag
+    - release
+
+depends_on:
+  - arm64
+  - amd64

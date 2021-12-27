@@ -1,0 +1,135 @@
+{{.Header}}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Booklet check-in / বুকলেট চেক ইন</h3>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <form id="booklet-registration" data-parsley-validate class="form-horizontal form-label-right" method="post">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Booklet number and composition</h2>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="x_content">
+                            <br/>
+                            <form id="bar-code-generation" data-parsley-validate class="form-horizontal form-label-left">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Set of booklets<br>
+                                        <small class="text-navy">Select size</small><br>
+                                        <small class="text-navy">নির্বাচন আকার</small>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" class="flat" {{.R100}} name="BookletSize" value="100"> 100 Sheets / শীট
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" class="flat" {{.R50}} name="BookletSize" value="50"> 50 Sheets / শীট
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" class="flat" {{.R25}} name="BookletSize" value="25"> 25 Sheets / শীট
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Booklet Number<span class="required">*</span>
+                                        <br><small class="text-navy">পুস্তিকা নম্বর</small></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control"
+                                               data-inputmask="'mask' : '999.999'"
+                                               required="required"
+                                               pattern="\d{3}.\d{3}"
+                                               name="BookletNumber"
+                                               id="BookletNumber"
+                                               autocomplete="chrome-off"
+                                               value="{{.BookletBarCode}}"
+                                               autofocus>
+                                        <span class="fa fa-barcode form-control-feedback right" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Booklet GEO Code<span class="required">*</span>
+                                        <br><small class="text-navy">বুকলেট জিও কোড</small> </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control"
+                                               data-inputmask="'mask' : '99.99.999.999.999.9'"
+                                               required="required"
+                                               pattern="\d{2}.\d{2}.\d{3}.\d{3}.\d{3}.\d{1}"
+                                               name="GeoCode"
+                                               value={{.BookletQRCode}}>
+                                        <span class="fa fa-barcode form-control-feedback right" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                {{.AlertQrCode}}
+
+                                <div class="ln_solid"></div>
+
+                                <div class="x_content">
+                                    <h4>Values<small> List of 50 last values recorded / রেকর্ড 50 সর্বশেষ মান তালিকা</small></h4>
+                                    <table id="datatable" class="table table-striped table-bordered" data-order='[[ 0, "desc" ]]'>
+                                        <thead>
+                                        <tr>
+                                            <th>Registered on</th>
+                                            <th>Booklet Number</th>
+                                            <th>GEO Code</th>
+                                            <th>District</th>
+                                            <th>Mouza</th>
+                                            <th>Booklet size</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {{.TableData}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                                        <button class="btn btn-primary" type="reset">Reset</button>
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Dialog -->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+            </div>
+            <div class="modal-body">
+                <p>You are about to delete <b><i class="title"></i></b> record, this procedure is irreversible.</p>
+                <p>Do you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+
+{{.Footer}}

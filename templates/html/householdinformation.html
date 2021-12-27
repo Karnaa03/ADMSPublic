@@ -1,0 +1,103 @@
+{{define "householdinformation"}}
+<div class="x_title">
+    <h2>HouseHold Informations</h2>
+    <div class="clearfix"></div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-4 col-sm-4 col-xs-12">
+        1 Household Head
+    </label>
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        <input type="text" class="form-control"
+               required="required"
+               name="OwnerName"
+               value="{{.OwnerName}}"
+               autofocus>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-4 col-sm-4 col-xs-12">
+        2 Owner Gender
+    </label>
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        <input type="text" class="form-control"
+               required="required"
+               name="OwnerGender"
+               value="{{.OwnerGender}}"
+               autofocus>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-4 col-sm-4 col-xs-12">
+        3 Father Name
+    </label>
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        <input type="text" class="form-control"
+               required="required"
+               name="FatherName"
+               value="{{.FatherName}}"
+               autofocus>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-4 col-sm-4 col-xs-12">
+        4 Owner Edu Code
+    </label>
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        <input type="text" class="form-control"
+               required="required"
+               name="OwnerEduCode"
+               value="{{.OwnerEduCode}}"
+               data-inputmask="'mask' : '99'"
+               pattern="\d{2}"
+               autofocus>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-4 col-sm-4 col-xs-12">
+        5 Owner Professional Code
+    </label>
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        <input type="text" class="form-control"
+               required="required"
+               name="OwnerProfesCode"
+               value="{{.OwnerProfesCode}}"
+               autofocus>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-4 col-sm-4 col-xs-12">
+        6 Is Fishing Related ?
+    </label>
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        <input type="text" class="form-control"
+               required="required"
+               name="IsFishingRelated"
+               value="{{.IsFishingRelated}}"
+               autofocus>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-4 col-sm-4 col-xs-12">
+        7 Mobile No
+    </label>
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        <input type="text" class="form-control"
+               name="MobileNo"
+               value="{{.MobileNo}}"
+               autofocus>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-4 col-sm-4 col-xs-12">
+        8 Agriculture Labor Code
+    </label>
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        <input type="text" class="form-control"
+               required="required"
+               name="AgriLaborCode"
+               value="{{.AgriLaborCode}}"
+               autofocus>
+    </div>
+</div>
+{{end}}

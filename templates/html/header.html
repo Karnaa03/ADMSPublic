@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Agri Census public data</title>
+
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-wysiwyg -->
+    <link href="../vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+
+    <!-- PNotify -->
+    <link href="../vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="/"><img src="/images/bbs.png" alt="..." class="img-circle profile_img"></a>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <!-- menu profile quick info -->
+                    <!-- <div class="profile clearfix">
+                        <div class="profile_pic">
+                            <img src="/images/bbs.png" alt="..." class="img-circle profile_img">
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div> -->
+                    <!-- /menu profile quick info -->
+
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                <li><a><i class="fa fa-bar-chart"></i>Census 2019<span
+                                            class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/production/stage1.html">National series report</a></li>
+                                        <li><a href="/production/stage2.html">Zila series report</a></li>
+                                        <li><a href="/production/stage3.html">Analytical report</a></li>
+                                        <li><a href="/production/stage4.html">Cropping pattern report</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a><i class="fa fa-bar-chart"></i>Census 2008<span
+                                            class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/reporting/currentStatus.html">National series report</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a><i class="fa fa-bar-chart"></i>Census 1996<span
+                                            class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/reporting/currentStatus.html">National series report</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a><i class="fa fa-calculator"></i>Customized Output<span
+                                            class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/warehouse/registerArchiveBox.html">Indicator</a></li>
+                                        <li><a href="/warehouse/searchInArchives.html">Frequency list</a></li>
+                                        <li><a href="/warehouse/moveBooklet.html">Table generation</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a><i class="fa fa-line-chart"></i>Graph<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/warehouse/registerArchiveBox.html">Indicator</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="/warehouse/moveBooklet.html">Metadata</a></li>
+                                <li><a href="/warehouse/moveBooklet.html">Contact Us</a></li>
+                                <li><a href="/warehouse/moveBooklet.html">Feedback</a></li>
+
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <!-- <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <img src="/images/bbs.png" alt="">{{.Name}}
+                                    <span class=" fa fa-angle-down"></span>
+                                </a> -->
+                            <!-- <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    {{/* <li><a href="javascript:;"> Profile</a></li>*/}}
+                                    {{/* <li>*/}}
+                                        {{/* <a href="javascript:;">*/}}
+                                            {{/* <span class="badge bg-red pull-right">50%</span>*/}}
+                                            {{/* <span>Settings</span>*/}}
+                                            {{/* </a>*/}}
+                                        {{/* </li>*/}}
+                                    {{/* <li><a href="javascript:;">Help</a></li>*/}}
+                                    <li><a href="/logout.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                                    </li> -->
+                        </ul>
+                        </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <script src="../vendors/jquery/dist/jquery.min.js"></script>
+            <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+
+            <script>
+                $(document).ready(function () {
+                    if ($.fn.dataTable.isDataTable('#datatable')) {
+                        table = $('#datatable').DataTable();
+                    } else {
+                        table = $('#datatable').DataTable({
+                            stateSave: true
+                        });
+                    }
+                });
+            </script>
+
+            <script>
+                $(document).ready(function () {
+                    $('.remove-empty-values').submit(function () {
+                        $(this).find(':input').filter(function () {
+                            return !this.value;
+                        }).attr('disabled', 'disabled');
+                        return true; // make sure that the form is still submitted
+                    });
+                });
+            </script>
+
+            <!-- /top navigation -->

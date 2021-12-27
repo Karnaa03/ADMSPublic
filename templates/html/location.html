@@ -1,0 +1,111 @@
+{{define "location"}}
+<div class="x_title">
+    <h2>Location Informations</h2>
+    <div class="clearfix"></div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-6 col-sm-6 col-xs-12">
+        Is Union ?
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <h5 style="text-align:left" class="text-success">{{.IsUnion}}</h5>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-6 col-sm-6 col-xs-12">
+        GeoCode
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" class="form-control"
+               required="required"
+               name="GeocodeID"
+               value="{{.GeocodeID}}"
+               autofocus>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-6 col-sm-6 col-xs-12">
+        Division
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <h5 style="text-align:left" class="text-success">{{.Division}}</h5>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-6 col-sm-6 col-xs-12">
+        District
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <h5 style="text-align:left" class="text-success">{{.District}}</h5>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-6 col-sm-6 col-xs-12">
+        Upazila
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <h5 style="text-align:left" class="text-success">{{.Upazila}}</h5>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-6 col-sm-6 col-xs-12">
+        Union
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <h5 style="text-align:left" class="text-success">{{.Union}}</h5>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-6 col-sm-6 col-xs-12">
+        Mouza
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <h5 style="text-align:left" class="text-success">{{.Mouza}}</h5>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-6 col-sm-6 col-xs-12">
+        Counting Area
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <h5 style="text-align:left" class="text-success">{{.CountingArea}}</h5>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-6 col-sm-6 col-xs-12">
+        RMO
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <h5 style="text-align:left" class="text-success">{{.RMO}}</h5>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-6 col-sm-6 col-xs-12">
+        Village
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" class="form-control"
+               required="required"
+               name="Village"
+               value="{{.Village}}"
+               autofocus>
+    </div>
+    <label class="control-label col-md-6 col-sm-6 col-xs-12">
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <h5 style="text-align:left" class="text-success">{{.VillageName}}</h5>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-6 col-sm-6 col-xs-12">
+        House Serial
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" class="form-control"
+               required="required"
+               name="HouseSerial"
+               value="{{.HouseSerial}}"
+               autofocus>
+    </div>
+</div>
+{{end}}

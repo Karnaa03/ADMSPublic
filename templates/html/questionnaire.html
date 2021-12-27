@@ -1,0 +1,194 @@
+{{template "headerLight"}}
+
+<div class="right_col" role="main" xmlns="http://www.w3.org/1999/html">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Questionnaire detail / বিস্তারিত প্রশ্নাবলী</h3>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_content">
+                    {{.Alert}}
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <form id="booklet-registration" data-parsley-validate data-parsley-focus="first" class="form-horizontal form-label-right" method="post">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2><i class="fa fa-bars"></i> Data <small>per category</small> # {{.QNumber}}</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">General informations</a>
+                                            </li>
+                                            <li role="presentation" class=""><a href="#tab_land" role="tab" id="land-tab" data-toggle="tab" aria-expanded="false">Land</a>
+                                            </li>
+                                            <li role="presentation" class=""><a href="#tab_animals" role="tab" id="animals-tab" data-toggle="tab" aria-expanded="false">Animals</a>
+                                            </li>
+                                            <li role="presentation" class=""><a href="#tab_crop" role="tab" id="crop-tab" data-toggle="tab" aria-expanded="false">Crop</a>
+                                            </li>
+                                            <li role="presentation" class=""><a href="#tab_trees" role="tab" id="trees-tab" data-toggle="tab" aria-expanded="false">Trees</a>
+                                            </li>
+                                            <li role="presentation" class=""><a href="#tab_machines" role="tab" id="machines-tab" data-toggle="tab" aria-expanded="false">Machines</a>
+                                            </li>
+                                        </ul>
+                                        <div id="myTabContent" class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" tabid="home-tab" aria-labelledby="home-tab">
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    {{template "location" .}}
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    {{template "householdinformation" .}}
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    {{.Table9}}
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_land" tabid="land-tab" aria-labelledby="land-tab">
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    {{.Table10}}
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    {{.Table11}}
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_animals" tabid="animals-tab" aria-labelledby="animals-tab">
+                                                <div class="col-md-12 col-sm-6 col-xs-12">
+                                                    {{.Table12}}
+                                                    {{.Table13}}
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_crop" tabid="crop-tab" aria-labelledby="crop-tab">
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    {{.Table14R}}
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    {{.Table14L}}
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    {{.Table14Additional}}
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_trees" tabid="trees-tab" aria-labelledby="trees-tab">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    {{.Table15}}
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    {{.Table15Additional}}
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_machines" tabid="machines-tab" aria-labelledby="machines-tab">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    {{.Table16}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{if .User.IsAdmsUpdate}}
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                                    <button class="btn btn-primary" type="reset">Reset</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                            {{end}}
+                        </form>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <embed src="/adms/getQuestionnaire?TlNumber={{.TlNumber}}&QNumber={{.QNumber}}" width=100% height=1200 type='application/pdf'/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{template "footerLight"}}
+
+<script>
+    function init_autocomplete() {
+        console.log('init_autocomplete');
+        $('#autocomplete-crop-0').autocomplete({
+            serviceUrl: '/adms/crop',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-crop-1').autocomplete({
+            serviceUrl: '/adms/crop',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-crop-2').autocomplete({
+            serviceUrl: '/adms/crop',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-crop-3').autocomplete({
+            serviceUrl: '/adms/crop',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-crop-4').autocomplete({
+            serviceUrl: '/adms/crop',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-crop-5').autocomplete({
+            serviceUrl: '/adms/crop',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-crop-6').autocomplete({
+            serviceUrl: '/adms/crop',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-crop-7').autocomplete({
+            serviceUrl: '/adms/crop',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-crop-8').autocomplete({
+            serviceUrl: '/adms/crop',
+            autoSelectFirst: true,
+        });
+        
+        $('#autocomplete-tree-0').autocomplete({
+            serviceUrl: '/adms/tree',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-tree-1').autocomplete({
+            serviceUrl: '/adms/tree',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-tree-2').autocomplete({
+            serviceUrl: '/adms/tree',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-tree-3').autocomplete({
+            serviceUrl: '/adms/tree',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-tree-4').autocomplete({
+            serviceUrl: '/adms/tree',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-tree-5').autocomplete({
+            serviceUrl: '/adms/tree',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-tree-6').autocomplete({
+            serviceUrl: '/adms/tree',
+            autoSelectFirst: true,
+        });
+        $('#autocomplete-tree-7').autocomplete({
+            serviceUrl: '/adms/tree',
+            autoSelectFirst: true,
+        });
+    }
+    
+    window.Parsley.on('field:error', function() {
+        const tab = this.$element.closest(".tab-pane").attr('tabid');
+        $('#'+tab+'').click();
+    });
+
+</script>

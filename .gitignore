@@ -1,0 +1,9 @@
+/AgriTracking.iml
+/.idea/
+/node_modules/gentelella/package-lock.json
+/go.sum
+/node_modules/.package-lock.json
+/.gradle/
+/.scannerwork/
+/sonar-project.properties
+/node_modules/gentelella/vendors/Flot/examples/

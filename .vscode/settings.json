@@ -1,0 +1,6 @@
+{
+    "go.inferGopath": false,
+    "search.exclude": {
+        "**/node_modules": false
+    }
+}
