@@ -28,8 +28,8 @@ const checked = "checked"
 /*
 Only the booklet number is unique
 */
-func (srv *Server) stage1(footer string) {
-	srv.router.GET("/production/stage1.html", func(c *gin.Context) {
+func (srv *Server) zila(footer string) {
+	srv.router.GET("/production/zila.html", func(c *gin.Context) {
 		header, _ := templates.RenderHeader(c)
 		type s1query struct {
 			Size            string `form:"size"`
@@ -56,7 +56,7 @@ func (srv *Server) stage1(footer string) {
 		}
 	})
 
-	srv.router.POST("/production/stage1.html", func(c *gin.Context) {
+	srv.router.POST("/production/zila.html", func(c *gin.Context) {
 		size := c.PostForm("BookletSize")
 		geoCode := c.PostForm("GeoCode")
 		number := c.PostForm("BookletNumber")
@@ -112,7 +112,7 @@ func (srv *Server) OkWithData(c *gin.Context, header, footer, previousSize, book
 	default:
 		data["R100"] = checked
 	}
-	c.HTML(http.StatusOK, "stage1.html", data)
+	c.HTML(http.StatusOK, "zila.html", data)
 }
 
 func (srv *Server) stage1WithError(c *gin.Context, header, footer, alertMsg, bookletNumber, bookletGeoCode, previousSize string) {
@@ -141,7 +141,7 @@ func (srv *Server) stage1WithError(c *gin.Context, header, footer, alertMsg, boo
 	default:
 		data["R100"] = checked
 	}
-	c.HTML(http.StatusOK, "stage1.html", data)
+	c.HTML(http.StatusOK, "zila.html", data)
 }
 
 func (srv *Server) GetChecked() (data string) {
@@ -166,7 +166,7 @@ func (srv *Server) GetChecked() (data string) {
 			<td>%s</td>
 			<td>%d</td>
 			<td>
-				<a href="#" data-href="/production/stage1.html?delete=%s" data-toggle="modal" data-target="#confirm-delete">
+				<a href="#" data-href="/production/zila.html?delete=%s" data-toggle="modal" data-target="#confirm-delete">
 					<center>
 						<i class="fa fa-trash"></i>
 					</center>

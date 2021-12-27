@@ -41,7 +41,7 @@ func (srv *Server) registerPages() {
 	}
 	srv.notFound()
 	srv.homePage(footer)
-	srv.stage1(footer)
+	srv.zila(footer)
 	srv.stage2(footer)
 	srv.stage3(footer)
 	srv.stage4(footer)
