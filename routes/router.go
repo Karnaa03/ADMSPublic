@@ -41,7 +41,10 @@ func (srv *Server) registerPages() {
 	}
 	srv.notFound()
 	srv.homePage(footer)
+	srv.national_report(footer)
 	srv.zila(footer)
+	srv.analytical(footer)
+	srv.cropping(footer)
 	srv.stage2(footer)
 	srv.stage3(footer)
 	srv.stage4(footer)
@@ -71,6 +74,7 @@ func (srv *Server) registerStatic() {
 	srv.router.Static("./images", "node_modules/gentelella/production/images")
 	srv.router.Static("./css", "node_modules/gentelella/production/css")
 	srv.router.Static("./build", "node_modules/gentelella/build")
+	srv.router.Static("./img", "templates/img")
 	srv.router.LoadHTMLGlob("templates/html/*.html")
 }
 
