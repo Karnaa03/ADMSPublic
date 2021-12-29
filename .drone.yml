@@ -1,22 +1,5 @@
 ---
 kind: pipeline
-name: prebuild
-
-steps:
-  - name: code-analysis
-    image: registry.solutions.im/drone-sonar-plugin:0.0.4
-    settings:
-      sonar_host:
-        from_secret: sonar_host
-      sonar_token:
-        from_secret: sonar_token
-
-trigger:
-  event:
-    - tag
-    - release
----
-kind: pipeline
 name: arm64
 
 platform:
@@ -30,7 +13,7 @@ steps:
       - name: deps
         path: /go
     commands:
-      - go build -ldflags "-X main.Version=${DRONE_TAG}" -o agriTracking
+      - go build -ldflags "-X main.Version=${DRONE_TAG}" -o admspublic
     environment:
       GOARCH: arm64
       GOOS: linux
@@ -39,19 +22,19 @@ steps:
 
   - name: docker
     image: plugins/docker
-    tag: [ linux-arm64 ]
+    tag: [linux-arm64]
     environment:
       PLUGIN_MTU: 1300
     settings:
       dockerfile: Dockerfile
-      repo: registry.solutions.im/agritracking
+      repo: registry.solutions.im/admspublic
       registry: registry.solutions.im
       auto_tag: true
       auto_tag_suffix: linux-arm64
 
 volumes:
   - name: deps
-    temp: { }
+    temp: {}
 
 trigger:
   event:
@@ -73,7 +56,7 @@ steps:
       - name: deps
         path: /go
     commands:
-      - go build -ldflags "-X main.Version=${DRONE_TAG}" -o agriTracking
+      - go build -ldflags "-X main.Version=${DRONE_TAG}" -o admspublic
     environment:
       GOARCH: amd64
       GOOS: linux
@@ -82,19 +65,19 @@ steps:
 
   - name: docker
     image: plugins/docker
-    tag: [ linux-amd64 ]
+    tag: [linux-amd64]
     environment:
       PLUGIN_MTU: 1300
     settings:
       dockerfile: Dockerfile
-      repo: registry.solutions.im/agritracking
+      repo: registry.solutions.im/admspublic
       registry: registry.solutions.im
       auto_tag: true
       auto_tag_suffix: linux-amd64
 
 volumes:
   - name: deps
-    temp: { }
+    temp: {}
 
 trigger:
   event:
@@ -109,7 +92,7 @@ steps:
   - name: manifest
     image: plugins/manifest
     settings:
-      target: registry.solutions.im/agritracking
+      target: registry.solutions.im/admspublic
       spec: manifest.tmpl
       auto_tag: true
       platforms:
@@ -129,12 +112,11 @@ steps:
 #  - name : deploy
 #    image: quay.io/honestbee/drone-kubernetes
 #    kubernetes_server: https://kubernetes.company.org
-#      namespace: agritracking
+#      namespace: admspublic
 #      deployment: web
-#      repo: registry.solutions.im/agritracking
+#      repo: registry.solutions.im/admspublic
 #      container: web
 #      tag: latest
-
 
 trigger:
   event:
