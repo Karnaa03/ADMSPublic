@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/templates"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/templates"
 )
 
 func (srv *Server) homePage(footer string) gin.IRoutes {

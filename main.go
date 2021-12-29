@@ -3,10 +3,10 @@ package main
 import (
 	"log"
 
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/conf"
-	db2 "git.solutions.im/XeroxAgriCensus/AgriTracking/model"
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/routes"
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/s3"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/conf"
+	db2 "git.solutions.im/XeroxAgriCensus/ADMSPublic/model"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/routes"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/s3"
 )
 
 var Version string

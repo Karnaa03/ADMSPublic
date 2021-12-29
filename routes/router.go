@@ -7,10 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/conf"
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/model"
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/s3"
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/templates"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/conf"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/model"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/s3"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/templates"
 )
 
 type Server struct {

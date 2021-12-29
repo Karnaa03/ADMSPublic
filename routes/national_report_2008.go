@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"net/http"
 
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/templates"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/templates"
 	"github.com/gin-gonic/gin"
 )
 

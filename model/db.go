@@ -13,7 +13,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/conf"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/conf"
 )
 
 type Db struct {

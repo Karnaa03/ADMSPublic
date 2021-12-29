@@ -13,8 +13,8 @@ import (
 
 	gin_oidc "git.solutions.im/Solutions.IM/ginOidc"
 
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/model"
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/templates"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/model"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/templates"
 )
 
 type Test struct {

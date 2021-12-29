@@ -7,7 +7,7 @@ import (
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 
-	"git.solutions.im/XeroxAgriCensus/AgriTracking/conf"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/conf"
 )
 
 type S3 struct {
