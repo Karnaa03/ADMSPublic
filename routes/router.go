@@ -47,6 +47,7 @@ func (srv *Server) registerPages() {
 	srv.cropping(footer)
 	srv.national_report_2008(footer)
 	srv.national_report_1996(footer)
+	srv.indicator(footer)
 
 }
 

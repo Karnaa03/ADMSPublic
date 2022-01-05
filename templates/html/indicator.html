@@ -1,0 +1,223 @@
+{{.Header}}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Indicator</h3>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <form id="batch-creation" data-parsley-validate class="form-horizontal form-label-right" method="post">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>GEO code selection / জিও কোড নির্বাচন</h2>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="x_content">
+                            <br />
+                            <form id="bar-code-generation" data-parsley-validate
+                                class="form-horizontal form-label-left">
+                                <div class="form-group remove-empty-values">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Division
+                                        <br><small class="text-navy">বিভাগ</small></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" name="DivisionNumber" id="autocomplete-division"
+                                            class="form-control" value="{{.DivisionNumber}}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">District
+                                        <br><small class="text-navy">জেলা</small></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" name="DistrictNumber" id="autocomplete-district"
+                                            class="form-control" value="{{.DistrictNumber}}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Upazila
+                                        <br><small class="text-navy">উপজেলা</small></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" name="UpazilaNumber" id="autocomplete-upazilla"
+                                            class="form-control" value="{{.UpazilaNumber}}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Union
+                                        <br><small class="text-navy">ইউনিয়ন</small></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" name="UnionNumber" id="autocomplete-union"
+                                            class="form-control" value="{{.UnionNumber}}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Mouza
+                                        <br><small class="text-navy">মৌজা</small></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" name="MouzaNumber" id="autocomplete-mouza"
+                                            class="form-control" value="{{.MouzaNumber}}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Table name<span
+                                            class="required">*</span>
+                                        <br><small class="text-navy">টেবিলের নাম</small> </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control">
+                                            <option>1 Total number of holdings</option>
+                                            <option>2 Total number of farm holdings & percentage</option>
+                                            <option>3 Total number of small farm & percentage</option>
+                                            <option>4 Total number of medium farm & percentage</option>
+                                            <option>5 Total number of large farm & percentage</option>
+                                            <option>6 Total number of landless (owning no land) & percentage</option>
+                                            <option>7 Total number of agriculture labor household & percentage</option>
+                                            <option>8 Total number of agriculture fishery household & percentage
+                                            </option>
+                                            <option>9 Agriculture worker per household</option>
+                                            <option>10 Agriculture worker per farm household</option>
+                                            <option>11 Operated area per holding</option>
+                                            <option>12 Operated area per farm holding</option>
+                                            <option>13 Homestead area per holding</option>
+                                            <option>14 Homestead area per farm holding</option>
+                                            <option>15 Total number of male headed households & percentage</option>
+                                            <option>16 Total Number of female headed households & percentage</option>
+                                            <option>17 Total number of holding reporting irrigation & percentage
+                                            </option>
+                                            <option>18 Total number of holding area irrigated & percentage</option>
+                                            <option>19 Total number of farms holding reporting irrigation & percentage
+                                            </option>
+                                            <option>20 Total number of farms holding area irrigated & percentage
+                                            </option>
+                                            <option>21 Total number of cow/buffalo per holding & percentage</option>
+                                            <option>22 Total number of cow/buffalo per farm holding & percentage
+                                            </option>
+                                            <option>23 Total number of goat/sheep per holding & percentage</option>
+                                            <option>24 Total number of goat/sheep per farm holding& percentage</option>
+                                            <option>25 Total number of cock/hen/duck per holding & percentage</option>
+                                            <option>26 Total number of cock/hen/duck per farm holding & percentage
+                                            </option>
+                                            <option>27 Cropping Intensity</option>
+                                            <option>28 Total number of crop area & percentage</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {{.Alert}}
+
+                                <div class="ln_solid"></div>
+
+                                <div class="x_content">
+                                    <h4>Result<small> ফলাফল</small></h4>
+                                    <table id="datatable" class="table table-striped table-bordered"
+                                        data-order='[[ 0, "desc" ]]'>
+                                        <thead>
+                                            <tr>
+                                                <th>Indicator</th>
+                                                <th>Total</th>
+                                                <th>Urban</th>
+                                                <th>Rural</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{.TableData}}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-2 col-sm-2 col-xs-12 col-md-offset-5">
+                                        <button class="btn btn-primary" type="reset">Reset</button>
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- /page content -->
+
+{{.Footer}}
+
+<script>
+    function init_autocomplete() {
+        console.log('init_autocomplete');
+        $('#autocomplete-mouza').autocomplete({
+            serviceUrl: '/adms/mouza',
+            autoSelectFirst: true,
+            params: {
+                division: function () {
+                    return $("#autocomplete-division").val();
+                },
+                district: function () {
+                    return $("#autocomplete-district").val();
+                },
+                upazila: function () {
+                    return $("#autocomplete-upazilla").val();
+                },
+                union: function () {
+                    return $("#autocomplete-union").val();
+                },
+            }
+        });
+
+        $('#autocomplete-union').autocomplete({
+            serviceUrl: '/adms/union',
+            autoSelectFirst: true,
+            params: {
+                division: function () {
+                    return $("#autocomplete-division").val();
+                },
+                district: function () {
+                    return $("#autocomplete-district").val();
+                },
+                upazila: function () {
+                    return $("#autocomplete-upazilla").val();
+                },
+            }
+        });
+
+        $('#autocomplete-upazilla').autocomplete({
+            serviceUrl: '/adms/upazilla',
+            autoSelectFirst: true,
+            params: {
+                division: function () {
+                    return $("#autocomplete-division").val();
+                },
+                district: function () {
+                    return $("#autocomplete-district").val();
+                },
+            }
+        });
+
+        $('#autocomplete-district').autocomplete({
+            serviceUrl: '/adms/district',
+            autoSelectFirst: true,
+            params: {
+                division: function () {
+                    return $("#autocomplete-division").val();
+                },
+            }
+        });
+
+        $('#autocomplete-division').autocomplete({
+            serviceUrl: '/adms/division',
+            autoSelectFirst: true
+        });
+    }
+</script>
