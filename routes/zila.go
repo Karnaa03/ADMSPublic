@@ -4,14 +4,10 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-pg/pg/v10"
 	log "github.com/sirupsen/logrus"
-
-	gin_oidc "git.solutions.im/Solutions.IM/ginOidc"
 
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/model"
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/templates"
@@ -45,73 +41,38 @@ func (srv *Server) zila(footer string) {
 		}
 		switch q.BookletToDelete {
 		case "":
-			srv.OkWithData(c, header, footer, q.Size, q.BookletNumber, q.GeoCodeNumbers)
+			srv.zilaOkWithData(c, header, footer, "", "")
 		default:
 			log.Infof("delete booklet number %s", q.BookletToDelete)
 			err := srv.DeleteBooklet(q.BookletToDelete)
 			if err != nil {
 				log.Error(err)
 			}
-			srv.OkWithData(c, header, footer, q.Size, "", q.GeoCodeNumbers)
+			srv.zilaOkWithData(c, header, footer, "", "")
 		}
 	})
 
 	srv.router.POST("/production/zila.html", func(c *gin.Context) {
-		size := c.PostForm("BookletSize")
-		geoCode := c.PostForm("GeoCode")
-		number := c.PostForm("BookletNumber")
+		division := c.PostForm("Division")
+		district := c.PostForm("District")
+		tableName := c.PostForm("TableName")
 		header, _ := templates.RenderHeader(c)
 
-		id, err := gin_oidc.GetIdentity(c)
-		if err != nil {
-			srv.stage1WithError(c, header, footer, fmt.Sprintf("Who are you ??? : %s", err), number, geoCode, size)
-		}
+		fmt.Printf("division : %s , district : %s, tableName : %s\n", division, district, tableName)
 
-		var booklet model.Booklet
-		booklet.GeoCodeID = geoCode
-		booklet.Number = number
-
-		err = model.RegisterNewBooklet(number, geoCode, size, id, &srv.Db)
-		if err != nil {
-			pgErr, ok := err.(pg.Error)
-			if ok && pgErr.IntegrityViolation() {
-				switch {
-				case strings.Contains(pgErr.Error(), "duplicate key value violates unique constraint \"booklets_number_key\""):
-					srv.stage1WithError(c, header, footer, "This booklet number has already been registered", number, geoCode, size)
-				case strings.Contains(pgErr.Error(), "insert or update on table \"booklets\" violates foreign key constraint \"booklets_geo_code_id_fkey\""):
-					srv.stage1WithError(c, header, footer, "This Geo code is unknown", number, geoCode, size)
-				default:
-					srv.stage1WithError(c, header, footer, pgErr.Error(), number, geoCode, size)
-				}
-			} else {
-				srv.stage1WithError(c, header, footer, err.Error(), number, geoCode, size)
-				// srv.RecordAction(c, "record", &booklet)
-				log.Error(err)
-			}
-		}
-		srv.OkWithData(c, header, footer, size, "", geoCode[0:14])
+		srv.zilaOkWithData(c, header, footer, division, district)
 	})
-
 }
 
-func (srv *Server) OkWithData(c *gin.Context, header, footer, previousSize, bookletNumber, geoCodeNumber string) {
+func (srv *Server) zilaOkWithData(c *gin.Context, header, footer, division, district string) {
 	data := gin.H{
-		"Header":         template.HTML(header),
-		"Footer":         template.HTML(footer),
-		"TableData":      template.HTML(srv.GetChecked()),
-		"BookletBarCode": bookletNumber,
-		"BookletQRCode":  geoCodeNumber,
+		"Header":    template.HTML(header),
+		"Footer":    template.HTML(footer),
+		"TableData": template.HTML(srv.GetChecked()),
+		"Division":  division,
+		"District":  district,
 	}
-	switch previousSize {
-	case "100":
-		data["R100"] = checked
-	case "50":
-		data["R50"] = checked
-	case "25":
-		data["R25"] = checked
-	default:
-		data["R100"] = checked
-	}
+
 	c.HTML(http.StatusOK, "zila.html", data)
 }
 

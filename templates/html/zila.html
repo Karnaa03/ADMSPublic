@@ -27,10 +27,9 @@
                                             class="required">*</span>
                                         <br><small class="text-navy">বিভাগ</small></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control" data-inputmask="'mask' : '999.999'"
-                                            required="required" pattern="\d{3}.\d{3}" name="BookletNumber"
-                                            id="BookletNumber" autocomplete="chrome-off" value="{{.BookletBarCode}}"
-                                            autofocus>
+                                        <input type="text" class="form-control" data-inputmask="'mask' : '99'"
+                                            required="required" pattern="\d{2}" name="Division" id="Division"
+                                            autocomplete="chrome-off" value="{{.Division}}" autofocus>
                                         <span class="fa fa-barcode form-control-feedback right"
                                             aria-hidden="true"></span>
                                     </div>
@@ -40,10 +39,8 @@
                                             class="required">*</span>
                                         <br><small class="text-navy">জেলা</small> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control"
-                                            data-inputmask="'mask' : '99.99.999.999.999.9'" required="required"
-                                            pattern="\d{2}.\d{2}.\d{3}.\d{3}.\d{3}.\d{1}" name="GeoCode"
-                                            value={{.BookletQRCode}}>
+                                        <input type="text" class="form-control" data-inputmask="'mask' : '99'"
+                                            required="required" pattern="\d{2}" name="District" value={{.District}}>
                                         <span class="fa fa-barcode form-control-feedback right"
                                             aria-hidden="true"></span>
                                     </div>
@@ -53,71 +50,77 @@
                                             class="required">*</span>
                                         <br><small class="text-navy">টেবিলের নাম</small> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select class="form-control">
-
-                                            <option> Basic characteristics of holdings classified by area size</option>
-                                            <option>2. Crop area of farm holdings classified by area size</option>
-                                            <option>3. Population in dwelling by gender and locality</option>
-                                            <option>4. Population in dwelling units and population engaged in
+                                        <select class="form-control" name="TableName">
+                                            <option value:1>1. Basic characteristics of holdings classified by area size
+                                            </option>
+                                            <option value:2>2. Crop area of farm holdings classified by area size
+                                            </option>
+                                            <option value:3>3. Population in dwelling by gender and locality</option>
+                                            <option value:4>4. Population in dwelling units and population engaged in
                                                 agricultural work by sex and age group</option>
-                                            <option>5. Population engaged in agricultural work classified by area size
+                                            <option value:5>5. Population engaged in agricultural work classified by
+                                                area size of holdings</option>
+                                            <option value:6>6. Population of agriculture labor households and number
+                                                engaged in agricultural work classified by age group and area size
+                                            </option>
+                                            <option value:7>7. Land ownership of holdings classified by area size and
+                                                type</option>
+                                            <option value:8>8. Land ownership of holdings classified by operated area
+                                            </option>
+                                            <option value:9>9. Operated, homestead, crop area and irrigation classified
+                                                by tenancy and farm size</option>
+                                            <option value:10>10. Land ownership of holdings classified by homestead and
+                                                farm & other lands</option>
+                                            <option value:11>11. Tenancy status and practices of holdings classified by
+                                                farm size</option>
+                                            <option value:12>12. Tenancy status of male & female headed holdings
+                                                classified by selected characteristics</option>
+                                            <option value:13>13. Net area under irrigation by farm size classification
                                                 of holdings</option>
-                                            <option>6. Population of agriculture labor households and number engaged in
-                                                agricultural work classified by age group and area size</option>
-                                            <option>7. Land ownership of holdings classified by area size and type
-                                            </option>
-                                            <option>8. Land ownership of holdings classified by operated area </option>
-                                            <option>9. Operated, homestead, crop area and irrigation classified by
-                                                tenancy and farm size</option>
-                                            <option>10. Land ownership of holdings classified by homestead and farm &
-                                                other lands</option>
-                                            <option>11. Tenancy status and practices of holdings classified by farm size
-                                            </option>
-                                            <option>12. Tenancy status of male & female headed holdings classified by
-                                                selected characteristics</option>
-                                            <option>13. Net area under irrigation by farm size classification of
-                                                holdings</option>
-                                            <option>14. Area under salt cultivation by farm size classification of
-                                                holdings</option>
-                                            <option>15. Area irrigated by tenancy of holdings</option>
-                                            <option>16. Livestock and poultry population of holdings by type and size
-                                            </option>
-                                            <option>17. Cow head in groups and buffalo head of holdings classified by
-                                                tenancy and farm type & size</option>
-                                            <option>18. Goat head in groups and sheep head of holdings classified by
-                                                tenancy and farm type & size</option>
-                                            <option>19. Pig head in groups and horse head of holdings classified by
-                                                tenancy and farm type & size</option>
-                                            <option>20. Fowl in bird groups of holdings classified by tenancy and farm
-                                                type & size</option>
-                                            <option>21. Duck in bird groups of holdings classified by tenancy and farm
-                                                type & size</option>
-                                            <option>22. Pigeon in bird groups of holdings classified by tenancy and farm
-                                                type & size</option>
-                                            <option>23. Koel in bird groups of holdings classified by tenancy and farm
-                                                type & size</option>
-                                            <option>24. Turkey in bird groups of holdings classified by tenancy and farm
-                                                type & size</option>
-                                            <option>25. Livestock and poultry of agricultural labour household
+                                            <option value:14>14. Area under salt cultivation by farm size classification
+                                                of holdings</option>
+                                            <option value:15>15. Area irrigated by tenancy of holdings</option>
+                                            <option value:16>16. Livestock and poultry population of holdings by type
+                                                and size</option>
+                                            <option value:17>17. Cow head in groups and buffalo head of holdings
+                                                classified by tenancy and farm type & size</option>
+                                            <option value:18>18. Goat head in groups and sheep head of holdings
+                                                classified by tenancy and farm type & size</option>
+                                            <option value:19>19. Pig head in groups and horse head of holdings
+                                                classified by tenancy and farm type & size</option>
+                                            <option value:20>20. Fowl in bird groups of holdings classified by tenancy
+                                                and farm type & size</option>
+                                            <option value:21>21. Duck in bird groups of holdings classified by tenancy
+                                                and farm type & size</option>
+                                            <option value:22>22. Pigeon in bird groups of holdings classified by tenancy
+                                                and farm type & size</option>
+                                            <option value:23>23. Koel in bird groups of holdings classified by tenancy
+                                                and farm type & size</option>
+                                            <option value:24>24. Turkey in bird groups of holdings classified by tenancy
+                                                and farm type & size</option>
+                                            <option value:25>25. Livestock and poultry of agricultural labour household
                                                 classified by tenancy and farm type and size</option>
-                                            <option>26. Poultry of agricultural labour household classified by tenancy
-                                                and farm type and size</option>
-                                            <option>27. Livestock of holdings by land ownership status </option>
-                                            <option>28. Livestock of holdings by land ownership status </option>
-                                            <option>29. Type and size of holdings classified by farm equipment ownership
-                                                and tenancy</option>
-                                            <option>30. Size of holdings owning farm equipment by type and status
+                                            <option value:26>26. Poultry of agricultural labour household classified by
+                                                tenancy and farm type and size</option>
+                                            <option value:27>27. Livestock of holdings by land ownership status
                                             </option>
-                                            <option>31. Tenancy status to holdings owning farm equipments by type
+                                            <option value:28>28. Livestock of holdings by land ownership status
                                             </option>
-                                            <option>32. Number of households and land use by zila/upzila/union/mouza
-                                            </option>
-                                            <option>33. Number of agriculture labour households, livestock, poultry and
-                                                agriculture equipment by zila/upazila/union/mouza</option>
-                                            <option>34. Area under different temporary crops by zila/upazila / union /
-                                                mauza</option>
-                                            <option>35. Area under different permanent crops by zila/upazila / union /
-                                                mauza</option>
+                                            <option value:29>29. Type and size of holdings classified by farm equipment
+                                                ownership and tenancy</option>
+                                            <option value:30>30. Size of holdings owning farm equipment by type and
+                                                status</option>
+                                            <option value:31>31. Tenancy status to holdings owning farm equipments by
+                                                type</option>
+                                            <option value:32>32. Number of households and land use by
+                                                zila/upzila/union/mouza</option>
+                                            <option value:33>33. Number of agriculture labour households, livestock,
+                                                poultry and agriculture equipment by zila/upazila/union/mouza</option>
+                                            <option value:34>34. Area under different temporary crops by zila/upazila /
+                                                union / mauza</option>
+                                            <option value:35>35. Area under different permanent crops by zila/upazila /
+                                                union / mauza</option>
+
                                         </select>
                                     </div>
                                 </div>
