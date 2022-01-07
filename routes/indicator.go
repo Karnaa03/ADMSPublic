@@ -11,8 +11,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-pg/pg/v10"
 	log "github.com/sirupsen/logrus"
-	"golang.org/x/text/language"
-	"golang.org/x/text/message"
 
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/model"
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/templates"
@@ -34,7 +32,7 @@ func (srv *Server) indicator(footer string) {
 				q)
 			return
 		}
-		srv.searchOkWithData(c, header, footer, &q)
+		srv.indicatorOkWithData(c, header, footer, &q)
 	})
 
 	srv.router.GET("/adms/division", func(context *gin.Context) {
@@ -196,7 +194,7 @@ func (srv *Server) indicator(footer string) {
 				q)
 			return
 		}
-		srv.searchOkWithData(c, header, footer, &q)
+		srv.indicatorOkWithData(c, header, footer, &q)
 
 	})
 }
@@ -210,55 +208,18 @@ func getNumber(numberAndName string) string {
 	}
 }
 
-func (srv *Server) searchOkWithData(c *gin.Context, header, footer string, q *searchQuery) {
-	// name := ginoidc.GetValue(c, "name")
-	tl, err := srv.GetTallySheet(*q)
-	if err != nil {
-		log.Error(err)
-	}
-	hf, err := srv.GetHouseWithFisheries(*q)
-	if err != nil {
-		log.Error(err)
-	}
-	g, err := srv.GetGeoCodeNames(*q)
-	if err != nil {
-		log.Error(err)
-	}
-	if g.Division != 0 {
-		q.DivisionNumber = fmt.Sprintf("%d - %s", g.Division, g.NameDivision)
-	}
+func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q *searchQuery) {
 
-	formater := message.NewPrinter(language.English)
+	srv.Db.GetAgregate()
 	c.HTML(http.StatusOK, "indicator.html", gin.H{
 		// "Name":                   name,
-		"Header":                 template.HTML(header),
-		"Footer":                 template.HTML(footer),
-		"BookletNumber":          q.BookletNumber,
-		"DivisionNumber":         q.DivisionNumber,
-		"DistrictNumber":         q.DistrictNumber,
-		"UpazilaNumber":          q.UpazilaNumber,
-		"UnionNumber":            q.UnionNumber,
-		"MouzaNumber":            q.MouzaNumber,
-		"EA":                     q.EA,
-		"EaName":                 g.NameCountingArea,
-		"RMONumber":              q.RMONumber,
-		"RMOName":                g.NameRMO,
-		"TableData":              template.HTML(FormatTable(tl)),
-		"TotalHouseHolds":        formater.Sprintf("%d", tl.TotalHouseHolds()),
-		"TotalCockHen":           formater.Sprintf("%d", tl.TotalCock()),
-		"FishingHouse":           formater.Sprintf("%d", tl.FishingHouse()),
-		"TotalDuck":              formater.Sprintf("%d", tl.TotalDuck()),
-		"ALH":                    formater.Sprintf("%d", tl.AgriLaborHouse()),
-		"TotalTurkey":            formater.Sprintf("%d", tl.TotalTurkeys()),
-		"HouseWithNoLand":        formater.Sprintf("%d", tl.HouseWithNoLand()),
-		"TotalCow":               formater.Sprintf("%d", tl.TotalCow()),
-		"HouseWithLandFromOther": formater.Sprintf("%d", tl.HouseWithLandFromOther()),
-		"TotalBuffalo":           formater.Sprintf("%d", tl.TotalBuffalo()),
-		"House5More":             formater.Sprintf("%d", tl.House5more()),
-		"TotalGoat":              formater.Sprintf("%d", tl.TotalGoat()),
-		"HouseWithFisheries":     formater.Sprintf("%d", hf),
-		"TotalSheep":             formater.Sprintf("%d", tl.TotalSheep()),
-		"InitDivision":           template.HTML(srv.autoCompleteGeoCode),
+		"Header":         template.HTML(header),
+		"Footer":         template.HTML(footer),
+		"DivisionNumber": q.DivisionNumber,
+		"DistrictNumber": q.DistrictNumber,
+		"UpazilaNumber":  q.UpazilaNumber,
+		"UnionNumber":    q.UnionNumber,
+		"MouzaNumber":    q.MouzaNumber,
 	})
 }
 
@@ -274,40 +235,29 @@ func (srv *Server) searchWithError(c *gin.Context, header, footer, alertMsg stri
 		"Header":         template.HTML(header),
 		"Footer":         template.HTML(footer),
 		"Alert":          template.HTML(alert),
-		"BookletNumber":  q.BookletNumber,
 		"DivisionNumber": q.DivisionNumber,
 		"DistrictNumber": q.DistrictNumber,
 		"UpazilaNumber":  q.UpazilaNumber,
 		"UnionNumber":    q.UnionNumber,
 		"MouzaNumber":    q.MouzaNumber,
-		"VillageNumber":  q.VillageNumber,
-		"EA":             q.EA,
-		"RMONumber":      q.RMONumber,
 	})
 }
 
 type searchQuery struct {
-	BookletNumber  string
 	DivisionNumber string
 	DistrictNumber string
 	UpazilaNumber  string
 	UnionNumber    string
 	MouzaNumber    string
-	VillageNumber  string
-	EA             string
-	RMONumber      string
+	TableNumber    string
 }
 
 func (s searchQuery) IsEmpty() bool {
-	if s.BookletNumber == "" &&
-		s.DivisionNumber == "" &&
+	if s.DivisionNumber == "" &&
 		s.DistrictNumber == "" &&
 		s.UpazilaNumber == "" &&
 		s.UnionNumber == "" &&
-		s.MouzaNumber == "" &&
-		s.VillageNumber == "" &&
-		s.EA == "" &&
-		s.RMONumber == "" {
+		s.MouzaNumber == "" {
 		return true
 	}
 	return false
@@ -334,12 +284,7 @@ func (srv *Server) GetGeoCodeNames(q searchQuery) (g model.GeoCodes, err error) 
 		if q.MouzaNumber != "" {
 			req.Where("Mouza = ?", getNumber(q.MouzaNumber))
 		}
-		if q.EA != "" {
-			req.Where("CA = ?", q.EA)
-		}
-		if q.RMONumber != "" {
-			req.Where("Rmo = ?", q.RMONumber)
-		}
+
 		err = req.Select()
 		if err != nil {
 			return model.GeoCodes{}, err
@@ -362,12 +307,6 @@ func (srv *Server) GetGeoCodeNames(q searchQuery) (g model.GeoCodes, err error) 
 			if q.MouzaNumber != "" {
 				g.NameMouza = geocodes[0].NameMouza
 			}
-			if q.EA != "" {
-				g.NameCountingArea = geocodes[0].NameCountingArea
-			}
-			if q.RMONumber != "" {
-				g.NameRMO = geocodes[0].NameRMO
-			}
 		}
 	}
 	return
@@ -387,9 +326,6 @@ func (srv *Server) GetHouseWithFisheries(q searchQuery) (sum int, err error) {
           + GREATEST(0,q.fish_salt_cultive_land)
           + GREATEST(0,q.fish_cage_cultive_land)
           + GREATEST(0,q.creek_land) > 30)`
-		if q.BookletNumber != "" {
-			baseReq += fmt.Sprintf(" AND q.tally_sheet_no = '%s'", strings.Replace(q.BookletNumber, ".", "", 1))
-		}
 		if q.DistrictNumber != "" {
 			baseReq += fmt.Sprintf(" AND g.District = %s", getNumber(q.DistrictNumber))
 		}
@@ -405,12 +341,6 @@ func (srv *Server) GetHouseWithFisheries(q searchQuery) (sum int, err error) {
 		if q.MouzaNumber != "" {
 			baseReq += fmt.Sprintf(" AND g.Mouza = %s", getNumber(q.MouzaNumber))
 		}
-		if q.EA != "" {
-			baseReq += fmt.Sprintf(" AND g.CA = %s", q.EA)
-		}
-		if q.RMONumber != "" {
-			baseReq += fmt.Sprintf(" AND g.Rmo = %s", q.RMONumber)
-		}
 
 		_, err = srv.Db.Conn.Model(&sum).QueryOne(pg.Scan(&sum), baseReq)
 		if err != nil {
@@ -425,9 +355,7 @@ func (srv *Server) GetTallySheet(q searchQuery) (tl TallySheets, err error) {
 		req := srv.Db.Conn.Model(&tl).
 			Relation("GeoCode")
 			// Relation("Questionnaires")
-		if q.BookletNumber != "" {
-			req.Where("tally_sheet.tally_sheet_no = ?", strings.Replace(q.BookletNumber, ".", "", 1))
-		}
+
 		if q.DistrictNumber != "" {
 			req.Where("geo_code.District = ?", getNumber(q.DistrictNumber))
 		}
@@ -442,12 +370,6 @@ func (srv *Server) GetTallySheet(q searchQuery) (tl TallySheets, err error) {
 		}
 		if q.MouzaNumber != "" {
 			req.Where("geo_code.Mouza = ?", getNumber(q.MouzaNumber))
-		}
-		if q.EA != "" {
-			req.Where("geo_code.CA = ?", q.EA)
-		}
-		if q.RMONumber != "" {
-			req.Where("geo_code.Rmo = ?", q.RMONumber)
 		}
 		err = req.Select()
 	}
