@@ -50,7 +50,7 @@ func (c *Config) Load() {
 	c.S3Config.AccessKey = env.GetEnvOrElse("S3_ACCESS_KEY", "U65Z81EH9S39NTNYZ71U")
 	c.S3Config.SecretKey = env.GetEnvOrElse("S3_SECRET_KEY", "tOuTEgkp3gkAWsf3acExkxpBn+EYLbfJxJmHephF")
 	c.S3Config.Region = env.GetEnvOrElse("S3_REGION", "us-east-1")
-	c.S3Config.Bucket = env.GetEnvOrElse("S3_BUCKET", "agri")
+	c.S3Config.Bucket = env.GetEnvOrElse("S3_BUCKET", "reports")
 	ssl, err := env.GetBoolEnvOrElse("S3_SSL", true)
 	if err != nil {
 		log.Fatal(err)
