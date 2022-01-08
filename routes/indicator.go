@@ -210,7 +210,7 @@ func getNumber(numberAndName string) string {
 
 func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q *searchQuery) {
 
-	srv.Db.GetAgregate()
+	// srv.Db.GetAgregate()
 	c.HTML(http.StatusOK, "indicator.html", gin.H{
 		// "Name":                   name,
 		"Header":         template.HTML(header),
