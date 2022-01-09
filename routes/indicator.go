@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"strings"
 
-	ginoidc "git.solutions.im/Solutions.IM/ginOidc"
 	agriInject "git.solutions.im/XeroxAgriCensus/AgriInject/goPg"
 	"github.com/gin-gonic/gin"
 	"github.com/go-pg/pg/v10"
@@ -32,7 +31,7 @@ func (srv *Server) indicator(footer string) {
 				q)
 			return
 		}
-		srv.indicatorOkWithData(c, header, footer, &q)
+		srv.indicatorOkWithData(c, header, footer, &q, []model.Agregated{})
 	})
 
 	srv.router.GET("/adms/division", func(context *gin.Context) {
@@ -184,6 +183,12 @@ func (srv *Server) indicator(footer string) {
 		header, _ := templates.RenderHeader(c)
 		var q searchQuery
 		err := c.ShouldBind(&q)
+		division := strings.Trim(strings.Split(q.DivisionNumber, "-")[0], " ")
+		district := strings.Trim(strings.Split(q.DistrictNumber, "-")[0], " ")
+		upazilla := strings.Trim(strings.Split(q.UpazilaNumber, "-")[0], " ")
+		union := strings.Trim(strings.Split(q.UnionNumber, "-")[0], " ")
+		mouza := strings.Trim(strings.Split(q.MouzaNumber, "-")[0], " ")
+		tableNumber := q.TableNumber
 		if err != nil {
 			log.Error(err)
 			srv.searchWithError(
@@ -194,7 +199,21 @@ func (srv *Server) indicator(footer string) {
 				q)
 			return
 		}
-		srv.indicatorOkWithData(c, header, footer, &q)
+		println(division, district, upazilla, union, mouza, tableNumber)
+		data, err := srv.Db.GetAgregate(division, district, upazilla, union, mouza, tableNumber)
+		if err != nil {
+			log.Error(err)
+			srv.searchWithError(
+				c,
+				header,
+				footer,
+				fmt.Sprintf("unparsable request : %s", err.Error()),
+				q)
+			return
+		}
+
+		println(data)
+		srv.indicatorOkWithData(c, header, footer, &q, data)
 
 	})
 }
@@ -208,9 +227,8 @@ func getNumber(numberAndName string) string {
 	}
 }
 
-func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q *searchQuery) {
+func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q *searchQuery, data []model.Agregated) {
 
-	// srv.Db.GetAgregate()
 	c.HTML(http.StatusOK, "indicator.html", gin.H{
 		// "Name":                   name,
 		"Header":         template.HTML(header),
@@ -220,6 +238,7 @@ func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q 
 		"UpazilaNumber":  q.UpazilaNumber,
 		"UnionNumber":    q.UnionNumber,
 		"MouzaNumber":    q.MouzaNumber,
+		"TableData":      template.HTML(FormatTable(data)),
 	})
 }
 
@@ -229,9 +248,7 @@ func (srv *Server) searchWithError(c *gin.Context, header, footer, alertMsg stri
 		log.Error(err)
 	}
 	log.Error(alertMsg, err)
-	name := ginoidc.GetValue(c, "name")
 	c.HTML(http.StatusOK, "freeze.html", gin.H{
-		"Name":           name,
 		"Header":         template.HTML(header),
 		"Footer":         template.HTML(footer),
 		"Alert":          template.HTML(alert),
@@ -376,35 +393,39 @@ func (srv *Server) GetTallySheet(q searchQuery) (tl TallySheets, err error) {
 	return
 }
 
-func FormatTable(tl TallySheets) (tableData string) {
-	for _, sheet := range tl {
-		tableData += fmt.Sprintf(`
+func FormatTable(data []model.Agregated) (tableData string) {
+	var urban, rural uint
+	for _, line := range data {
+		if line.Rmo == 2 {
+			urban = line.HhSno
+		} else {
+			rural = line.HhSno
+		}
+	}
+	total := urban + rural
+	tableData += fmt.Sprintf(`
+		<tr>
+			<td>%s</td>
+			<td>%d</td>
+			<td>%d</td>
+			<td>%d</td>
+		</tr>
 		<tr>
 			<td>%s</td>
 			<td>%s</td>
 			<td>%s</td>
 			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%d</td>
-			<td>
-				<a href="/adms/tallySheet.html?no=%s" target="_blank">
-					<center>
-						<i class="fa fa-search"></i>
-					</center>
-				</a>
-			</td>
 		</tr>`,
-			sheet.TallySheetNo,
-			sheet.GeocodeID,
-			fmt.Sprintf("%d - %s", sheet.GeoCode.District, sheet.GeoCode.NameDistrict),
-			fmt.Sprintf("%d - %s", sheet.GeoCode.Upazilla, sheet.GeoCode.NameUpazilla),
-			fmt.Sprintf("%d - %s", sheet.GeoCode.Union, sheet.GeoCode.NameUnion),
-			fmt.Sprintf("%d - %s", sheet.GeoCode.Mouza, sheet.GeoCode.NameMouza),
-			*sheet.UpdatedTotalHouse,
-			sheet.TallySheetNo,
-		)
-	}
+		"Holdings",
+		total,
+		urban,
+		rural,
+		"Percentage",
+		"100%",
+		fmt.Sprintf("%d%%", (urban/total)*100),
+		fmt.Sprintf("%d%%", (rural/total)*100),
+	)
+
 	return
 }
 

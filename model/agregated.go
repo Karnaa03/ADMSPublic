@@ -26,9 +26,9 @@ type Agregated struct {
 	Occ3    uint
 	Occ4    uint
 	Occ5    uint
-	HhF     uint
+	Hh_F    uint
 	HhF2    uint
-	HhA     uint
+	Hh_A    uint
 	HhA2    uint
 	C01M    uint
 	C01F    uint

@@ -83,7 +83,7 @@ func (db *Db) createExtension() {
 	}
 }
 
-func (db *Db) GetAgregate(division, district, upazilla, union, mouza uint, tableName string) (agregates []Agregated, err error) {
+func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName string) (agregates []Agregated, err error) {
 	err = db.Conn.Model(&agregates).Where("geocode = ?", fmt.Sprintf("%s.%s.%s.%s", district, upazilla, union, mouza)).Select()
 	return
 }
