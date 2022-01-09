@@ -394,38 +394,39 @@ func (srv *Server) GetTallySheet(q searchQuery) (tl TallySheets, err error) {
 }
 
 func FormatTable(data []model.Agregated) (tableData string) {
-	var urban, rural uint
-	for _, line := range data {
-		if line.Rmo == 2 {
-			urban = line.HhSno
-		} else {
-			rural = line.HhSno
+	if len(data) > 0 {
+		var urban, rural uint
+		for _, line := range data {
+			if line.Rmo == 2 {
+				urban = line.HhSno
+			} else {
+				rural = line.HhSno
+			}
 		}
+		total := urban + rural
+		tableData += fmt.Sprintf(`
+			<tr>
+				<td>%s</td>
+				<td>%d</td>
+				<td>%d</td>
+				<td>%d</td>
+			</tr>
+			<tr>
+				<td>%s</td>
+				<td>%s</td>
+				<td>%s</td>
+				<td>%s</td>
+			</tr>`,
+			"Holdings",
+			total,
+			urban,
+			rural,
+			"Percentage",
+			"100%",
+			fmt.Sprintf("%d%%", (urban/total)*100),
+			fmt.Sprintf("%d%%", (rural/total)*100),
+		)
 	}
-	total := urban + rural
-	tableData += fmt.Sprintf(`
-		<tr>
-			<td>%s</td>
-			<td>%d</td>
-			<td>%d</td>
-			<td>%d</td>
-		</tr>
-		<tr>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-		</tr>`,
-		"Holdings",
-		total,
-		urban,
-		rural,
-		"Percentage",
-		"100%",
-		fmt.Sprintf("%d%%", (urban/total)*100),
-		fmt.Sprintf("%d%%", (rural/total)*100),
-	)
-
 	return
 }
 
