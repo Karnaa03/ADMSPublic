@@ -1,5 +1,9 @@
 package model
 
+type TableData struct {
+	Count uint
+	Rmo   uint
+}
 type Agregated struct {
 	Geocode string `pg:",pk,notnull"`
 	Rmo     uint   `pg:",pk,notnull"`

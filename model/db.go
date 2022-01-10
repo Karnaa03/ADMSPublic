@@ -49,6 +49,7 @@ func (db *Db) Init(conf conf.Config) (err error) {
 		if err != nil {
 			return
 		}
+		db.createIndex()
 
 	}
 	return
@@ -58,6 +59,16 @@ func (db *Db) Close() {
 	err := db.Conn.Close()
 	if err != nil {
 		log.Error(err)
+	}
+}
+
+func (db *Db) createIndex() {
+	for name, index := range index {
+		log.Infof("create index : %s", name)
+		_, err := db.Conn.Model((*Agregated)(nil)).Exec(index)
+		if err != nil {
+			log.Error(err)
+		}
 	}
 }
 
@@ -83,9 +94,23 @@ func (db *Db) createExtension() {
 	}
 }
 
-func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName string) (agregates []Agregated, err error) {
-	err = db.Conn.Model(&agregates).Where("geocode = ?", fmt.Sprintf("%s.%s.%s.%s", district, upazilla, union, mouza)).Select()
+func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName string) (tableData []TableData, err error) {
+	geocode := fmt.Sprintf("%s.%s.%s.%s", replace(district), replace(upazilla), replace(union), replace(mouza))
+	data, err := db.Conn.Query("SELECT hh_sno, rmo FROM agregateds WHERE geocode ~ ?;", geocode)
+	if err != nil {
+		log.Error(err)
+	}
+	println(data)
+	err = db.Conn.Model(&tableData).Where("geocode ~ ?", fmt.Sprintf("%s.%s.%s.%s", replace(district), replace(upazilla), replace(union), replace(mouza))).Select()
 	return
+}
+
+func replace(value string) string {
+	if value == "" {
+		return "*"
+	} else {
+		return value
+	}
 }
 
 func (db *Db) GetGeoCode(geoCodeNumber string) (geoCode GeoCodes, err error) {
