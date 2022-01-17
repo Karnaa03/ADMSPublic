@@ -94,14 +94,22 @@ func (db *Db) createExtension() {
 	}
 }
 
-func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName string) (tableData []TableData, err error) {
+type RawTableData struct {
+	Data int
+	Rmo  int
+}
+
+func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName string) (tableData []RawTableData, err error) {
+	var agregateds []RawTableData
 	geocode := fmt.Sprintf("%s.%s.%s.%s", replace(district), replace(upazilla), replace(union), replace(mouza))
-	data, err := db.Conn.Query("SELECT hh_sno, rmo FROM agregateds WHERE geocode ~ ?;", geocode)
+	geocode = "20.46.65"
+	log.Info(geocode)
+	_, err = db.Conn.Query(&agregateds, `SELECT hh_sno as data, rmo FROM "agregateds" where subpath(geocode, 0,3) = '46.65.439';`)
 	if err != nil {
 		log.Error(err)
+		return
 	}
-	println(data)
-	err = db.Conn.Model(&tableData).Where("geocode ~ ?", fmt.Sprintf("%s.%s.%s.%s", replace(district), replace(upazilla), replace(union), replace(mouza))).Select()
+	println(agregateds)
 	return
 }
 

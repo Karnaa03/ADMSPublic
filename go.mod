@@ -15,5 +15,6 @@ require (
 	github.com/minio/minio-go/v7 v7.0.5
 	github.com/prometheus/common v0.0.0-20181126121408-4724e9255275
 	github.com/sirupsen/logrus v1.7.0
+	github.com/stretchr/testify v1.6.1
 	golang.org/x/text v0.3.3
 )
