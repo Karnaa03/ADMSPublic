@@ -95,30 +95,72 @@ func (db *Db) createExtension() {
 }
 
 type RawTableData struct {
-	Data int
-	Rmo  int
+	Data uint
+	Rmo  uint
+}
+
+func GetGeoRequest(division, district, upazilla, union, mouza string) (selector string, count uint) {
+	if division != "" {
+		selector = division
+		count = 1
+	} else {
+		return
+	}
+	if district != "" {
+		selector += "." + district
+		count = 2
+	} else {
+		return
+	}
+	if upazilla != "" {
+		selector += "." + upazilla
+		count = 3
+	} else {
+		return
+	}
+	if union != "" {
+		selector += "." + union
+		count = 4
+	} else {
+		return
+	}
+	if mouza != "" {
+		selector += "." + mouza
+		count = 5
+	} else {
+		return
+	}
+	return
 }
 
 func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName string) (tableData []RawTableData, err error) {
-	var agregateds []RawTableData
-	geocode := fmt.Sprintf("%s.%s.%s.%s", replace(district), replace(upazilla), replace(union), replace(mouza))
-	geocode = "20.46.65"
-	log.Info(geocode)
-	_, err = db.Conn.Query(&agregateds, `SELECT hh_sno as data, rmo FROM "agregateds" where subpath(geocode, 0,3) = '46.65.439';`)
+	columns := ""
+	switch tableName {
+	case "1":
+		columns = "hh_sno"
+	case "2":
+		columns = "sf+mf+lf"
+	case "3":
+		columns = "sf"
+	case "4":
+		columns = "mf"
+	case "5":
+		columns = "lf"
+	case "6":
+		columns = "hh_sno"
+	default:
+		return tableData, fmt.Errorf(("don't know this table name"))
+	}
+
+	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	query := fmt.Sprintf(`SELECT %s as data, rmo FROM agregateds where subpath(geocode, 0,%d) = ?;`, columns, count)
+	_, err = db.Conn.Query(&tableData, query,
+		geoCodeReq)
 	if err != nil {
 		log.Error(err)
 		return
 	}
-	println(agregateds)
 	return
-}
-
-func replace(value string) string {
-	if value == "" {
-		return "*"
-	} else {
-		return value
-	}
 }
 
 func (db *Db) GetGeoCode(geoCodeNumber string) (geoCode GeoCodes, err error) {

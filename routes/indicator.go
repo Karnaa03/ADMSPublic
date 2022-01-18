@@ -30,7 +30,7 @@ func (srv *Server) indicator(footer string) {
 				q)
 			return
 		}
-		srv.indicatorOkWithData(c, header, footer, &q, []model.TableData{})
+		srv.indicatorOkWithData(c, header, footer, &q, []model.RawTableData{})
 	})
 
 	srv.router.GET("/adms/division", func(context *gin.Context) {
@@ -226,7 +226,7 @@ func getNumber(numberAndName string) string {
 	}
 }
 
-func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q *searchQuery, data []model.TableData) {
+func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q *searchQuery, data []model.RawTableData) {
 
 	c.HTML(http.StatusOK, "indicator.html", gin.H{
 		// "Name":                   name,
@@ -328,14 +328,14 @@ func (srv *Server) GetGeoCodeNames(q searchQuery) (g model.GeoCodes, err error) 
 	return
 }
 
-func FormatTable(data []model.TableData) (tableData string) {
+func FormatTable(data []model.RawTableData) (tableData string) {
 	if len(data) > 0 {
 		var urban, rural uint
 		for _, line := range data {
 			if line.Rmo == 2 {
-				urban = line.Count
+				urban += line.Data
 			} else {
-				rural = line.Count
+				rural += line.Data
 			}
 		}
 		total := urban + rural
@@ -358,8 +358,8 @@ func FormatTable(data []model.TableData) (tableData string) {
 			rural,
 			"Percentage",
 			"100%",
-			fmt.Sprintf("%d%%", (urban/total)*100),
-			fmt.Sprintf("%d%%", (rural/total)*100),
+			fmt.Sprintf("%f%%", (float64(urban)/float64(total))*100),
+			fmt.Sprintf("%f%%", (float64(rural)/float64(total))*100),
 		)
 	}
 	return
