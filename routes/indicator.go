@@ -198,7 +198,6 @@ func (srv *Server) indicator(footer string) {
 				q)
 			return
 		}
-		println(division, district, upazilla, union, mouza, tableNumber)
 		data, err := srv.Db.GetAgregate(division, district, upazilla, union, mouza, tableNumber)
 		if err != nil {
 			log.Error(err)
@@ -210,8 +209,6 @@ func (srv *Server) indicator(footer string) {
 				q)
 			return
 		}
-
-		println(data)
 		srv.indicatorOkWithData(c, header, footer, &q, data)
 
 	})
@@ -247,7 +244,7 @@ func (srv *Server) searchWithError(c *gin.Context, header, footer, alertMsg stri
 		log.Error(err)
 	}
 	log.Error(alertMsg, err)
-	c.HTML(http.StatusOK, "freeze.html", gin.H{
+	c.HTML(http.StatusOK, "indicator.html", gin.H{
 		"Header":         template.HTML(header),
 		"Footer":         template.HTML(footer),
 		"Alert":          template.HTML(alert),
