@@ -12,6 +12,7 @@
             "program": "${fileDirname}",
             "env": {
                 "DB_INIT": "false",
+                "DB_LOG": "true"
             }
         }
     ]

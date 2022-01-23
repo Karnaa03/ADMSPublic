@@ -234,6 +234,7 @@ func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q 
 		"UpazilaNumber":  q.UpazilaNumber,
 		"UnionNumber":    q.UnionNumber,
 		"MouzaNumber":    q.MouzaNumber,
+		"QueryType":      q.TableNumber,
 		"TableData":      template.HTML(FormatTable(data)),
 	})
 }
@@ -327,7 +328,7 @@ func (srv *Server) GetGeoCodeNames(q searchQuery) (g model.GeoCodes, err error) 
 
 func FormatTable(data []model.RawTableData) (tableData string) {
 	if len(data) > 0 {
-		var urban, rural uint
+		var urban, rural float64
 		for _, line := range data {
 			if line.Rmo == 2 {
 				urban += line.Data
@@ -339,9 +340,9 @@ func FormatTable(data []model.RawTableData) (tableData string) {
 		tableData += fmt.Sprintf(`
 			<tr>
 				<td>%s</td>
-				<td>%d</td>
-				<td>%d</td>
-				<td>%d</td>
+				<td>%.2f</td>
+				<td>%.2f</td>
+				<td>%.2f</td>
 			</tr>
 			<tr>
 				<td>%s</td>
@@ -355,8 +356,8 @@ func FormatTable(data []model.RawTableData) (tableData string) {
 			rural,
 			"Percentage",
 			"100%",
-			fmt.Sprintf("%f%%", (float64(urban)/float64(total))*100),
-			fmt.Sprintf("%f%%", (float64(rural)/float64(total))*100),
+			fmt.Sprintf("%.2f%%", (float64(urban)/float64(total))*100),
+			fmt.Sprintf("%.2f%%", (float64(rural)/float64(total))*100),
 		)
 	}
 	return

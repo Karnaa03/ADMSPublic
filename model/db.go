@@ -3,6 +3,7 @@ package model
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/go-pg/pg/v10"
 	"github.com/go-pg/pg/v10/orm"
@@ -95,7 +96,7 @@ func (db *Db) createExtension() {
 }
 
 type RawTableData struct {
-	Data uint
+	Data float64
 	Rmo  uint
 }
 
@@ -135,6 +136,7 @@ func GetGeoRequest(division, district, upazilla, union, mouza string) (selector 
 
 func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName string) (tableData []RawTableData, err error) {
 	columns := ""
+	conditions := ""
 	switch tableName {
 	case "1":
 		columns = "hh_sno"
@@ -148,12 +150,41 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "lf"
 	case "6":
 		columns = "hh_sno"
+		conditions = "c04 = 0"
+	case "7":
+		columns = "sum(hh_a)"
+		conditions = "hh_a = 1 GROUP BY rmo"
+	case "8":
+		columns = "sum(hh_f)"
+		conditions = "hh_f = 1 GROUP BY rmo"
+	case "9":
+		columns = "c02m+c02f+c02h+c03m+c03f+c03h"
+	case "10":
+		columns = "c02m+c02f+c02h+c03m+c03f+c03h "
+		conditions = "c18 >= 0.05"
+	case "11":
+		columns = "sum(c07)"
+		conditions = "true = true GROUP BY rmo"
+	case "12":
+		columns = "sum(c07)"
+		conditions = "c18 >= 0.05 GROUP BY rmo"
+	case "13":
+		columns = "sum(c08)"
+		conditions = "true = true GROUP BY rmo"
+	case "14":
+		columns = "sum(c08)"
+		conditions = "c18 >= 0.05 GROUP BY rmo"
+	case "15":
+
 	default:
 		return tableData, fmt.Errorf(("don't know this table name"))
 	}
 
 	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
 	query := fmt.Sprintf(`SELECT %s as data, rmo FROM agregateds where subpath(geocode, 0,%d) = ?;`, columns, count)
+	if conditions != "" {
+		query = strings.Replace(query, ";", fmt.Sprintf(" AND %s;", conditions), 1)
+	}
 	_, err = db.Conn.Query(&tableData, query,
 		geoCodeReq)
 	if err != nil {
