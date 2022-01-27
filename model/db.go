@@ -137,6 +137,11 @@ func GetGeoRequest(division, district, upazilla, union, mouza string) (selector 
 func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName string) (tableData []RawTableData, err error) {
 	columns := ""
 	conditions := ""
+
+	// sex = male
+	// sex2 = female
+	// sex3 = hijra
+
 	switch tableName {
 	case "1":
 		columns = "hh_sno"
@@ -175,6 +180,59 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "sum(c08)"
 		conditions = "c18 >= 0.05 GROUP BY rmo"
 	case "15":
+		columns = "sum(sex)"
+		conditions = "true = true GROUP BY rmo"
+	case "16":
+		columns = "sum(sex2)"
+		conditions = "true = true GROUP BY rmo"
+	case "17":
+		columns = "count(c19)"
+		conditions = "c19 > 0 GROUP BY rmo"
+	case "18":
+		columns = "sum(c19)"
+		conditions = "true = true GROUP BY rmo"
+	case "19":
+		columns = "count(c19)"
+		conditions = "c19 is not null GROUP BY rmo"
+	case "20":
+		columns = "sum(c19)"
+		conditions = "c18 >= 0.05 GROUP BY rmo"
+	case "21":
+		columns = "c33h+c33f"
+	case "22":
+		columns = "c34h+c34f"
+	case "23":
+		columns = "sum(c33h+c33f)"
+		conditions = "c18 >= 0.05 GROUP BY rmo"
+	case "24":
+		columns = "sum(c34h+c34f)"
+		conditions = "c18 >= 0.05 GROUP BY rmo"
+	case "25":
+		columns = "sum(c35h+c35f)"
+		conditions = "true = true GROUP BY rmo"
+	case "26":
+		columns = "sum(c36h+c36f)"
+		conditions = "true = true GROUP BY rmo"
+	case "27":
+		columns = "sum(c35h+c35f)"
+		conditions = "c18 >= 0.05 GROUP BY rmo"
+	case "28":
+		columns = "sum(c36h+c36f)"
+		conditions = "true = true GROUP BY rmo"
+	case "29":
+		columns = "sum(c28h+c28f)"
+		conditions = "true = true GROUP BY rmo"
+	case "30":
+		columns = "sum(c29h+c29f)"
+		conditions = "true = true GROUP BY rmo"
+	case "31":
+		columns = "sum(c28h+c28f)"
+		conditions = "c18 >= 0.05 GROUP BY rmo"
+	case "32":
+		columns = "sum(c29h+c29f)"
+		conditions = "c18 >= 0.05 GROUP BY rmo"
+	case "34":
+		columns = "sum(code13)"
 
 	default:
 		return tableData, fmt.Errorf(("don't know this table name"))
