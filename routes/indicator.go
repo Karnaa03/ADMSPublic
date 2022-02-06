@@ -9,6 +9,8 @@ import (
 	agriInject "git.solutions.im/XeroxAgriCensus/AgriInject/goPg"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/model"
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/templates"
@@ -236,6 +238,7 @@ func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q 
 		"MouzaNumber":    q.MouzaNumber,
 		"QueryType":      q.TableNumber,
 		"TableData":      template.HTML(FormatTable(data)),
+		"Donuts":         template.HTML(FormatDonuts(data)),
 	})
 }
 
@@ -326,7 +329,74 @@ func (srv *Server) GetGeoCodeNames(q searchQuery) (g model.GeoCodes, err error) 
 	return
 }
 
+func FormatDonuts(data []model.RawTableData) (donuts string) {
+	if len(data) > 0 {
+		var urban, rural float64
+		for _, line := range data {
+			if line.Rmo == 2 {
+				urban += line.Data
+			} else {
+				rural += line.Data
+			}
+		}
+		donuts = fmt.Sprintf(`
+		<div id="main" style="width: 600px;height:400px;" class="x_content"></div>
+		<script type="text/javascript">	
+		var chartDom = document.getElementById('main');
+		var myChart = echarts.init(chartDom);
+		var option;
+	
+		option = {
+			tooltip: {
+				trigger: 'item'
+			},
+			legend: {
+				top: '5%%',
+				left: 'center'
+			},
+			series: [
+				{
+					name: 'Access From',
+					type: 'pie',
+					radius: ['40%%', '70%%'],
+					avoidLabelOverlap: false,
+					itemStyle: {
+						borderRadius: 10,
+						borderColor: '#fff',
+						borderWidth: 2
+					},
+					label: {
+						show: false,
+						position: 'center'
+					},
+					emphasis: {
+						label: {
+							show: true,
+							fontSize: '40',
+							fontWeight: 'bold'
+						}
+					},
+					labelLine: {
+						show: false
+					},
+					data: [
+						{ value: %f, name: '%s' },
+						{ value: %f, name: '%s' },
+					]
+				}
+			]
+		};
+	
+		option && myChart.setOption(option);
+	
+	</script>
+	`, urban, "Ubran", rural, "Rural")
+	}
+	return
+}
+
 func FormatTable(data []model.RawTableData) (tableData string) {
+	p := message.NewPrinter(language.English)
 	if len(data) > 0 {
 		var urban, rural float64
 		for _, line := range data {
@@ -340,9 +410,9 @@ func FormatTable(data []model.RawTableData) (tableData string) {
 		tableData += fmt.Sprintf(`
 			<tr>
 				<td>%s</td>
-				<td>%.2f</td>
-				<td>%.2f</td>
-				<td>%.2f</td>
+				<td>%s</td>
+				<td>%s</td>
+				<td>%s</td>
 			</tr>
 			<tr>
 				<td>%s</td>
@@ -351,9 +421,9 @@ func FormatTable(data []model.RawTableData) (tableData string) {
 				<td>%s</td>
 			</tr>`,
 			"Holdings",
-			total,
-			urban,
-			rural,
+			p.Sprintf("%.2f", total),
+			p.Sprintf("%.2f", urban),
+			p.Sprintf("%.2f", rural),
 			"Percentage",
 			"100%",
 			fmt.Sprintf("%.2f%%", (float64(urban)/float64(total))*100),
