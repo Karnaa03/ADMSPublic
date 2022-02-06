@@ -340,7 +340,7 @@ func FormatDonuts(data []model.RawTableData) (donuts string) {
 			}
 		}
 		donuts = fmt.Sprintf(`
-		<div id="main" style="width: 600px;height:400px;" class="x_content"></div>
+		<div id="main" style="width: 600px;height:400px; align:center" class="x_content"></div>
 		<script type="text/javascript">	
 		var chartDom = document.getElementById('main');
 		var myChart = echarts.init(chartDom);
