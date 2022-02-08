@@ -255,6 +255,28 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 	return
 }
 
+type FrequencyListData struct {
+	Occ   uint
+	Occ2  uint
+	Occ3  uint
+	Occ4  uint
+	Occ5  uint
+	Total uint
+}
+
+func (db *Db) GetOccupationOfHouseHold(division, district, upazilla, union, mouza string) (data FrequencyListData, err error) {
+	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	query := fmt.Sprintf("select sum(occ) as occ,sum(occ2) as occ2,sum(occ3) as occ3,sum(occ4) as occ4,sum(occ5) as occ5,(sum(occ)+sum(occ2)+sum(occ3)+sum(occ4)+sum(occ5)) as total from agregateds where subpath(geocode, 0,%d) = ?;",
+		count)
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+}
+
 func (db *Db) GetGeoCode(geoCodeNumber string) (geoCode GeoCodes, err error) {
 	geoCode = GeoCodes{
 		GeocodeID: geoCodeNumber,

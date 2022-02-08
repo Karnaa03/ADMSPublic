@@ -390,7 +390,7 @@ func FormatDonuts(data []model.RawTableData) (donuts string) {
 		option && myChart.setOption(option);
 	
 	</script>
-	`, urban, "Ubran", rural, "Rural")
+	`, urban, "Urban", rural, "Rural")
 	}
 	return
 }
