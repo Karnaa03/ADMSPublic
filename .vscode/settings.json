@@ -2,5 +2,17 @@
     "go.inferGopath": false,
     "search.exclude": {
         "**/node_modules": false
-    }
+    },
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "postgres.agritracking.svc.cluster.local",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "agritracking-dev",
+            "database": "agritracking",
+            "username": "agritracking",
+            "password": "li7keegh4aexiToo"
+        }
+    ]
 }

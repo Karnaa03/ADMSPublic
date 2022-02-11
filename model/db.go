@@ -266,7 +266,125 @@ type OccupationHouseHoldHead struct {
 
 func (db *Db) GetOccupationOfHouseHold(division, district, upazilla, union, mouza string) (data OccupationHouseHoldHead, err error) {
 	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
-	query := fmt.Sprintf("select sum(occ) as occ,sum(occ2) as occ2,sum(occ3) as occ3,sum(occ4) as occ4,sum(occ5) as occ5,(sum(occ)+sum(occ2)+sum(occ3)+sum(occ4)+sum(occ5)) as total from agregateds where subpath(geocode, 0,%d) = ?;",
+	query := fmt.Sprintf(`
+	select sum(occ) as occ,
+    sum(occ2) as occ2,
+    sum(occ3) as occ3,
+    sum(occ4) as occ4,
+    sum(occ5) as occ5,
+	(sum(occ) + sum(occ2) + sum(occ3) + sum(occ4) + sum(occ5)) as total
+	from agregateds
+	where subpath(geocode, 0, %d) = ?;`,
+		count)
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+}
+
+type EducationOfTheHouseholdHead struct {
+	NoEducation               uint
+	Class1                    uint
+	Class2                    uint
+	Class3                    uint
+	Class4                    uint
+	Class5                    uint
+	Class6                    uint
+	Class7                    uint
+	Class8                    uint
+	Class9                    uint
+	Ssc                       uint
+	Hsc                       uint
+	BachelorEquivalent        uint
+	MastersEquivalentOrHigher uint
+	Total                     uint
+}
+
+func (db *Db) GetEducationOfTheHouseholdHead(division, district, upazilla, union, mouza string) (data EducationOfTheHouseholdHead, err error) {
+	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	query := fmt.Sprintf(`
+	select 
+	sum(edu) as no_education,
+    sum(edu1) as Class1,
+    sum(edu2) as Class2,
+    sum(edu3) as Class3,
+    sum(edu4) as Class4,
+    sum(edu5) as Class5,
+    sum(edu6) as Class6,
+    sum(edu7) as Class7,
+    sum(edu8) as Class8,
+    sum(edu9) as Class9, 
+    sum(edu10) as Ssc,
+    sum(edu12) as Hsc,
+    sum(edu15) as Bachelor_equivalent,
+    sum(edu18) as Masters_Equivalent_Or_Higher,
+    (
+        sum(edu1) + 
+		sum(edu2) + 
+		sum(edu3) + 
+		sum(edu4) + 
+		sum(edu5) + 
+		sum(edu6) + 
+		sum(edu7) + 
+		sum(edu8) + 
+		sum(edu9) + 
+		sum(edu10) + 
+		sum(edu12) + 
+		sum(edu15) + 
+		sum(edu18)
+    ) as Total
+from agregateds where subpath(geocode, 0,%d) = ?;`,
+		count)
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+}
+
+type GenderOfTheHouseholdHead struct {
+	Male   uint
+	Female uint
+	Hijra  uint
+	Total  uint
+}
+
+func (db *Db) GetGenderOfTheHouseholdHead(division, district, upazilla, union, mouza string) (data GenderOfTheHouseholdHead, err error) {
+	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	query := fmt.Sprintf(`
+	select sum(sex) as male,
+    sum(sex2) as female,
+    sum(sex3) as hijra,
+    (sum(sex) + sum(sex2) + sum(sex3)) as total
+	from agregateds
+	where subpath(geocode, 0, %d) = ?;`,
+		count)
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+}
+
+type FisheryHolding struct {
+	NumberOfFisheryHousehold uint
+	Percentage               float64
+}
+
+func (db *Db) GetFisheryHolding(division, district, upazilla, union, mouza string) (data FisheryHolding, err error) {
+	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	query := fmt.Sprintf(`
+	SELECT sum(hh_f) as Number_Of_Fishery_Household,
+    (sum(hh_f) / sum(hh_sno)) * 100 as Percentage
+	from agregateds
+	where hh_f = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
