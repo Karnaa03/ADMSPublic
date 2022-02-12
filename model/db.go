@@ -3,6 +3,7 @@ package model
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/go-pg/pg/v10"
@@ -100,33 +101,46 @@ type RawTableData struct {
 	Rmo  uint
 }
 
-func GetGeoRequest(division, district, upazilla, union, mouza string) (selector string, count uint) {
+func GetGeoRequest(division, district, upazilla, union, mouza string) (selector string, count uint, err error) {
 	if division != "" {
-		selector = division
+		var divisionInt int
+		divisionInt, err = strconv.Atoi(division)
+		if err != nil {
+			return
+		}
+		selector = fmt.Sprintf("%02d", divisionInt)
 		count = 1
 	} else {
 		return
 	}
 	if district != "" {
-		selector += "." + district
+		var districtInt int
+		districtInt, err = strconv.Atoi(district)
+		selector += "." + fmt.Sprintf("%02d", districtInt)
 		count = 2
 	} else {
 		return
 	}
 	if upazilla != "" {
-		selector += "." + upazilla
+		var upazillaInt int
+		upazillaInt, err = strconv.Atoi(upazilla)
+		selector += "." + fmt.Sprintf("%02d", upazillaInt)
 		count = 3
 	} else {
 		return
 	}
 	if union != "" {
-		selector += "." + union
+		var unionInt int
+		unionInt, err = strconv.Atoi(union)
+		selector += "." + fmt.Sprintf("%03d", unionInt)
 		count = 4
 	} else {
 		return
 	}
 	if mouza != "" {
-		selector += "." + mouza
+		var mouzaInt int
+		mouzaInt, err = strconv.Atoi(mouza)
+		selector += "." + fmt.Sprintf("%03d", mouzaInt)
 		count = 5
 	} else {
 		return
@@ -241,7 +255,10 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		return tableData, fmt.Errorf(("don't know this table name"))
 	}
 
-	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
 	query := fmt.Sprintf(`SELECT %s as data, rmo FROM agregateds where subpath(geocode, 0,%d) = ?;`, columns, count)
 	if conditions != "" {
 		query = strings.Replace(query, ";", fmt.Sprintf(" AND %s;", conditions), 1)
@@ -265,7 +282,10 @@ type OccupationHouseHoldHead struct {
 }
 
 func (db *Db) GetOccupationOfHouseHold(division, district, upazilla, union, mouza string) (data OccupationHouseHoldHead, err error) {
-	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
 	query := fmt.Sprintf(`
 	select sum(occ) as occ,
     sum(occ2) as occ2,
@@ -304,7 +324,10 @@ type EducationOfTheHouseholdHead struct {
 }
 
 func (db *Db) GetEducationOfTheHouseholdHead(division, district, upazilla, union, mouza string) (data EducationOfTheHouseholdHead, err error) {
-	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
 	query := fmt.Sprintf(`
 	select 
 	sum(edu) as no_education,
@@ -355,7 +378,10 @@ type GenderOfTheHouseholdHead struct {
 }
 
 func (db *Db) GetGenderOfTheHouseholdHead(division, district, upazilla, union, mouza string) (data GenderOfTheHouseholdHead, err error) {
-	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
 	query := fmt.Sprintf(`
 	select sum(sex) as male,
     sum(sex2) as female,
@@ -379,7 +405,10 @@ type FisheryHolding struct {
 }
 
 func (db *Db) GetFisheryHolding(division, district, upazilla, union, mouza string) (data FisheryHolding, err error) {
-	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
 	query := fmt.Sprintf(`
 	SELECT sum(hh_f) as Number_Of_Fishery_Household,
     	(sum(hh_f)::NUMERIC / sum(hh_sno)::NUMERIC)::NUMERIC * 100 as Percentage
@@ -401,7 +430,10 @@ type AgriculuralLaborHolding struct {
 }
 
 func (db *Db) GetAgriculuralLaborHolding(division, district, upazilla, union, mouza string) (data AgriculuralLaborHolding, err error) {
-	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
 	query := fmt.Sprintf(`
 	SELECT sum(hh_a) as Number_Of_Agri_Labor_House_Hold,
     	(sum(hh_f)::NUMERIC / sum(hh_sno)::NUMERIC)::NUMERIC * 100 as Percentage
@@ -455,7 +487,10 @@ type HouseholdHeadInformation struct {
 }
 
 func (db *Db) GetHouseholdHeadInformation(division, district, upazilla, union, mouza string) (data HouseholdHeadInformation, err error) {
-	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
 	query := fmt.Sprintf(`
 	SELECT sum(edu) as no_education,
     	(sum(edu1) + sum(edu2) + sum(edu3) + sum(edu4) + sum(edu5)) as class_I_V,
@@ -511,7 +546,10 @@ type OccupationOfHouseholdHead struct {
 }
 
 func (db *Db) GetOccupationOfHouseholdHead(division, district, upazilla, union, mouza string) (data OccupationOfHouseholdHead, err error) {
-	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
 	query := fmt.Sprintf(`
 	SELECT sum(occ) as Agriculture,
     	sum(occ2) as Industry,
@@ -541,7 +579,10 @@ type TotalNumberOfHouseholdMembers struct {
 }
 
 func (db *Db) GetTotalNumberOfHouseholdMembers(division, district, upazilla, union, mouza string) (data TotalNumberOfHouseholdMembers, err error) {
-	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
 	query := fmt.Sprintf(`
 	SELECT sum(c01m) as Male,
     	sum(c01f) as Female,
@@ -560,7 +601,10 @@ func (db *Db) GetTotalNumberOfHouseholdMembers(division, district, upazilla, uni
 }
 
 func (db *Db) GetTotalNumberOfHouseholdWorkers(division, district, upazilla, union, mouza string) (data TotalNumberOfHouseholdMembers, err error) {
-	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
 	query := fmt.Sprintf(`
 	SELECT sum(c02m + c03m) as Male,
     	sum(c02f + c03f) as Female,
@@ -579,7 +623,10 @@ func (db *Db) GetTotalNumberOfHouseholdWorkers(division, district, upazilla, uni
 }
 
 func (db *Db) GetTotalNumberOfHouseholdWorkers1014(division, district, upazilla, union, mouza string) (data TotalNumberOfHouseholdMembers, err error) {
-	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
 	query := fmt.Sprintf(`
 	SELECT sum(c02m) as Male,
     	sum(c02f) as Female,
@@ -598,7 +645,10 @@ func (db *Db) GetTotalNumberOfHouseholdWorkers1014(division, district, upazilla,
 }
 
 func (db *Db) GetTotalNumberOfHouseholdWorkers15plus(division, district, upazilla, union, mouza string) (data TotalNumberOfHouseholdMembers, err error) {
-	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
 	query := fmt.Sprintf(`
 	SELECT sum(c03m) as Male,
     	sum(c03f) as Female,
