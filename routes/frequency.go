@@ -62,6 +62,10 @@ func (srv *Server) frequency(footer string) {
 			tableAndDonut, err = srv.FormatEducationHouseHoldHead(division, district, upazilla, union, mouza, &q)
 		case "3":
 			tableAndDonut, err = srv.FormatGenderOfTheHouseholdHead(division, district, upazilla, union, mouza, &q)
+		case "4":
+			tableAndDonut, err = srv.FormatFisheryHolding(division, district, upazilla, union, mouza, &q)
+		case "5":
+			tableAndDonut, err = srv.FormatAgriculuralLaborHolding(division, district, upazilla, union, mouza, &q)
 		}
 
 		if err != nil {
@@ -668,6 +672,86 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 		q.TableNumber,
 		tableData,
 		donutData)
+
+	return
+}
+
+func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mouza string, q *searchQuery) (tableAndDonut string, err error) {
+	p := message.NewPrinter(language.English)
+	data, err := srv.Db.GetFisheryHolding(division, district, upazilla, union, mouza)
+	if err != nil {
+		return "", err
+	}
+
+	tableData := fmt.Sprintf(`
+	<tr>
+		<td>%s</td>
+		<td>%s%%</td>
+	</tr>	
+	`,
+		p.Sprintf("%d", data.NumberOfFisheryHousehold),
+		p.Sprintf("%f", data.Percentage),
+	)
+
+	tableAndDonut = fmt.Sprintf(`
+	<div class="x_content">
+	<h4>Result<small> ফলাফল</small></h4>
+	<h5>Data for table number : %s</h5>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Number of Fishery Household</th>
+				<th>Percentage</th>
+			</tr>
+		</thead>
+		<tbody>
+			%s
+		</tbody>
+	</table>
+	</div>
+	`,
+		q.TableNumber,
+		tableData)
+
+	return
+}
+
+func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, union, mouza string, q *searchQuery) (tableAndDonut string, err error) {
+	p := message.NewPrinter(language.English)
+	data, err := srv.Db.GetAgriculuralLaborHolding(division, district, upazilla, union, mouza)
+	if err != nil {
+		return "", err
+	}
+
+	tableData := fmt.Sprintf(`
+	<tr>
+		<td>%s</td>
+		<td>%s%%</td>
+	</tr>	
+	`,
+		p.Sprintf("%d", data.NumberOfAgriLaborHouseHold),
+		p.Sprintf("%f", data.Percentage),
+	)
+
+	tableAndDonut = fmt.Sprintf(`
+	<div class="x_content">
+	<h4>Result<small> ফলাফল</small></h4>
+	<h5>Data for table number : %s</h5>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Number of Agri labor household</th>
+				<th>Percentage</th>
+			</tr>
+		</thead>
+		<tbody>
+			%s
+		</tbody>
+	</table>
+	</div>
+	`,
+		q.TableNumber,
+		tableData)
 
 	return
 }

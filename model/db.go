@@ -382,9 +382,31 @@ func (db *Db) GetFisheryHolding(division, district, upazilla, union, mouza strin
 	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
 	query := fmt.Sprintf(`
 	SELECT sum(hh_f) as Number_Of_Fishery_Household,
-    (sum(hh_f) / sum(hh_sno)) * 100 as Percentage
+    (sum(hh_f)::NUMERIC / sum(hh_sno)::NUMERIC)::NUMERIC * 100 as Percentage
 	from agregateds
 	where hh_f = 1 AND subpath(geocode, 0, %d) = ?;`,
+		count)
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+}
+
+type AgriculuralLaborHolding struct {
+	NumberOfAgriLaborHouseHold uint
+	Percentage                 float64
+}
+
+func (db *Db) GetAgriculuralLaborHolding(division, district, upazilla, union, mouza string) (data AgriculuralLaborHolding, err error) {
+	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	query := fmt.Sprintf(`
+	SELECT sum(hh_a) as Number_Of_Agri_Labor_House_Hold,
+    (sum(hh_f)::NUMERIC / sum(hh_sno)::NUMERIC)::NUMERIC * 100 as Percentage
+	from agregateds
+	where hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
