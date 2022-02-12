@@ -236,7 +236,7 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		conditions = "true = true GROUP BY rmo, c13"
 	case "34":
 		columns = "sum(c13)"
-
+		conditions = "true = true GROUP BY rmo"
 	default:
 		return tableData, fmt.Errorf(("don't know this table name"))
 	}
@@ -382,9 +382,9 @@ func (db *Db) GetFisheryHolding(division, district, upazilla, union, mouza strin
 	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
 	query := fmt.Sprintf(`
 	SELECT sum(hh_f) as Number_Of_Fishery_Household,
-    (sum(hh_f)::NUMERIC / sum(hh_sno)::NUMERIC)::NUMERIC * 100 as Percentage
-	from agregateds
-	where hh_f = 1 AND subpath(geocode, 0, %d) = ?;`,
+    	(sum(hh_f)::NUMERIC / sum(hh_sno)::NUMERIC)::NUMERIC * 100 as Percentage
+	FROM agregateds
+	WHERE hh_f = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
@@ -404,9 +404,9 @@ func (db *Db) GetAgriculuralLaborHolding(division, district, upazilla, union, mo
 	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
 	query := fmt.Sprintf(`
 	SELECT sum(hh_a) as Number_Of_Agri_Labor_House_Hold,
-    (sum(hh_f)::NUMERIC / sum(hh_sno)::NUMERIC)::NUMERIC * 100 as Percentage
-	from agregateds
-	where hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+    	(sum(hh_f)::NUMERIC / sum(hh_sno)::NUMERIC)::NUMERIC * 100 as Percentage
+	FROM agregateds
+	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
@@ -444,51 +444,166 @@ type HouseholdHeadInformation struct {
 	HouseholdWorkerFemale         uint
 	HouseholdWorkerHijra          uint
 	HouseholdWorkerTotal          uint
-	HouseholdWorker10_14_Male     uint
-	HouseholdWorker10_14_Female   uint
-	HouseholdWorker10_14_Hijra    uint
-	HouseholdWorker10_14_Total    uint
-	HouseholdWorker15PlusMale     uint
-	HouseholdWorker15PlusFemale   uint
-	HouseholdWorker15PlusHijra    uint
-	HouseholdWorker15PlusTotal    uint
+	HouseholdWorker_10_14Male     uint
+	HouseholdWorker_10_14Female   uint
+	HouseholdWorker_10_14Hijra    uint
+	HouseholdWorker_10_14Total    uint
+	HouseholdWorker_15PlusMale    uint
+	HouseholdWorker_15PlusFemale  uint
+	HouseholdWorker_15PlusHijra   uint
+	HouseholdWorker_15PlusTotal   uint
 }
 
 func (db *Db) GetHouseholdHeadInformation(division, district, upazilla, union, mouza string) (data HouseholdHeadInformation, err error) {
 	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
 	query := fmt.Sprintf(`
-	SELECT edu as no_education,
-    (edu1 + edu2 + edu3 + edu4 + edu5) as class_I_V,
-    (edu6 + edu7 + edu8 + edu9) as class_VI_IX,
-    edu10 as Scc_Passed,
-    edu12 as Hsc_Passed,
-    edu15 as Degree_Passed,
-    edu18 as Master_Passed,
-    (
-        edu + edu1 + edu2 + edu3 + edu4 + edu5 + edu6 + edu7 + edu8 + edu9 + edu10 + edu12 + edu15 + edu18
-    ) as Total_Eductation,
-    occ as Agriculture,
-    occ2 as Industry,
-    occ3 as Service,
-    occ4 as Business,
-    occ5 as Other,
-    (occ + occ2 + occ3 + occ4 + occ5) as Total_Occupation,
-    c01m as Household_Member_Male,
-    c01f as Household_Member_Female,
-    c01h as Household_Member_Hijra,
-    (c01m + c01f + c01h) as Household_Member_Total,
-    (c02m + c03m) as Household_Worker_Male,
-    (c02f + c03f) as Household_Worker_Female,
-    (c02h + c03h) as Household_Worker_Hijra,
-    (c02m + c03m + c02f + c03f + c02h + c03h) as Household_Worker_Total,
-    c02m as Household_Worker10_14_Male,
-    c02f as Household_Worker10_14_Female,
-    c02h as Household_Worker10_14_Hijra,
-    (c02m + c02f + c02h) as Household_Worker10_14_Total,
-    c03m as Household_Worker_15_Plus_Male,
-    c03f as Household_Worker_15_Plus_Female,
-    c03h as Household_Worker_15_Plus_Hijra,
-    (c03m + c03f + c03h) as Household_Worker_15_Plus_Total
+	SELECT sum(edu) as no_education,
+    	(sum(edu1) + sum(edu2) + sum(edu3) + sum(edu4) + sum(edu5)) as class_I_V,
+    	(sum(edu6) + sum(edu7) + sum(edu8) + sum(edu9)) as class_VI_IX,
+    	sum(edu10) as Scc_Passed,
+    	sum(edu12) as Hsc_Passed,
+    	sum(edu15) as Degree_Passed,
+    	sum(edu18) as Master_Passed,
+    	(
+    	    sum(edu) + sum(edu1) + sum(edu2) + sum(edu3) + sum(edu4) + sum(edu5) + sum(edu6) + sum(edu7) + sum(edu8) + sum(edu9) + sum(edu10) + sum(edu12) + sum(edu15) + sum(edu18)
+    	) as Total_Education,
+    	sum(occ) as Agriculture,
+    	sum(occ2) as Industry,
+    	sum(occ3) as Service,
+    	sum(occ4) as Business,
+    	sum(occ5) as Other,
+    	(sum(occ) + sum(occ2) + sum(occ3) + sum(occ4) + sum(occ5)) as Total_Occupation,
+    	sum(c01m) as Household_Member_Male,
+    	sum(c01f) as Household_Member_Female,
+    	sum(c01h) as Household_Member_Hijra,
+    	(sum(c01m) + sum(c01f) + sum(c01h)) as Household_Member_Total,
+    	(sum(c02m) + sum(c03m)) as Household_Worker_Male,
+    	(sum(c02f) + sum(c03f)) as Household_Worker_Female,
+    	(sum(c02h) + sum(c03h)) as Household_Worker_Hijra,
+    	(sum(c02m) + sum(c03m) + sum(c02f) + sum(c03f) + sum(c02h) + sum(c03h)) as Household_Worker_Total,
+    	sum(c02m) as Household_Worker_10_14_Male,
+    	sum(c02f) as Household_Worker_10_14_Female,
+    	sum(c02h) as Household_Worker_10_14_Hijra,
+    	(sum(c02m) + sum(c02f) + sum(c02h)) as Household_Worker_10_14_Total,
+    	sum(c03m) as Household_Worker_15_Plus_Male,
+    	sum(c03f) as Household_Worker_15_Plus_Female,
+    	sum(c03h) as Household_Worker_15_Plus_Hijra,
+    	(sum(c03m) + sum(c03f) + sum(c03h)) as Household_Worker_15_Plus_Total
+	FROM agregateds
+	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+		count)
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+}
+
+type OccupationOfHouseholdHead struct {
+	Agriculture uint
+	Industry    uint
+	Service     uint
+	Business    uint
+	Others      uint
+	Total       uint
+}
+
+func (db *Db) GetOccupationOfHouseholdHead(division, district, upazilla, union, mouza string) (data OccupationOfHouseholdHead, err error) {
+	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	query := fmt.Sprintf(`
+	SELECT sum(occ) as Agriculture,
+    	sum(occ2) as Industry,
+    	sum(occ3) as Service,
+    	sum(occ4) as Business,
+    	sum(occ5) as Others,
+    	(
+    	    sum(occ) + sum(occ2) + sum(occ3) + sum(occ4) + sum(occ5)
+    	) as Total
+	FROM agregateds
+	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+		count)
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+}
+
+type TotalNumberOfHouseholdMembers struct {
+	Male   uint
+	Female uint
+	Hijra  uint
+	Total  uint
+}
+
+func (db *Db) GetTotalNumberOfHouseholdMembers(division, district, upazilla, union, mouza string) (data TotalNumberOfHouseholdMembers, err error) {
+	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	query := fmt.Sprintf(`
+	SELECT sum(c01m) as Male,
+    	sum(c01f) as Female,
+    	sum(c01h) as Hijra,
+    	(sum(c01m) + sum(c01f) + sum(c01h)) as Total
+	FROM agregateds
+	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+		count)
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+}
+
+func (db *Db) GetTotalNumberOfHouseholdWorkers(division, district, upazilla, union, mouza string) (data TotalNumberOfHouseholdMembers, err error) {
+	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	query := fmt.Sprintf(`
+	SELECT sum(c02m + c03m) as Male,
+    	sum(c02f + c03f) as Female,
+    	sum(c02h + c03h) as Hijra,
+    	(sum(c02m + c03m) + sum(c02f + c03f) + sum(c02h + c03h)) as Total
+	FROM agregateds
+	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+		count)
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+}
+
+func (db *Db) GetTotalNumberOfHouseholdWorkers1014(division, district, upazilla, union, mouza string) (data TotalNumberOfHouseholdMembers, err error) {
+	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	query := fmt.Sprintf(`
+	SELECT sum(c02m) as Male,
+    	sum(c02f) as Female,
+    	sum(c02h) as Hijra,
+    	(sum(c02m) + sum(c02f) + sum(c02h)) as Total
+	FROM agregateds
+	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+		count)
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+}
+
+func (db *Db) GetTotalNumberOfHouseholdWorkers15plus(division, district, upazilla, union, mouza string) (data TotalNumberOfHouseholdMembers, err error) {
+	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	query := fmt.Sprintf(`
+	SELECT sum(c03m) as Male,
+    	sum(c03f) as Female,
+    	sum(c03h) as Hijra,
+    	(sum(c03m) + sum(c03f) + sum(c03h)) as Total
 	FROM agregateds
 	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)

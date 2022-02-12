@@ -49,6 +49,7 @@ func (srv *Server) registerPages() {
 	srv.national_report_1996(footer)
 	srv.indicator(footer)
 	srv.frequency(footer)
+	srv.tableGeneration(footer)
 
 }
 
