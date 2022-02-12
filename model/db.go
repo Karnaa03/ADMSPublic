@@ -417,6 +417,90 @@ func (db *Db) GetAgriculuralLaborHolding(division, district, upazilla, union, mo
 	return
 }
 
+type HouseholdHeadInformation struct {
+	NoEducation                   uint
+	Class_I_V                     uint
+	Class_VI_IX                   uint
+	SccPassed                     uint
+	HscPassed                     uint
+	DegreePassed                  uint
+	MasterPassed                  uint
+	TotalEducation                uint
+	Agriculture                   uint
+	Industry                      uint
+	Service                       uint
+	Business                      uint
+	Other                         uint
+	TotalOccupation               uint
+	FisheryHolding                uint
+	FisheryHoldingPercentage      float64
+	AgriculturalHolding           uint
+	AgriculturalHoldingPercentage float64
+	HouseholdMemberMale           uint
+	HouseholdMemberFemale         uint
+	HouseholdMemberHijra          uint
+	HouseholdMemberTotal          uint
+	HouseholdWorkerMale           uint
+	HouseholdWorkerFemale         uint
+	HouseholdWorkerHijra          uint
+	HouseholdWorkerTotal          uint
+	HouseholdWorker10_14_Male     uint
+	HouseholdWorker10_14_Female   uint
+	HouseholdWorker10_14_Hijra    uint
+	HouseholdWorker10_14_Total    uint
+	HouseholdWorker15PlusMale     uint
+	HouseholdWorker15PlusFemale   uint
+	HouseholdWorker15PlusHijra    uint
+	HouseholdWorker15PlusTotal    uint
+}
+
+func (db *Db) GetHouseholdHeadInformation(division, district, upazilla, union, mouza string) (data HouseholdHeadInformation, err error) {
+	geoCodeReq, count := GetGeoRequest(division, district, upazilla, union, mouza)
+	query := fmt.Sprintf(`
+	SELECT edu as no_education,
+    (edu1 + edu2 + edu3 + edu4 + edu5) as class_I_V,
+    (edu6 + edu7 + edu8 + edu9) as class_VI_IX,
+    edu10 as Scc_Passed,
+    edu12 as Hsc_Passed,
+    edu15 as Degree_Passed,
+    edu18 as Master_Passed,
+    (
+        edu + edu1 + edu2 + edu3 + edu4 + edu5 + edu6 + edu7 + edu8 + edu9 + edu10 + edu12 + edu15 + edu18
+    ) as Total_Eductation,
+    occ as Agriculture,
+    occ2 as Industry,
+    occ3 as Service,
+    occ4 as Business,
+    occ5 as Other,
+    (occ + occ2 + occ3 + occ4 + occ5) as Total_Occupation,
+    c01m as Household_Member_Male,
+    c01f as Household_Member_Female,
+    c01h as Household_Member_Hijra,
+    (c01m + c01f + c01h) as Household_Member_Total,
+    (c02m + c03m) as Household_Worker_Male,
+    (c02f + c03f) as Household_Worker_Female,
+    (c02h + c03h) as Household_Worker_Hijra,
+    (c02m + c03m + c02f + c03f + c02h + c03h) as Household_Worker_Total,
+    c02m as Household_Worker10_14_Male,
+    c02f as Household_Worker10_14_Female,
+    c02h as Household_Worker10_14_Hijra,
+    (c02m + c02f + c02h) as Household_Worker10_14_Total,
+    c03m as Household_Worker_15_Plus_Male,
+    c03f as Household_Worker_15_Plus_Female,
+    c03h as Household_Worker_15_Plus_Hijra,
+    (c03m + c03f + c03h) as Household_Worker_15_Plus_Total
+	FROM agregateds
+	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+		count)
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+}
+
 func (db *Db) GetGeoCode(geoCodeNumber string) (geoCode GeoCodes, err error) {
 	geoCode = GeoCodes{
 		GeocodeID: geoCodeNumber,

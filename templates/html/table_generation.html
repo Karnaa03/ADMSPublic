@@ -1,0 +1,177 @@
+{{.Header}}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Table generation</h3>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <form id="batch-creation" data-parsley-validate class="form-horizontal form-label-right" method="post">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>GEO code selection / জিও কোড নির্বাচন</h2>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="x_content">
+                            <br />
+                            <form id="bar-code-generation" data-parsley-validate
+                                class="form-horizontal form-label-left">
+                                <div class="form-group remove-empty-values">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Division
+                                        <br><small class="text-navy">বিভাগ</small></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" name="DivisionNumber" id="autocomplete-division"
+                                            class="form-control" value="{{.DivisionNumber}}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">District
+                                        <br><small class="text-navy">জেলা</small></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" name="DistrictNumber" id="autocomplete-district"
+                                            class="form-control" value="{{.DistrictNumber}}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Upazila
+                                        <br><small class="text-navy">উপজেলা</small></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" name="UpazilaNumber" id="autocomplete-upazilla"
+                                            class="form-control" value="{{.UpazilaNumber}}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Union
+                                        <br><small class="text-navy">ইউনিয়ন</small></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" name="UnionNumber" id="autocomplete-union"
+                                            class="form-control" value="{{.UnionNumber}}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Mouza
+                                        <br><small class="text-navy">মৌজা</small></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" name="MouzaNumber" id="autocomplete-mouza"
+                                            class="form-control" value="{{.MouzaNumber}}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Table generation<span
+                                            class="required">*</span>
+                                        <br><small class="text-navy">ফ্রিকোয়েন্সি তালিকা</small> </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" name="TableNumber">
+                                            <option value="1">1 Information of the household head</option>
+                                            <option value="2">2 Land information</option>
+                                            <option value="3">3 Poultry/Birds information</option>
+                                            <option value="4">4 Cattle information</option>
+                                            <option value="5">5 Agriculture equipment information</option>
+                                            <option value="6">6 Crops information</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {{.Alert}}
+
+                                <div class="ln_solid"></div>
+
+                                {{.TableAndDonut}}
+                                <div class="form-group">
+                                    <div class="col-md-2 col-sm-2 col-xs-12 col-md-offset-5">
+                                        <button class="btn btn-primary" type="reset">Reset</button>
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- /page content -->
+
+{{.Footer}}
+
+<script>
+    function init_autocomplete() {
+        console.log('init_autocomplete');
+        $('#autocomplete-mouza').autocomplete({
+            serviceUrl: '/adms/mouza',
+            autoSelectFirst: true,
+            params: {
+                division: function () {
+                    return $("#autocomplete-division").val();
+                },
+                district: function () {
+                    return $("#autocomplete-district").val();
+                },
+                upazila: function () {
+                    return $("#autocomplete-upazilla").val();
+                },
+                union: function () {
+                    return $("#autocomplete-union").val();
+                },
+            }
+        });
+
+        $('#autocomplete-union').autocomplete({
+            serviceUrl: '/adms/union',
+            autoSelectFirst: true,
+            params: {
+                division: function () {
+                    return $("#autocomplete-division").val();
+                },
+                district: function () {
+                    return $("#autocomplete-district").val();
+                },
+                upazila: function () {
+                    return $("#autocomplete-upazilla").val();
+                },
+            }
+        });
+
+        $('#autocomplete-upazilla').autocomplete({
+            serviceUrl: '/adms/upazilla',
+            autoSelectFirst: true,
+            params: {
+                division: function () {
+                    return $("#autocomplete-division").val();
+                },
+                district: function () {
+                    return $("#autocomplete-district").val();
+                },
+            }
+        });
+
+        $('#autocomplete-district').autocomplete({
+            serviceUrl: '/adms/district',
+            autoSelectFirst: true,
+            params: {
+                division: function () {
+                    return $("#autocomplete-division").val();
+                },
+            }
+        });
+
+        $('#autocomplete-division').autocomplete({
+            serviceUrl: '/adms/division',
+            autoSelectFirst: true
+        });
+    }
+</script>
