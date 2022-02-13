@@ -607,9 +607,9 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 		<td>%.2f%%</td>
 	</tr>	
 	<tr>
-		<td>Total</td>
-		<td>%s</td>
-		<td>100%%</td>
+		<td><b>Total</b></td>
+		<td><b>%s</b></td>
+		<td><b>%.2f%%</b></td>
 	</tr>	
 	<tr>
 		<td rowspan="6" scope="rowgroup"><b>Occupation of household head</b></td>
@@ -628,22 +628,22 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 	<tr>
 		<td>Service</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f**</td>
 	</tr>	
 	<tr>
 		<td>Business</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>	
 	<tr>
 		<td>Others</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>
 	<tr>
-		<td>Total</td>
-		<td>%s</td>
-		<td>%.2f%%</td>
+		<td><b>Total</b></td>
+		<td><b>%s</b></td>
+		<td><b>%.2f</b>%%</td>
 	</tr>		
 	<tr>
 		<td rowspan="4" scope="rowgroup"><b>Total number of household members</b></td>
@@ -657,17 +657,17 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 	<tr>
 		<td>Female</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>	
 	<tr>
 		<td>Hijra</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>	
 	<tr>
-		<td>Total</td>
-		<td>%s</td>
-		<td>%.2f</td>
+		<td><b>Total</b></td>
+		<td><b>%s</b></td>
+		<td><b>%.2f</b>%%</td>
 	</tr>		
 	<tr>
 		<td rowspan="4" scope="rowgroup"><b>Total number of household agricultural worker</b></td>
@@ -681,17 +681,17 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 	<tr>
 		<td>Female</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>	
 	<tr>
 		<td>Hijra</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>	
 	<tr>
-		<td>Total</td>
-		<td>%s</td>
-		<td>%.2f</td>
+		<td><b>Total</b></td>
+		<td><b>%s</b></td>
+		<td><b>%.2f</b>%%</td>
 	</tr>	
 	<tr>
 		<td rowspan="4" scope="rowgroup"><b>Total number of household agricultural worker (Age: 10 – 14)</b></td>
@@ -705,17 +705,17 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 	<tr>
 		<td>Female</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>	
 	<tr>
 		<td>Hijra</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>	
 	<tr>
-		<td>Total</td>
-		<td>%s</td>
-		<td>%.2f</td>
+		<td><b>Total</b></td>
+		<td><b>%s</b></td>
+		<td><b>%.2f</b>%%</td>
 	</tr>	
 	<tr>
 		<td rowspan="4" scope="rowgroup"><b>Total number of household agricultural worker (Age: 15 plus)</b></td>
@@ -729,17 +729,17 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 	<tr>
 		<td>Female</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>	
 	<tr>
 		<td>Hijra</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>	
 	<tr>
-		<td>Total</td>
-		<td>%s</td>
-		<td>%.2f</td>
+		<td><b>Total</b></td>
+		<td><b>%s</b></td>
+		<td><b>%.2f%%</b></td>
 	</tr>							
 	`,
 		p.Sprintf("%d", educationOftheHouseholdHead.NoEducation),
@@ -758,6 +758,7 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 		p.Sprintf("%d", educationOftheHouseholdHead.MasterPassed),
 		(float64(educationOftheHouseholdHead.MasterPassed)/float64(educationOftheHouseholdHead.TotalEducation))*100,
 		p.Sprintf("%d", educationOftheHouseholdHead.TotalEducation),
+		(float64(educationOftheHouseholdHead.TotalEducation)/float64(educationOftheHouseholdHead.TotalEducation))*100,
 
 		p.Sprintf("%d", occupationOfHouseholdHead.Agriculture),
 		(float64(occupationOfHouseholdHead.Agriculture)/float64(occupationOfHouseholdHead.Total))*100,
