@@ -86,14 +86,15 @@
                                 {{.Alert}}
 
                                 <div class="ln_solid"></div>
-
-                                {{.TableAndDonut}}
                                 <div class="form-group">
                                     <div class="col-md-2 col-sm-2 col-xs-12 col-md-offset-5">
-                                        <button class="btn btn-primary" type="reset">Reset</button>
+                                        <button class="btn btn-primary" type="button"
+                                            onclick="myReset();">Reset</button>
                                         <button type="submit" class="btn btn-success">Submit</button>
                                     </div>
                                 </div>
+
+                                {{.TableAndDonut}}
                             </form>
                         </div>
                     </div>
@@ -107,6 +108,17 @@
 <!-- /page content -->
 
 {{.Footer}}
+
+<script>
+    function myReset() {
+        console.log('reset fields');
+        document.getElementById("autocomplete-division").value = "";
+        document.getElementById("autocomplete-district").value = "";
+        document.getElementById("autocomplete-upazilla").value = "";
+        document.getElementById("autocomplete-union").value = "";
+        document.getElementById("autocomplete-mouza").value = "";
+    }
+</script>
 
 <script>
     function init_autocomplete() {
