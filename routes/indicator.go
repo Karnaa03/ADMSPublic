@@ -44,8 +44,9 @@ func (srv *Server) indicator(footer string) {
 		if term != "" {
 			s.Query = term
 			err := srv.Db.Conn.Model((*model.GeoCodes)(nil)).
-				ColumnExpr("distinct (division || ' - ' || name_division)").
+				ColumnExpr("distinct (division || ' - ' || name_division) as di").
 				Where("(division || ' - ' || name_division like ?)", fmt.Sprintf("%%%s%%", strings.ReplaceAll(strings.ToUpper(s.Query), " ", "%"))).
+				Order("di").
 				Select(&s.Suggestions)
 			if err != nil {
 				log.Error(err)
@@ -65,8 +66,9 @@ func (srv *Server) indicator(footer string) {
 			divisionNumber := strings.Split(division, "-")[0]
 			s.Query = term
 			query := srv.Db.Conn.Model((*model.GeoCodes)(nil)).
-				ColumnExpr("distinct (district || ' - ' || name_district)").
-				Where("(district || ' - ' || name_district like ?)", fmt.Sprintf("%%%s%%", strings.ReplaceAll(strings.ToUpper(s.Query), " ", "%")))
+				ColumnExpr("distinct (district || ' - ' || name_district) as di").
+				Where("(district || ' - ' || name_district like ?)", fmt.Sprintf("%%%s%%", strings.ReplaceAll(strings.ToUpper(s.Query), " ", "%"))).
+				Order("di")
 			if divisionNumber != "" {
 				query.Where("division = ?", divisionNumber)
 			}
@@ -91,8 +93,9 @@ func (srv *Server) indicator(footer string) {
 			districtNumber := strings.Split(district, "-")[0]
 			s.Query = term
 			query := srv.Db.Conn.Model((*model.GeoCodes)(nil)).
-				ColumnExpr("distinct (upazilla || ' - ' || name_upazilla)").
-				Where("(upazilla || ' - ' || name_upazilla like ?)", fmt.Sprintf("%%%s%%", strings.ReplaceAll(strings.ToUpper(s.Query), " ", "%")))
+				ColumnExpr("distinct (upazilla || ' - ' || name_upazilla) as up").
+				Where("(upazilla || ' - ' || name_upazilla like ?)", fmt.Sprintf("%%%s%%", strings.ReplaceAll(strings.ToUpper(s.Query), " ", "%"))).
+				Order("up")
 			if divisionNumber != "" {
 				query.Where("division = ?", divisionNumber)
 			}
@@ -122,8 +125,9 @@ func (srv *Server) indicator(footer string) {
 			upazilaNumber := strings.Split(upazila, "-")[0]
 			s.Query = term
 			query := srv.Db.Conn.Model((*model.GeoCodes)(nil)).
-				ColumnExpr("distinct (\"union\" || ' - ' || name_union)").
-				Where("(\"union\" || ' - ' || name_union) like ?", fmt.Sprintf("%%%s%%", strings.ReplaceAll(strings.ToUpper(s.Query), " ", "%")))
+				ColumnExpr("distinct (\"union\" || ' - ' || name_union) as un").
+				Where("(\"union\" || ' - ' || name_union) like ?", fmt.Sprintf("%%%s%%", strings.ReplaceAll(strings.ToUpper(s.Query), " ", "%"))).
+				Order("un")
 			if divisionNumber != "" {
 				query.Where("division = ?", divisionNumber)
 			}
@@ -158,8 +162,9 @@ func (srv *Server) indicator(footer string) {
 			unionNumber := strings.Split(union, "-")[0]
 			s.Query = term
 			query := srv.Db.Conn.Model((*model.GeoCodes)(nil)).
-				ColumnExpr("distinct(mouza || ' - ' || name_mouza)").
-				Where("(mouza || ' - ' || name_mouza) like ?", fmt.Sprintf("%%%s%%", strings.ReplaceAll(strings.ToUpper(s.Query), " ", "%")))
+				ColumnExpr("distinct(mouza || ' - ' || name_mouza) as mo").
+				Where("(mouza || ' - ' || name_mouza) like ?", fmt.Sprintf("%%%s%%", strings.ReplaceAll(strings.ToUpper(s.Query), " ", "%"))).
+				Order("mo")
 			if divisionNumber != "" {
 				query.Where("division = ?", divisionNumber)
 			}

@@ -1,3 +1,6 @@
+copy agregateds
+from '/update.csv' delimiter ';' csv header;
+--@block
 select edu,
     edu1 as NoEducation,
     edu2 as Class1,
@@ -423,3 +426,8 @@ SELECT sum(occ) as Agriculture,
         sum(occ) + sum(occ2) + sum(occ3) + sum(occ4) + sum(occ5)
     ) as Total
 FROM agregateds;
+--@block
+SELECT distinct ("union" || ' - ' || name_union) as un
+FROM "geo_codes" AS "geo_codes"
+WHERE (("union" || ' - ' || name_union) like '%%%')
+ORDER BY "geo_codes";
