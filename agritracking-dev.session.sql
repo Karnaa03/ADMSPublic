@@ -431,3 +431,29 @@ SELECT distinct ("union" || ' - ' || name_union) as un
 FROM "geo_codes" AS "geo_codes"
 WHERE (("union" || ' - ' || name_union) like '%%%')
 ORDER BY "geo_codes";
+--@block
+SELECT (
+        SELECT count(hh_sno)
+        FROM agregateds
+        WHERE c04 > 0
+            AND subpath(geocode, 0, %d) = ?
+    ) AS number_of_reporting_holdings,
+    (
+        SELECT count(hh_sno)
+        FROM agregateds
+        WHERE c18 >= 0.05
+            AND C04 > 0
+            AND subpath(geocode, 0, %d) = ?
+    ) AS number_of_farm_holdings,
+    (
+        SELECT sum(c04)
+        FROM agregateds
+        WHERE subpath(geocode, 0, %d) = ?
+    ) AS total_area_of_own_land,
+    (
+        SELECT sum(c18)
+        FROM agregateds
+        WHERE c18 >= 0.05
+            AND c04 > 0
+            AND subpath(geocode, 0, %d) = ?
+    ) AS total_farm_holding_areas;

@@ -673,3 +673,107 @@ func (db *Db) GetGeoCode(geoCodeNumber string) (geoCode GeoCodes, err error) {
 	err = db.Conn.Model(&geoCode).WherePK().Select()
 	return
 }
+
+type HouseholdLandInformation struct {
+	Name                      string
+	Column                    string
+	NumberOfReportingHoldings uint
+	NumberOfFarmHoldings      uint
+	TotalAreaOfOwnLand        float64
+	TotalFarmHoldingArea      float64
+	AverageAreaPerFarmHolding float64
+}
+
+func (db *Db) GetHouseholdLandInformation(division, district, upazilla, union, mouza string) (data []HouseholdLandInformation, err error) {
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
+	data = []HouseholdLandInformation{
+		{
+			Name:   "Own land",
+			Column: "c04",
+		},
+		{
+			Name:   "Given land",
+			Column: "c05",
+		},
+		{
+			Name:   "Taken land",
+			Column: "c06",
+		},
+		{
+			Name:   "Operated land",
+			Column: "c07",
+		},
+		{
+			Name:   "Homestead",
+			Column: "c08",
+		},
+		{
+			Name:   "Homestead",
+			Column: "c11",
+		},
+		{
+			Name:   "Homestead",
+			Column: "c12",
+		},
+		{
+			Name:   "Homestead",
+			Column: "c13",
+		},
+		{
+			Name:   "Homestead",
+			Column: "c14",
+		},
+		{
+			Name:   "Homestead",
+			Column: "c16",
+		},
+		{
+			Name:   "Homestead",
+			Column: "c17",
+		},
+	}
+
+	for i, c := range data {
+		query := fmt.Sprintf(`
+		SELECT (
+			SELECT count(hh_sno)
+			FROM agregateds
+			WHERE %s > 0
+				AND subpath(geocode, 0, %d) = ?
+		) AS number_of_reporting_holdings,
+		(
+			SELECT count(hh_sno)
+			FROM agregateds
+			WHERE c18 >= 0.05
+				AND %s > 0
+				AND subpath(geocode, 0, %d) = ?
+		) AS number_of_farm_holdings,
+		(
+			SELECT sum(%s)
+			FROM agregateds
+			WHERE subpath(geocode, 0, %d) = ?
+		) AS total_area_of_own_land,
+		(
+			SELECT sum(c18)
+			FROM agregateds
+			WHERE c18 >= 0.05
+				AND %s > 0
+				AND subpath(geocode, 0, %d) = ?
+		) AS total_farm_holding_area;`,
+			c.Column, count,
+			c.Column, count,
+			c.Column, count,
+			c.Column, count)
+		_, err = db.Conn.QueryOne(&c, query,
+			geoCodeReq, geoCodeReq, geoCodeReq, geoCodeReq)
+		if err != nil {
+			log.Error(err)
+			return
+		}
+		data[i] = c
+	}
+	return
+}
