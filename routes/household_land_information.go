@@ -40,7 +40,7 @@ func (srv *Server) FormatHouseholdLandInformation(division, district, upazilla, 
 	<div class="x_content">
 	<h4>Result<small> ফলাফল</small></h4>
 	<h5>Data for table number : %s</h5>
-	<table class="table">
+	<table id="datatable-buttons" class="table table-striped">
 		<thead>
 			<tr>
 				<th>Report</th>
@@ -57,7 +57,7 @@ func (srv *Server) FormatHouseholdLandInformation(division, district, upazilla, 
 	</table>
 	</div>
 	`,
-		q.TableNumber,
+		getTableGenerationName(q.TableNumber),
 		tableData)
 
 	return

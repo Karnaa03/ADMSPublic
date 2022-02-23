@@ -457,12 +457,12 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 	<tr>
 		<td>Industry</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>	
 	<tr>
 		<td>Service</td>
 		<td>%s</td>
-		<td>%.2f**</td>
+		<td>%.2f%%</td>
 	</tr>	
 	<tr>
 		<td>Business</td>
@@ -669,7 +669,7 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 	</table>
 	</div>
 	`,
-		q.TableNumber,
+		getTableGenerationName(q.TableNumber),
 		tableData)
 
 	return

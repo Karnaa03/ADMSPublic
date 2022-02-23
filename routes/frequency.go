@@ -299,7 +299,7 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 	<div class="x_content">
 	<h4>Result<small> ফলাফল</small></h4>
 	<h5>Data for table number : %s</h5>
-	<table class="table">
+	<table id="datatable-buttons" class="table table-striped">
 		<thead>
 			<tr>
 				<th>Household Head Occupation</th>
@@ -318,11 +318,21 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 		</div>
 	</div>
 	`,
-		q.TableNumber,
+		getTableName(q.TableNumber),
 		tableData,
 		donutData)
 
 	return
+}
+
+func getTableName(tableNumber string) string {
+	tableName := make(map[string]string)
+	tableName["1"] = "Occupation of the household head"
+	tableName["2"] = "Education of the household head"
+	tableName["3"] = "Gender of the household head"
+	tableName["4"] = "Fishery holding"
+	tableName["5"] = "Agricultural labor holding"
+	return tableName[tableNumber]
 }
 
 func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, union, mouza string, q *searchQuery) (tableAndDonut string, err error) {
@@ -524,7 +534,7 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	<div class="x_content">
 	<h4>Result<small> ফলাফল</small></h4>
 	<h5>Data for table number : %s</h5>
-	<table class="table">
+	<table id="datatable-buttons" class="table table-striped">
 		<thead>
 			<tr>
 				<th>Household Head Occupation</th>
@@ -543,7 +553,7 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 		</div>
 	</div>
 	`,
-		q.TableNumber,
+		getTableName(q.TableNumber),
 		tableData,
 		donutData)
 
@@ -650,7 +660,7 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	<div class="x_content">
 	<h4>Result<small> ফলাফল</small></h4>
 	<h5>Data for table number : %s</h5>
-	<table class="table">
+	<table id="datatable-buttons" class="table table-striped">
 		<thead>
 			<tr>
 				<th>Household Head Occupation</th>
@@ -669,7 +679,7 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 		</div>
 	</div>
 	`,
-		q.TableNumber,
+		getTableName(q.TableNumber),
 		tableData,
 		donutData)
 
@@ -697,7 +707,7 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	<div class="x_content">
 	<h4>Result<small> ফলাফল</small></h4>
 	<h5>Data for table number : %s</h5>
-	<table class="table">
+	<table id="datatable-buttons" class="table table-striped">
 		<thead>
 			<tr>
 				<th>Number of Fishery Household</th>
@@ -710,7 +720,7 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	</table>
 	</div>
 	`,
-		q.TableNumber,
+		getTableName(q.TableNumber),
 		tableData)
 
 	return
@@ -737,7 +747,7 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 	<div class="x_content">
 	<h4>Result<small> ফলাফল</small></h4>
 	<h5>Data for table number : %s</h5>
-	<table class="table">
+	<table id="datatable-buttons" class="table table-striped">
 		<thead>
 			<tr>
 				<th>Number of Agri labor household</th>
@@ -750,7 +760,7 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 	</table>
 	</div>
 	`,
-		q.TableNumber,
+		getTableName(q.TableNumber),
 		tableData)
 
 	return

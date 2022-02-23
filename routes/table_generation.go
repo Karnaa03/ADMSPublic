@@ -172,3 +172,16 @@ func FormattableGenerationDonuts(data []model.RawTableData) (donuts string) {
 	}
 	return
 }
+
+func getTableGenerationName(tableNumber string) string {
+	tableName := make(map[string]string)
+
+	tableName["1"] = "Information of the household head"
+	tableName["2"] = "Land information"
+	tableName["3"] = "Poultry/Birds information"
+	tableName["4"] = "Cattle information"
+	tableName["5"] = "Agriculture equipment information"
+	tableName["6"] = "Crops information"
+
+	return tableName[tableNumber]
+}
