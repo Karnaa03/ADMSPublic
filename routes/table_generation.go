@@ -58,6 +58,10 @@ func (srv *Server) tableGeneration(footer string) {
 			tableAndDonut, err = srv.FormatHouseholdHeadInformation(division, district, upazilla, union, mouza, &q)
 		case "2":
 			tableAndDonut, err = srv.FormatHouseholdLandInformation(division, district, upazilla, union, mouza, &q)
+		case "3":
+			tableAndDonut, err = srv.FormatHouseholdLandFisheryInformation(division, district, upazilla, union, mouza, &q)
+		case "4":
+			tableAndDonut, err = srv.FormatHouseholdPoultryInformation(division, district, upazilla, union, mouza, &q)
 		}
 
 		if err != nil {
@@ -178,10 +182,11 @@ func getTableGenerationName(tableNumber string) string {
 
 	tableName["1"] = "Information of the household head"
 	tableName["2"] = "Land information"
-	tableName["3"] = "Poultry/Birds information"
-	tableName["4"] = "Cattle information"
-	tableName["5"] = "Agriculture equipment information"
-	tableName["6"] = "Crops information"
+	tableName["3"] = "Household Fishery Land"
+	tableName["4"] = "Household Poultry"
+	tableName["5"] = "Household cattle"
+	tableName["6"] = "Temporary Crops"
+	tableName["7"] = "Permanent Crops"
 
 	return tableName[tableNumber]
 }

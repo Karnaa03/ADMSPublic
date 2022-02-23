@@ -777,3 +777,161 @@ func (db *Db) GetHouseholdLandInformation(division, district, upazilla, union, m
 	}
 	return
 }
+
+func (db *Db) GetHouseholdFisheryLandInformation(division, district, upazilla, union, mouza string) (data []HouseholdLandInformation, err error) {
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
+	data = []HouseholdLandInformation{
+		{
+			Name:   "Land under ponds/digi",
+			Column: "c21",
+		},
+		{
+			Name:   "Fishery Land other than ponds",
+			Column: "(c22+c23+c24)",
+		},
+		{
+			Name:   "Fishery Land under salt cultivation",
+			Column: "c25",
+		},
+		{
+			Name:   "Fishery Land cultivated under pan/cage",
+			Column: "c26",
+		},
+		{
+			Name:   "Fishery Land under fish cultivation by Creek",
+			Column: "c27",
+		},
+	}
+
+	for i, c := range data {
+		query := fmt.Sprintf(`
+		SELECT (
+			SELECT count(hh_sno)
+			FROM agregateds
+			WHERE %s > 0
+				AND subpath(geocode, 0, %d) = ?
+		) AS number_of_reporting_holdings,
+		(
+			SELECT count(hh_sno)
+			FROM agregateds
+			WHERE c18 >= 0.05
+				AND %s > 0
+				AND subpath(geocode, 0, %d) = ?
+		) AS number_of_farm_holdings,
+		(
+			SELECT sum(%s)
+			FROM agregateds
+			WHERE subpath(geocode, 0, %d) = ?
+		) AS total_area_of_own_land,
+		(
+			SELECT sum(c18)
+			FROM agregateds
+			WHERE c18 >= 0.05
+				AND %s > 0
+				AND subpath(geocode, 0, %d) = ?
+		) AS total_farm_holding_area;`,
+			c.Column, count,
+			c.Column, count,
+			c.Column, count,
+			c.Column, count)
+		_, err = db.Conn.QueryOne(&c, query,
+			geoCodeReq, geoCodeReq, geoCodeReq, geoCodeReq)
+		if err != nil {
+			log.Error(err)
+			return
+		}
+		data[i] = c
+	}
+	return
+}
+
+type HouseholdPoultryInformation struct {
+	Name                                     string
+	Column                                   string
+	NumberOfHouseholdPoultryColumn           string
+	NumberOfHouseholdAttachFarmPoultryColumn string
+	NumberOfReportingHoldings                uint
+	TotalNumberOfPoultry                     uint
+	NumberOfHouseholdPoultry                 uint
+	NumberOfHouseholdAttachFarmPoultry       uint
+	AverageTypeOfPoultryPerHolding           float64
+}
+
+func (db *Db) GetHouseholdPoultryInformation(division, district, upazilla, union, mouza string) (data []HouseholdPoultryInformation, err error) {
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
+	data = []HouseholdPoultryInformation{
+		{
+			Name:                                     "Cock/Hen",
+			Column:                                   "(c28h + c28f)",
+			NumberOfHouseholdPoultryColumn:           "c28h",
+			NumberOfHouseholdAttachFarmPoultryColumn: "c28f",
+		},
+		{
+			Name:                                     "Duck",
+			Column:                                   "(c29h + c29f)",
+			NumberOfHouseholdPoultryColumn:           "c29h",
+			NumberOfHouseholdAttachFarmPoultryColumn: "c29f",
+		},
+		{
+			Name:                                     "Pigeon",
+			Column:                                   "(c30h + c30f)",
+			NumberOfHouseholdPoultryColumn:           "c30h",
+			NumberOfHouseholdAttachFarmPoultryColumn: "c30f",
+		},
+		{
+			Name:                                     "Quail",
+			Column:                                   "(c31h + c31f)",
+			NumberOfHouseholdPoultryColumn:           "c31h",
+			NumberOfHouseholdAttachFarmPoultryColumn: "c31f",
+		},
+		{
+			Name:                                     "Turkey",
+			Column:                                   "(c32h + c32f)",
+			NumberOfHouseholdPoultryColumn:           "c32h",
+			NumberOfHouseholdAttachFarmPoultryColumn: "c32f",
+		},
+	}
+
+	for i, c := range data {
+		query := fmt.Sprintf(`
+		SELECT (
+			SELECT count(hh_sno)
+			FROM agregateds
+			WHERE %s > 0
+				AND subpath(geocode, 0, %d) = ?
+		) AS number_of_reporting_holdings,
+		(
+			SELECT sum(%s)
+			FROM agregateds
+			WHERE subpath(geocode, 0, %d) = ?
+		) AS total_number_of_poultry,
+		(
+			SELECT sum(%s)
+			FROM agregateds
+			WHERE subpath(geocode, 0, %d) = ?
+		) AS number_of_household_poultry,
+		(
+			SELECT sum(%s)
+			FROM agregateds
+			WHERE subpath(geocode, 0, %d) = ?
+		) AS number_of_household_attach_farm_poultry;`,
+			c.Column, count,
+			c.Column, count,
+			c.NumberOfHouseholdPoultryColumn, count,
+			c.NumberOfHouseholdAttachFarmPoultryColumn, count)
+		_, err = db.Conn.QueryOne(&c, query,
+			geoCodeReq, geoCodeReq, geoCodeReq, geoCodeReq)
+		if err != nil {
+			log.Error(err)
+			return
+		}
+		data[i] = c
+	}
+	return
+}
