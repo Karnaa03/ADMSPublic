@@ -457,3 +457,7 @@ SELECT (
             AND c04 > 0
             AND subpath(geocode, 0, %d) = ?
     ) AS total_farm_holding_areas;
+--@block
+update geo_codes
+set name_division = 'CHATTOGRAM DIVISION'
+where name_division = 'CHITTAGONG DIVISION';

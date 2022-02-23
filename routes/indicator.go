@@ -231,6 +231,41 @@ func getNumber(numberAndName string) string {
 }
 
 func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q *searchQuery, data []model.RawTableData) {
+	tableName := make(map[string]string)
+	tableName["1"] = "Total number of holdings"
+	tableName["2"] = "Total number of farm holdings & percentage"
+	tableName["3"] = "Total number of small farm & percentage"
+	tableName["4"] = "Total number of medium farm & percentage"
+	tableName["5"] = "Total number of large farm & percentage"
+	tableName["6"] = "Total number of landless (owning no land) & percentage"
+	tableName["7"] = "Total number of agriculture labor household & percentage"
+	tableName["8"] = "Total number of agriculture fishery household & percentage"
+	tableName["9"] = "Agriculture worker per household"
+	tableName["10"] = "Agriculture worker per farm household"
+	tableName["11"] = "Operated area per holding"
+	tableName["12"] = "Operated area per farm holding"
+	tableName["13"] = "Homestead area per holding"
+	tableName["14"] = "Homestead area per farm holding"
+	tableName["15"] = "Total number of male headed households & percentage"
+	tableName["16"] = "Total Number of female headed households & percentage"
+	tableName["17"] = "Total number of holding reporting irrigation & percentage"
+	tableName["18"] = "Total number of holding area irrigated & percentage"
+	tableName["19"] = "Total number of farms holding reporting irrigation & percentage"
+	tableName["20"] = "Total number of farms holding area irrigated & percentage "
+	tableName["21"] = "Total number of cow"
+	tableName["22"] = "Total number of buffalo"
+	tableName["23"] = "Total number of cow in farm holding "
+	tableName["24"] = "Total number of buffalo in farm holding"
+	tableName["25"] = "Total number of goat"
+	tableName["26"] = "Total number of sheep "
+	tableName["27"] = "Total number of goat in farm holding"
+	tableName["28"] = "Total number of sheep in farm holding"
+	tableName["29"] = "Total number of cock/hen"
+	tableName["30"] = "Total number of duck"
+	tableName["31"] = "Total number of cock/hen in farm holding "
+	tableName["32"] = "Total number of duck in farm holding"
+	tableName["33"] = "Cropping Intensity"
+	tableName["34"] = "Net cropped area "
 
 	c.HTML(http.StatusOK, "indicator.html", gin.H{
 		// "Name":                   name,
@@ -241,7 +276,7 @@ func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q 
 		"UpazilaNumber":  q.UpazilaNumber,
 		"UnionNumber":    q.UnionNumber,
 		"MouzaNumber":    q.MouzaNumber,
-		"QueryType":      q.TableNumber,
+		"QueryType":      tableName[q.TableNumber],
 		"TableData":      template.HTML(FormatTable(data)),
 		"Donuts":         template.HTML(FormatDonuts(data)),
 	})
@@ -344,6 +379,7 @@ func FormatDonuts(data []model.RawTableData) (donuts string) {
 				rural += line.Data
 			}
 		}
+		total := urban + rural
 		donuts = fmt.Sprintf(`
 		<div id="main" style="width: 600px;height:400px; align:center" class="x_content"></div>
 		<script type="text/javascript">	
@@ -361,7 +397,7 @@ func FormatDonuts(data []model.RawTableData) (donuts string) {
 			},
 			series: [
 				{
-					name: 'Access From',
+					name: '',
 					type: 'pie',
 					radius: ['40%%', '70%%'],
 					avoidLabelOverlap: false,
@@ -395,7 +431,12 @@ func FormatDonuts(data []model.RawTableData) (donuts string) {
 		option && myChart.setOption(option);
 	
 	</script>
-	`, urban, "Urban", rural, "Rural")
+	`,
+			urban,
+			fmt.Sprintf("Urban : %.2f%%", (float64(urban)/float64(total))*100),
+			rural,
+			fmt.Sprintf("Rural: %.2f%%", (float64(rural)/float64(total))*100),
+		)
 	}
 	return
 }
