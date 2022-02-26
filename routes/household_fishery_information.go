@@ -32,7 +32,7 @@ func (srv *Server) FormatHouseholdLandFisheryInformation(division, district, upa
 			p.Sprintf("%d", hli.NumberOfFarmHoldings),
 			p.Sprintf("%.2f", hli.TotalAreaOfOwnLand),
 			p.Sprintf("%.2f", hli.TotalFarmHoldingArea),
-			p.Sprintf("%.2f", (float64(hli.TotalFarmHoldingArea)/float64(hli.NumberOfFarmHoldings))*100),
+			p.Sprintf("%.2f", (float64(hli.TotalFarmHoldingArea)/float64(hli.NumberOfFarmHoldings))),
 		)
 	}
 
@@ -48,7 +48,7 @@ func (srv *Server) FormatHouseholdLandFisheryInformation(division, district, upa
 				<th>Number of farm holdings</th>
 				<th>Total Area of own land</th>
 				<th>Total farm holding area</th>
-				<th>Agerage area per farm holding</th>
+				<th>Average area per farm holding</th>
 			</tr>
 		</thead>
 		<tbody>

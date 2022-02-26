@@ -62,6 +62,8 @@ func (srv *Server) tableGeneration(footer string) {
 			tableAndDonut, err = srv.FormatHouseholdLandFisheryInformation(division, district, upazilla, union, mouza, &q)
 		case "4":
 			tableAndDonut, err = srv.FormatHouseholdPoultryInformation(division, district, upazilla, union, mouza, &q)
+		case "5":
+			tableAndDonut, err = srv.FormatHouseholdCattleInformation(division, district, upazilla, union, mouza, &q)
 		}
 
 		if err != nil {

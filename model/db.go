@@ -935,3 +935,97 @@ func (db *Db) GetHouseholdPoultryInformation(division, district, upazilla, union
 	}
 	return
 }
+
+type HouseholdCattleInformation struct {
+	Name                                    string
+	Column                                  string
+	NumberOfHouseholdCattleColumn           string
+	NumberOfHouseholdAttachFarmCattleColumn string
+	NumberOfReportingHoldings               uint
+	TotalNumberOfCattle                     uint
+	NumberOfHouseholdCattle                 uint
+	NumberOfHouseholdAttachFarmCattle       uint
+	AverageTypeOfCattlePerHolding           float64
+}
+
+func (db *Db) GetHouseholdCattlenformation(division, district, upazilla, union, mouza string) (data []HouseholdCattleInformation, err error) {
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
+	data = []HouseholdCattleInformation{
+		{
+			Name:                                    "Cow",
+			Column:                                  "(c33h + c33f)",
+			NumberOfHouseholdCattleColumn:           "c33h",
+			NumberOfHouseholdAttachFarmCattleColumn: "c33f",
+		},
+		{
+			Name:                                    "Buffalo",
+			Column:                                  "(c34h + c34f)",
+			NumberOfHouseholdCattleColumn:           "c34h",
+			NumberOfHouseholdAttachFarmCattleColumn: "c34f",
+		},
+		{
+			Name:                                    "Goat",
+			Column:                                  "(c35h + c35f)",
+			NumberOfHouseholdCattleColumn:           "c35h",
+			NumberOfHouseholdAttachFarmCattleColumn: "c35f",
+		},
+		{
+			Name:                                    "Sheep",
+			Column:                                  "(c36h + c36f)",
+			NumberOfHouseholdCattleColumn:           "c36h",
+			NumberOfHouseholdAttachFarmCattleColumn: "c36f",
+		},
+		{
+			Name:                                    "Pig",
+			Column:                                  "(c37h + c37f)",
+			NumberOfHouseholdCattleColumn:           "c37h",
+			NumberOfHouseholdAttachFarmCattleColumn: "c37f",
+		},
+		{
+			Name:                                    "Horse",
+			Column:                                  "(c38h + c38f)",
+			NumberOfHouseholdCattleColumn:           "c38h",
+			NumberOfHouseholdAttachFarmCattleColumn: "c38f",
+		},
+	}
+
+	for i, c := range data {
+		query := fmt.Sprintf(`
+		SELECT (
+			SELECT count(hh_sno)
+			FROM agregateds
+			WHERE %s > 0
+				AND subpath(geocode, 0, %d) = ?
+		) AS number_of_reporting_holdings,
+		(
+			SELECT sum(%s)
+			FROM agregateds
+			WHERE subpath(geocode, 0, %d) = ?
+		) AS total_number_of_cattle,
+		(
+			SELECT sum(%s)
+			FROM agregateds
+			WHERE subpath(geocode, 0, %d) = ?
+		) AS number_of_household_cattle,
+		(
+			SELECT sum(%s)
+			FROM agregateds
+			WHERE subpath(geocode, 0, %d) = ?
+		) AS number_of_household_attach_farm_cattle;`,
+			c.Column, count,
+			c.Column, count,
+			c.NumberOfHouseholdCattleColumn, count,
+			c.NumberOfHouseholdAttachFarmCattleColumn, count)
+		_, err = db.Conn.QueryOne(&c, query,
+			geoCodeReq, geoCodeReq, geoCodeReq, geoCodeReq)
+		if err != nil {
+			log.Error(err)
+			return
+		}
+		data[i] = c
+	}
+	return
+}
