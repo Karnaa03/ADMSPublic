@@ -1029,3 +1029,112 @@ func (db *Db) GetHouseholdCattlenformation(division, district, upazilla, union, 
 	}
 	return
 }
+
+type HouseholdAgricultureEquipement struct {
+	Name                              string
+	NumberOfReportingHoldingsColumn   string
+	NumberOfReportingHoldings         uint
+	TotalNumberColumn                 string
+	TotalNumber                       uint
+	NumberOfNonMechanicalDeviceColumn string
+	NumberOfNonMechanicalDevice       uint
+	NumberOfDieselDeviceColumn        string
+	NumberOfDieselDevice              uint
+	NumberOfElectricalDeviceColumn    string
+	NumberOfElectricalDevice          uint
+}
+
+func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, union, mouza string) (data []HouseholdAgricultureEquipement, err error) {
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
+	data = []HouseholdAgricultureEquipement{
+		{
+			Name:                            "Tractor",
+			NumberOfReportingHoldingsColumn: "c39",
+			TotalNumberColumn:               "c39",
+			NumberOfDieselDeviceColumn:      "c39",
+		},
+		{
+			Name:                            "Power tiller",
+			NumberOfReportingHoldingsColumn: "c40",
+			TotalNumberColumn:               "c40",
+			NumberOfDieselDeviceColumn:      "c40",
+		},
+		{
+			Name:                            "Power pump",
+			NumberOfReportingHoldingsColumn: "(c41a + c41b)",
+			TotalNumberColumn:               "(c41a + c41b)",
+			NumberOfDieselDeviceColumn:      "c41a",
+			NumberOfElectricalDeviceColumn:  "c41b",
+		},
+		{
+			Name:                            "Deep/Shallow tube well",
+			NumberOfReportingHoldingsColumn: "(c42a + c42b)",
+			TotalNumberColumn:               "(c42a + c42b)",
+			NumberOfDieselDeviceColumn:      "c42a",
+			NumberOfElectricalDeviceColumn:  "c42b",
+		},
+		{
+			Name:                            "Crop planting machine",
+			NumberOfReportingHoldingsColumn: "(c42a + c42b)",
+			TotalNumberColumn:               "(c42a + c42b)",
+			NumberOfDieselDeviceColumn:      "c42a",
+			NumberOfElectricalDeviceColumn:  "c42b",
+		},
+	}
+
+	for i, c := range data {
+		query := fmt.Sprintf(`
+		SELECT (
+			SELECT count(hh_sno)
+			FROM agregateds
+			WHERE %s > 0
+				AND subpath(geocode, 0, %d) = ?
+		) AS number_of_reporting_holdings,
+		(
+			SELECT sum(%s)
+			FROM agregateds
+			WHERE subpath(geocode, 0, %d) = ?
+		) AS total_number`,
+			c.NumberOfReportingHoldingsColumn, count,
+			c.TotalNumberColumn, count)
+
+		if c.NumberOfNonMechanicalDeviceColumn != "" {
+			query += fmt.Sprintf(`
+			,(
+				SELECT sum(%s)
+				FROM agregateds
+				WHERE subpath(geocode, 0, %d) = ?
+			) AS number_of_non_mechanical_device
+			`, c.NumberOfNonMechanicalDeviceColumn, count)
+		}
+		if c.NumberOfDieselDeviceColumn != "" {
+			query += fmt.Sprintf(`
+			,(
+				SELECT sum(%s)
+				FROM agregateds
+				WHERE subpath(geocode, 0, %d) = ?
+			) AS number_of_diesel_device
+			`, c.NumberOfDieselDeviceColumn, count)
+		}
+		if c.NumberOfElectricalDeviceColumn != "" {
+			query += fmt.Sprintf(`
+			,(
+				SELECT sum(%s)
+				FROM agregateds
+				WHERE subpath(geocode, 0, %d) = ?
+			) AS number_of_electrical_device
+			`, c.NumberOfElectricalDeviceColumn, count)
+		}
+		_, err = db.Conn.QueryOne(&c, query,
+			geoCodeReq, geoCodeReq, geoCodeReq, geoCodeReq)
+		if err != nil {
+			log.Error(err)
+			return
+		}
+		data[i] = c
+	}
+	return
+}
