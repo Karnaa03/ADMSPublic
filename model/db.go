@@ -1077,11 +1077,52 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 			NumberOfElectricalDeviceColumn:  "c42b",
 		},
 		{
-			Name:                            "Crop planting machine",
-			NumberOfReportingHoldingsColumn: "(c42a + c42b)",
-			TotalNumberColumn:               "(c42a + c42b)",
-			NumberOfDieselDeviceColumn:      "c42a",
-			NumberOfElectricalDeviceColumn:  "c42b",
+			Name:                              "Crop planting machine",
+			NumberOfReportingHoldingsColumn:   "(c43a + c43b)",
+			TotalNumberColumn:                 "(c43a + c43b)",
+			NumberOfNonMechanicalDeviceColumn: "c43a",
+			NumberOfDieselDeviceColumn:        "c43b",
+		},
+		{
+			Name:                              "Crop cutting machine",
+			NumberOfReportingHoldingsColumn:   "(c44a + c44b)",
+			TotalNumberColumn:                 "(c44a + c44b)",
+			NumberOfNonMechanicalDeviceColumn: "c44a",
+			NumberOfDieselDeviceColumn:        "c44b",
+		},
+		{
+			Name:                              "Crop threshing machine",
+			NumberOfReportingHoldingsColumn:   "(c45a + c45b + c45c)",
+			TotalNumberColumn:                 "(c45a + c45b + c45c)",
+			NumberOfNonMechanicalDeviceColumn: "c45a",
+			NumberOfDieselDeviceColumn:        "c45b",
+			NumberOfElectricalDeviceColumn:    "c45c",
+		},
+		{
+			Name:                              "Fertilizer Appling machine",
+			NumberOfReportingHoldingsColumn:   "(c46a + c46b)",
+			TotalNumberColumn:                 "(c46a + c46b)",
+			NumberOfNonMechanicalDeviceColumn: "c46a",
+			NumberOfDieselDeviceColumn:        "c46b",
+		},
+		{
+			Name:                              "Fish catching boat/trailer",
+			NumberOfReportingHoldingsColumn:   "(c47a + c47b)",
+			TotalNumberColumn:                 "(c47a + c47b)",
+			NumberOfNonMechanicalDeviceColumn: "c47a",
+			NumberOfDieselDeviceColumn:        "c47b",
+		},
+		{
+			Name:                              "Fish catching net (business)",
+			NumberOfReportingHoldingsColumn:   "c48",
+			TotalNumberColumn:                 "c48",
+			NumberOfNonMechanicalDeviceColumn: "c48",
+		},
+		{
+			Name:                              "Plough",
+			NumberOfReportingHoldingsColumn:   "c49",
+			TotalNumberColumn:                 "c49",
+			NumberOfNonMechanicalDeviceColumn: "c49",
 		},
 	}
 
@@ -1129,7 +1170,7 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 			`, c.NumberOfElectricalDeviceColumn, count)
 		}
 		_, err = db.Conn.QueryOne(&c, query,
-			geoCodeReq, geoCodeReq, geoCodeReq, geoCodeReq)
+			geoCodeReq, geoCodeReq, geoCodeReq, geoCodeReq, geoCodeReq)
 		if err != nil {
 			log.Error(err)
 			return
