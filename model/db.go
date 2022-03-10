@@ -1179,3 +1179,273 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 	}
 	return
 }
+
+type PermanantCrops struct {
+	NumberOfFarmHoldings uint
+	CropArea             float64
+	Crops                []CropData
+}
+
+type CropData struct {
+	Code                   uint
+	Name                   string
+	Column                 string
+	TotalTemporaryCropArea uint
+	PercentageOfCropArea   float64
+}
+
+func (db *Db) GetTemporaryCrops(division, district, upazilla, union, mouza string) (data CropData, err error) {
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
+	Crops := []CropData{
+		{Code: 101, Name: "Aush", Column: "t101"},
+		{Code: 102, Name: "Almond", Column: "t102"},
+		{Code: 103, Name: "Boro", Column: "t103"},
+		{Code: 104, Name: "Wheat", Column: "t104"},
+		{Code: 105, Name: "Maize", Column: "t105"},
+		{Code: 106, Name: "Foxtail millet", Column: "t106"},
+		{Code: 107, Name: "Barley / sand", Column: "t107"},
+		{Code: 108, Name: "Proso Millet", Column: "t108"},
+		{Code: 109, Name: "Millet grain", Column: "t109"},
+		{Code: 110, Name: "Broom corn", Column: "t110"},
+		{Code: 111, Name: "Other grain", Column: "t111"},
+		{Code: 112, Name: "Lentil", Column: "t112"},
+		{Code: 113, Name: "Saffran Pulse", Column: "t113"},
+		{Code: 114, Name: "Moog Pulse", Column: "t114"},
+		{Code: 115, Name: "Black gram", Column: "t115"},
+		{Code: 116, Name: "Pea", Column: "t116"},
+		{Code: 117, Name: "Chickpea", Column: "t117"},
+		{Code: 118, Name: "Aarahar", Column: "t118"},
+		{Code: 119, Name: "Fallon", Column: "t119"},
+		{Code: 120, Name: "Other pulse", Column: "t120"},
+		{Code: 121, Name: "Potato", Column: "t121"},
+		{Code: 122, Name: "Brinjal", Column: "t122"},
+		{Code: 123, Name: "Radish", Column: "t123"},
+		{Code: 124, Name: "Bean", Column: "t124"},
+		{Code: 125, Name: "Tomato", Column: "t125"},
+		{Code: 126, Name: "Chichenga", Column: "t126"},
+		{Code: 127, Name: "Multitude", Column: "t127"},
+		{Code: 128, Name: "Ladies Finger", Column: "t128"},
+		{Code: 129, Name: "Cucumber", Column: "t129"},
+		{Code: 130, Name: "Bitter Gourd / Momordica / Charantia", Column: "t130"},
+		{Code: 131, Name: "Gourd", Column: "t131"},
+		{Code: 132, Name: "Pumpkin", Column: "t132"},
+		{Code: 133, Name: "Pumpkin rice", Column: "t133"},
+		{Code: 134, Name: "Cauliflower", Column: "t134"},
+		{Code: 135, Name: "Cabbage", Column: "t135"},
+		{Code: 136, Name: "Broccoli", Column: "t136"},
+		{Code: 137, Name: "Cucumber", Column: "t137"},
+		{Code: 138, Name: "Sweet potato", Column: "t138"},
+		{Code: 139, Name: "Stalk", Column: "t139"},
+		{Code: 140, Name: "Taro", Column: "t140"},
+		{Code: 141, Name: "Yardlong bean", Column: "t141"},
+		{Code: 142, Name: "Jhinga", Column: "t142"},
+		{Code: 143, Name: "Carrots", Column: "t143"},
+		{Code: 144, Name: "Kohlrabi", Column: "t144"},
+		{Code: 145, Name: "Turnip", Column: "t145"},
+		{Code: 146, Name: "Cumin", Column: "t146"},
+		{Code: 147, Name: "Peppers", Column: "t147"},
+		{Code: 148, Name: "Sponge gourd", Column: "t148"},
+		{Code: 149, Name: "Beetroot", Column: "t149"},
+		{Code: 150, Name: "Other vegetables", Column: "t150"},
+		{Code: 151, Name: "Reddish", Column: "t151"},
+		{Code: 152, Name: "Indian spinach", Column: "t152"},
+		{Code: 153, Name: "Spinach", Column: "t153"},
+		{Code: 154, Name: "Mint leaves", Column: "t154"},
+		{Code: 155, Name: "lettuce leaf", Column: "t155"},
+		{Code: 156, Name: "Others leaf", Column: "t156"},
+		{Code: 157, Name: "Onion", Column: "t157"},
+		{Code: 158, Name: "Garlic", Column: "t158"},
+		{Code: 159, Name: "Ginger", Column: "t159"},
+		{Code: 160, Name: "Turmeric", Column: "t160"},
+		{Code: 161, Name: "Chili", Column: "t161"},
+		{Code: 162, Name: "Coriander", Column: "t162"},
+		{Code: 163, Name: "Black cumin", Column: "t163"},
+		{Code: 164, Name: "Fennel", Column: "t164"},
+		{Code: 165, Name: "Cumin", Column: "t165"},
+		{Code: 166, Name: "Other spices  national", Column: "t166"},
+		{Code: 167, Name: "Mustard", Column: "t167"},
+		{Code: 168, Name: "Soybean", Column: "t168"},
+		{Code: 169, Name: "Nuts", Column: "t169"},
+		{Code: 170, Name: "Sesame", Column: "t170"},
+		{Code: 171, Name: "Linseed", Column: "t171"},
+		{Code: 172, Name: "sunflower", Column: "t172"},
+		{Code: 173, Name: "Castor", Column: "t173"},
+		{Code: 174, Name: "Other oil seeds", Column: "t174"},
+		{Code: 175, Name: "Banana", Column: "t175"},
+		{Code: 176, Name: "Papaya", Column: "t176"},
+		{Code: 177, Name: "Water Melon", Column: "t177"},
+		{Code: 178, Name: "Melons", Column: "t178"},
+		{Code: 179, Name: "Pine Apple", Column: "t179"},
+		{Code: 180, Name: "Strawberry", Column: "t180"},
+		{Code: 181, Name: "Other Fruits", Column: "t181"},
+		{Code: 182, Name: "Jute", Column: "t182"},
+		{Code: 183, Name: "Cotton", Column: "t183"},
+		{Code: 184, Name: "Other fibers", Column: "t184"},
+		{Code: 185, Name: "Sugar Cane", Column: "t185"},
+		{Code: 186, Name: "Other Sugars", Column: "t186"},
+		{Code: 187, Name: "Tobacco", Column: "t187"},
+		{Code: 188, Name: "Other drugs", Column: "t188"},
+		{Code: 189, Name: "Aloe vera", Column: "t189"},
+		{Code: 190, Name: "Other medicinal ", Column: "t190"},
+		{Code: 191, Name: "Tuberose", Column: "t191"},
+		{Code: 192, Name: "Marigold", Column: "t192"},
+		{Code: 193, Name: "Chrysanthemum", Column: "t193"},
+		{Code: 194, Name: "Dahlia", Column: "t194"},
+		{Code: 195, Name: "Gladiolus", Column: "t195"},
+		{Code: 196, Name: "Transvaal daisy", Column: "t196"},
+		{Code: 197, Name: "Other flowers", Column: "t197"},
+		{Code: 198, Name: "Sun grass", Column: "t198"},
+		{Code: 199, Name: "Dhaincha", Column: "t199"},
+		{Code: 200, Name: "Other fuels", Column: "t200"},
+		{Code: 201, Name: "Napier grass", Column: "t201"},
+		{Code: 202, Name: "Other cow-Foods", Column: "t202"},
+		{Code: 203, Name: "Seeded", Column: "t203"},
+	}
+
+	sum_query := "sum("
+	for _, crop := range Crops {
+		sum_query += fmt.Sprintf("%s +", crop.Column)
+	}
+	sum_query = strings.TrimSuffix(sum_query, "+")
+	sum_query = sum_query + ")"
+
+	query := "SELECT\n"
+	for _, crop := range Crops {
+		query += fmt.Sprintf("sum(%s) ad %s,\n", crop.Column, crop.Column)
+	}
+	query += "sum(sf + mf + lf) as number_of_farm_holdings,\nsum(c13) as crop_area,\n"
+	for _, crop := range Crops {
+		sum_query += fmt.Sprintf("sum(%s) / %s as percentage", crop.Column, sum_query)
+	}
+
+	query += fmt.Sprintf("FROM agregateds WHERE subpath(geocode, 0, %d) = ?", count)
+
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+
+}
+
+// SELECT sum(t101) as t101,
+//     sum(t102) as t102,
+//     sum(sf + mf + lf) as holfings,
+//     sum(c13) as crop_area,
+//     sum(t101 + t102) as total_temporary_crop_area,
+//     sum(t101) / sum(t101 + t102) * 100 as percentage_t101
+// FROM agregateds
+// WHERE geocode ~ '20.46.43.142.*';
+
+type Crops struct {
+	NumberOfFarmHoldings uint
+	CropArea             float64
+	T101                 float64
+	T102                 float64
+	T103                 float64
+	T104                 float64
+	T105                 float64
+	T106                 float64
+	T107                 float64
+	T108                 float64
+	T109                 float64
+	T110                 float64
+	T111                 float64
+	T112                 float64
+	T113                 float64
+	T114                 float64
+	T115                 float64
+	T116                 float64
+	T117                 float64
+	T118                 float64
+	T119                 float64
+	T120                 float64
+	T121                 float64
+	T122                 float64
+	T123                 float64
+	T124                 float64
+	T125                 float64
+	T126                 float64
+	T127                 float64
+	T128                 float64
+	T129                 float64
+	T130                 float64
+	T131                 float64
+	T132                 float64
+	T133                 float64
+	T134                 float64
+	T135                 float64
+	T136                 float64
+	T137                 float64
+	T138                 float64
+	T139                 float64
+	T140                 float64
+	T141                 float64
+	T142                 float64
+	T143                 float64
+	T144                 float64
+	T145                 float64
+	T146                 float64
+	T147                 float64
+	T148                 float64
+	T149                 float64
+	T150                 float64
+	T151                 float64
+	T152                 float64
+	T153                 float64
+	T154                 float64
+	T155                 float64
+	T156                 float64
+	T157                 float64
+	T158                 float64
+	T159                 float64
+	T160                 float64
+	T161                 float64
+	T162                 float64
+	T163                 float64
+	T164                 float64
+	T165                 float64
+	T166                 float64
+	T167                 float64
+	T168                 float64
+	T169                 float64
+	T170                 float64
+	T171                 float64
+	T172                 float64
+	T173                 float64
+	T174                 float64
+	T175                 float64
+	T176                 float64
+	T177                 float64
+	T178                 float64
+	T179                 float64
+	T180                 float64
+	T181                 float64
+	T182                 float64
+	T183                 float64
+	T184                 float64
+	T185                 float64
+	T186                 float64
+	T187                 float64
+	T188                 float64
+	T189                 float64
+	T190                 float64
+	T191                 float64
+	T192                 float64
+	T193                 float64
+	T194                 float64
+	T195                 float64
+	T196                 float64
+	T197                 float64
+	T198                 float64
+	T199                 float64
+	T200                 float64
+	T201                 float64
+	T202                 float64
+	T203                 float64
+}
