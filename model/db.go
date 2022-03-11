@@ -714,28 +714,40 @@ func (db *Db) GetHouseholdLandInformation(division, district, upazilla, union, m
 			Column: "c08",
 		},
 		{
-			Name:   "Homestead",
+			Name:   "Permanent Fellow land",
 			Column: "c11",
 		},
 		{
-			Name:   "Homestead",
+			Name:   "Uncultivated land",
 			Column: "c12",
 		},
 		{
-			Name:   "Homestead",
+			Name:   "Land under temporary crops",
 			Column: "c13",
 		},
 		{
-			Name:   "Homestead",
+			Name:   "Land under permanent crops",
 			Column: "c14",
 		},
 		{
-			Name:   "Homestead",
+			Name:   "Land under nursery",
 			Column: "c16",
 		},
 		{
-			Name:   "Homestead",
+			Name:   "Land under current fallow",
 			Column: "c17",
+		},
+		{
+			Name:   "Total cultivated land",
+			Column: "c18",
+		},
+		{
+			Name:   "Land under irrigation",
+			Column: "c19",
+		},
+		{
+			Name:   "Land under salt cultivation",
+			Column: "c20",
 		},
 	}
 
@@ -1183,7 +1195,7 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 	return
 }
 
-type Crops struct {
+type TemporaryCrops struct {
 	NumberOfFarmHoldings uint
 	CropArea             float64
 	T101                 float64
@@ -1291,7 +1303,7 @@ type Crops struct {
 	T203                 float64
 }
 
-func (c Crops) PercentageOfCropArea(cropArea string) string {
+func (c TemporaryCrops) PercentageOfCropArea(cropArea string) string {
 	p := message.NewPrinter(language.English)
 	r, err := reflections.GetField(c, cropArea)
 	if err != nil {
@@ -1404,7 +1416,355 @@ func (c Crops) PercentageOfCropArea(cropArea string) string {
 			c.T203))*100)
 }
 
-func (db *Db) GetTemporaryCrops(division, district, upazilla, union, mouza string) (data Crops, err error) {
+func (db *Db) GetTemporaryCrops(division, district, upazilla, union, mouza string) (data TemporaryCrops, err error) {
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
+
+	query := fmt.Sprintf(`
+	SELECT 
+    	sum(sf + mf + lf) as number_of_farm_holdings,
+    	sum(c13) as crop_area,
+		sum(t101) as t101,
+		sum(t102) as t102,
+		sum(t103) as t103,
+		sum(t104) as t104,
+		sum(t105) as t105,
+		sum(t106) as t106,
+		sum(t107) as t107,
+		sum(t108) as t108,
+		sum(t109) as t109,
+		sum(t110) as t110,
+		sum(t111) as t111,
+		sum(t112) as t112,
+		sum(t113) as t113,
+		sum(t114) as t114,
+		sum(t115) as t115,
+		sum(t116) as t116,
+		sum(t117) as t117,
+		sum(t118) as t118,
+		sum(t119) as t119,
+		sum(t120) as t120,
+		sum(t121) as t121,
+		sum(t122) as t122,
+		sum(t123) as t123,
+		sum(t124) as t124,
+		sum(t125) as t125,
+		sum(t126) as t126,
+		sum(t127) as t127,
+		sum(t128) as t128,
+		sum(t129) as t129,
+		sum(t130) as t130,
+		sum(t131) as t131,
+		sum(t132) as t132,
+		sum(t133) as t133,
+		sum(t134) as t134,
+		sum(t135) as t135,
+		sum(t136) as t136,
+		sum(t137) as t137,
+		sum(t138) as t138,
+		sum(t139) as t139,
+		sum(t140) as t140,
+		sum(t141) as t141,
+		sum(t142) as t142,
+		sum(t143) as t143,
+		sum(t144) as t144,
+		sum(t145) as t145,
+		sum(t146) as t146,
+		sum(t147) as t147,
+		sum(t148) as t148,
+		sum(t149) as t149,
+		sum(t150) as t150,
+		sum(t151) as t151,
+		sum(t152) as t152,
+		sum(t153) as t153,
+		sum(t154) as t154,
+		sum(t155) as t155,
+		sum(t156) as t156,
+		sum(t157) as t157,
+		sum(t158) as t158,
+		sum(t159) as t159,
+		sum(t160) as t160,
+		sum(t161) as t161,
+		sum(t162) as t162,
+		sum(t163) as t163,
+		sum(t164) as t164,
+		sum(t165) as t165,
+		sum(t166) as t166,
+		sum(t167) as t167,
+		sum(t168) as t168,
+		sum(t169) as t169,
+		sum(t170) as t170,
+		sum(t171) as t171,
+		sum(t172) as t172,
+		sum(t173) as t173,
+		sum(t174) as t174,
+		sum(t175) as t175,
+		sum(t176) as t176,
+		sum(t177) as t177,
+		sum(t178) as t178,
+		sum(t179) as t179,
+		sum(t180) as t180,
+		sum(t181) as t181,
+		sum(t182) as t182,
+		sum(t183) as t183,
+		sum(t184) as t184,
+		sum(t185) as t185,
+		sum(t186) as t186,
+		sum(t187) as t187,
+		sum(t188) as t188,
+		sum(t189) as t189,
+		sum(t190) as t190,
+		sum(t191) as t191,
+		sum(t192) as t192,
+		sum(t193) as t193,
+		sum(t194) as t194,
+		sum(t195) as t195,
+		sum(t196) as t196,
+		sum(t197) as t197,
+		sum(t198) as t198,
+		sum(t199) as t199,
+		sum(t200) as t200,
+		sum(t201) as t201,
+		sum(t202) as t202,
+		sum(t203) as t203
+	FROM agregateds
+	WHERE subpath(geocode, 0, %d) = ?;
+	`, count)
+
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+
+}
+
+type PermanantCrops struct {
+	NumberOfFarmHoldings uint
+	CropArea             float64
+	T101                 float64
+	T102                 float64
+	T103                 float64
+	T104                 float64
+	T105                 float64
+	T106                 float64
+	T107                 float64
+	T108                 float64
+	T109                 float64
+	T110                 float64
+	T111                 float64
+	T112                 float64
+	T113                 float64
+	T114                 float64
+	T115                 float64
+	T116                 float64
+	T117                 float64
+	T118                 float64
+	T119                 float64
+	T120                 float64
+	T121                 float64
+	T122                 float64
+	T123                 float64
+	T124                 float64
+	T125                 float64
+	T126                 float64
+	T127                 float64
+	T128                 float64
+	T129                 float64
+	T130                 float64
+	T131                 float64
+	T132                 float64
+	T133                 float64
+	T134                 float64
+	T135                 float64
+	T136                 float64
+	T137                 float64
+	T138                 float64
+	T139                 float64
+	T140                 float64
+	T141                 float64
+	T142                 float64
+	T143                 float64
+	T144                 float64
+	T145                 float64
+	T146                 float64
+	T147                 float64
+	T148                 float64
+	T149                 float64
+	T150                 float64
+	T151                 float64
+	T152                 float64
+	T153                 float64
+	T154                 float64
+	T155                 float64
+	T156                 float64
+	T157                 float64
+	T158                 float64
+	T159                 float64
+	T160                 float64
+	T161                 float64
+	T162                 float64
+	T163                 float64
+	T164                 float64
+	T165                 float64
+	T166                 float64
+	T167                 float64
+	T168                 float64
+	T169                 float64
+	T170                 float64
+	T171                 float64
+	T172                 float64
+	T173                 float64
+	T174                 float64
+	T175                 float64
+	T176                 float64
+	T177                 float64
+	T178                 float64
+	T179                 float64
+	T180                 float64
+	T181                 float64
+	T182                 float64
+	T183                 float64
+	T184                 float64
+	T185                 float64
+	T186                 float64
+	T187                 float64
+	T188                 float64
+	T189                 float64
+	T190                 float64
+	T191                 float64
+	T192                 float64
+	T193                 float64
+	T194                 float64
+	T195                 float64
+	T196                 float64
+	T197                 float64
+	T198                 float64
+	T199                 float64
+	T200                 float64
+	T201                 float64
+	T202                 float64
+	T203                 float64
+}
+
+func (c TemporaryCrops) PercentageOfPermantCropArea(cropArea string) string {
+	p := message.NewPrinter(language.English)
+	r, err := reflections.GetField(c, cropArea)
+	if err != nil {
+		log.Errorf("unable to get %s field from Crops struct : %s", cropArea, err)
+		return "err"
+	}
+	return p.Sprintf("%f%%", (r.(float64)/
+		(c.T101+
+			c.T102+
+			c.T103+
+			c.T104+
+			c.T105+
+			c.T106+
+			c.T107+
+			c.T108+
+			c.T109+
+			c.T110+
+			c.T111+
+			c.T112+
+			c.T113+
+			c.T114+
+			c.T115+
+			c.T116+
+			c.T117+
+			c.T118+
+			c.T119+
+			c.T120+
+			c.T121+
+			c.T122+
+			c.T123+
+			c.T124+
+			c.T125+
+			c.T126+
+			c.T127+
+			c.T128+
+			c.T129+
+			c.T130+
+			c.T131+
+			c.T132+
+			c.T133+
+			c.T134+
+			c.T135+
+			c.T136+
+			c.T137+
+			c.T138+
+			c.T139+
+			c.T140+
+			c.T141+
+			c.T142+
+			c.T143+
+			c.T144+
+			c.T145+
+			c.T146+
+			c.T147+
+			c.T148+
+			c.T149+
+			c.T150+
+			c.T151+
+			c.T152+
+			c.T153+
+			c.T154+
+			c.T155+
+			c.T156+
+			c.T157+
+			c.T158+
+			c.T159+
+			c.T160+
+			c.T161+
+			c.T162+
+			c.T163+
+			c.T164+
+			c.T165+
+			c.T166+
+			c.T167+
+			c.T168+
+			c.T169+
+			c.T170+
+			c.T171+
+			c.T172+
+			c.T173+
+			c.T174+
+			c.T175+
+			c.T176+
+			c.T177+
+			c.T178+
+			c.T179+
+			c.T180+
+			c.T181+
+			c.T182+
+			c.T183+
+			c.T184+
+			c.T185+
+			c.T186+
+			c.T187+
+			c.T188+
+			c.T189+
+			c.T190+
+			c.T191+
+			c.T192+
+			c.T193+
+			c.T194+
+			c.T195+
+			c.T196+
+			c.T197+
+			c.T198+
+			c.T199+
+			c.T200+
+			c.T201+
+			c.T202+
+			c.T203))*100)
+}
+
+func (db *Db) GetPermanantCrops(division, district, upazilla, union, mouza string) (data PermanantCrops, err error) {
 	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
 	if err != nil {
 		return
