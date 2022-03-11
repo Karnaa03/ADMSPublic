@@ -8,6 +8,9 @@ import (
 
 	"github.com/go-pg/pg/v10"
 	"github.com/go-pg/pg/v10/orm"
+	"github.com/oleiade/reflections"
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 
 	log "github.com/sirupsen/logrus"
 
@@ -1180,168 +1183,6 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 	return
 }
 
-type PermanantCrops struct {
-	NumberOfFarmHoldings uint
-	CropArea             float64
-	Crops                []CropData
-}
-
-type CropData struct {
-	Code                   uint
-	Name                   string
-	Column                 string
-	TotalTemporaryCropArea uint
-	PercentageOfCropArea   float64
-}
-
-func (db *Db) GetTemporaryCrops(division, district, upazilla, union, mouza string) (data CropData, err error) {
-	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
-	if err != nil {
-		return
-	}
-	Crops := []CropData{
-		{Code: 101, Name: "Aush", Column: "t101"},
-		{Code: 102, Name: "Almond", Column: "t102"},
-		{Code: 103, Name: "Boro", Column: "t103"},
-		{Code: 104, Name: "Wheat", Column: "t104"},
-		{Code: 105, Name: "Maize", Column: "t105"},
-		{Code: 106, Name: "Foxtail millet", Column: "t106"},
-		{Code: 107, Name: "Barley / sand", Column: "t107"},
-		{Code: 108, Name: "Proso Millet", Column: "t108"},
-		{Code: 109, Name: "Millet grain", Column: "t109"},
-		{Code: 110, Name: "Broom corn", Column: "t110"},
-		{Code: 111, Name: "Other grain", Column: "t111"},
-		{Code: 112, Name: "Lentil", Column: "t112"},
-		{Code: 113, Name: "Saffran Pulse", Column: "t113"},
-		{Code: 114, Name: "Moog Pulse", Column: "t114"},
-		{Code: 115, Name: "Black gram", Column: "t115"},
-		{Code: 116, Name: "Pea", Column: "t116"},
-		{Code: 117, Name: "Chickpea", Column: "t117"},
-		{Code: 118, Name: "Aarahar", Column: "t118"},
-		{Code: 119, Name: "Fallon", Column: "t119"},
-		{Code: 120, Name: "Other pulse", Column: "t120"},
-		{Code: 121, Name: "Potato", Column: "t121"},
-		{Code: 122, Name: "Brinjal", Column: "t122"},
-		{Code: 123, Name: "Radish", Column: "t123"},
-		{Code: 124, Name: "Bean", Column: "t124"},
-		{Code: 125, Name: "Tomato", Column: "t125"},
-		{Code: 126, Name: "Chichenga", Column: "t126"},
-		{Code: 127, Name: "Multitude", Column: "t127"},
-		{Code: 128, Name: "Ladies Finger", Column: "t128"},
-		{Code: 129, Name: "Cucumber", Column: "t129"},
-		{Code: 130, Name: "Bitter Gourd / Momordica / Charantia", Column: "t130"},
-		{Code: 131, Name: "Gourd", Column: "t131"},
-		{Code: 132, Name: "Pumpkin", Column: "t132"},
-		{Code: 133, Name: "Pumpkin rice", Column: "t133"},
-		{Code: 134, Name: "Cauliflower", Column: "t134"},
-		{Code: 135, Name: "Cabbage", Column: "t135"},
-		{Code: 136, Name: "Broccoli", Column: "t136"},
-		{Code: 137, Name: "Cucumber", Column: "t137"},
-		{Code: 138, Name: "Sweet potato", Column: "t138"},
-		{Code: 139, Name: "Stalk", Column: "t139"},
-		{Code: 140, Name: "Taro", Column: "t140"},
-		{Code: 141, Name: "Yardlong bean", Column: "t141"},
-		{Code: 142, Name: "Jhinga", Column: "t142"},
-		{Code: 143, Name: "Carrots", Column: "t143"},
-		{Code: 144, Name: "Kohlrabi", Column: "t144"},
-		{Code: 145, Name: "Turnip", Column: "t145"},
-		{Code: 146, Name: "Cumin", Column: "t146"},
-		{Code: 147, Name: "Peppers", Column: "t147"},
-		{Code: 148, Name: "Sponge gourd", Column: "t148"},
-		{Code: 149, Name: "Beetroot", Column: "t149"},
-		{Code: 150, Name: "Other vegetables", Column: "t150"},
-		{Code: 151, Name: "Reddish", Column: "t151"},
-		{Code: 152, Name: "Indian spinach", Column: "t152"},
-		{Code: 153, Name: "Spinach", Column: "t153"},
-		{Code: 154, Name: "Mint leaves", Column: "t154"},
-		{Code: 155, Name: "lettuce leaf", Column: "t155"},
-		{Code: 156, Name: "Others leaf", Column: "t156"},
-		{Code: 157, Name: "Onion", Column: "t157"},
-		{Code: 158, Name: "Garlic", Column: "t158"},
-		{Code: 159, Name: "Ginger", Column: "t159"},
-		{Code: 160, Name: "Turmeric", Column: "t160"},
-		{Code: 161, Name: "Chili", Column: "t161"},
-		{Code: 162, Name: "Coriander", Column: "t162"},
-		{Code: 163, Name: "Black cumin", Column: "t163"},
-		{Code: 164, Name: "Fennel", Column: "t164"},
-		{Code: 165, Name: "Cumin", Column: "t165"},
-		{Code: 166, Name: "Other spices  national", Column: "t166"},
-		{Code: 167, Name: "Mustard", Column: "t167"},
-		{Code: 168, Name: "Soybean", Column: "t168"},
-		{Code: 169, Name: "Nuts", Column: "t169"},
-		{Code: 170, Name: "Sesame", Column: "t170"},
-		{Code: 171, Name: "Linseed", Column: "t171"},
-		{Code: 172, Name: "sunflower", Column: "t172"},
-		{Code: 173, Name: "Castor", Column: "t173"},
-		{Code: 174, Name: "Other oil seeds", Column: "t174"},
-		{Code: 175, Name: "Banana", Column: "t175"},
-		{Code: 176, Name: "Papaya", Column: "t176"},
-		{Code: 177, Name: "Water Melon", Column: "t177"},
-		{Code: 178, Name: "Melons", Column: "t178"},
-		{Code: 179, Name: "Pine Apple", Column: "t179"},
-		{Code: 180, Name: "Strawberry", Column: "t180"},
-		{Code: 181, Name: "Other Fruits", Column: "t181"},
-		{Code: 182, Name: "Jute", Column: "t182"},
-		{Code: 183, Name: "Cotton", Column: "t183"},
-		{Code: 184, Name: "Other fibers", Column: "t184"},
-		{Code: 185, Name: "Sugar Cane", Column: "t185"},
-		{Code: 186, Name: "Other Sugars", Column: "t186"},
-		{Code: 187, Name: "Tobacco", Column: "t187"},
-		{Code: 188, Name: "Other drugs", Column: "t188"},
-		{Code: 189, Name: "Aloe vera", Column: "t189"},
-		{Code: 190, Name: "Other medicinal ", Column: "t190"},
-		{Code: 191, Name: "Tuberose", Column: "t191"},
-		{Code: 192, Name: "Marigold", Column: "t192"},
-		{Code: 193, Name: "Chrysanthemum", Column: "t193"},
-		{Code: 194, Name: "Dahlia", Column: "t194"},
-		{Code: 195, Name: "Gladiolus", Column: "t195"},
-		{Code: 196, Name: "Transvaal daisy", Column: "t196"},
-		{Code: 197, Name: "Other flowers", Column: "t197"},
-		{Code: 198, Name: "Sun grass", Column: "t198"},
-		{Code: 199, Name: "Dhaincha", Column: "t199"},
-		{Code: 200, Name: "Other fuels", Column: "t200"},
-		{Code: 201, Name: "Napier grass", Column: "t201"},
-		{Code: 202, Name: "Other cow-Foods", Column: "t202"},
-		{Code: 203, Name: "Seeded", Column: "t203"},
-	}
-
-	sum_query := "sum("
-	for _, crop := range Crops {
-		sum_query += fmt.Sprintf("%s +", crop.Column)
-	}
-	sum_query = strings.TrimSuffix(sum_query, "+")
-	sum_query = sum_query + ")"
-
-	query := "SELECT\n"
-	for _, crop := range Crops {
-		query += fmt.Sprintf("sum(%s) ad %s,\n", crop.Column, crop.Column)
-	}
-	query += "sum(sf + mf + lf) as number_of_farm_holdings,\nsum(c13) as crop_area,\n"
-	for _, crop := range Crops {
-		sum_query += fmt.Sprintf("sum(%s) / %s as percentage", crop.Column, sum_query)
-	}
-
-	query += fmt.Sprintf("FROM agregateds WHERE subpath(geocode, 0, %d) = ?", count)
-
-	_, err = db.Conn.QueryOne(&data, query,
-		geoCodeReq)
-	if err != nil {
-		log.Error(err)
-		return
-	}
-	return
-
-}
-
-// SELECT sum(t101) as t101,
-//     sum(t102) as t102,
-//     sum(sf + mf + lf) as holfings,
-//     sum(c13) as crop_area,
-//     sum(t101 + t102) as total_temporary_crop_area,
-//     sum(t101) / sum(t101 + t102) * 100 as percentage_t101
-// FROM agregateds
-// WHERE geocode ~ '20.46.43.142.*';
-
 type Crops struct {
 	NumberOfFarmHoldings uint
 	CropArea             float64
@@ -1448,4 +1289,244 @@ type Crops struct {
 	T201                 float64
 	T202                 float64
 	T203                 float64
+}
+
+func (c Crops) PercentageOfCropArea(cropArea string) string {
+	p := message.NewPrinter(language.English)
+	r, err := reflections.GetField(c, cropArea)
+	if err != nil {
+		log.Errorf("unable to get %s field from Crops struct : %s", cropArea, err)
+		return "err"
+	}
+	return p.Sprintf("%f%%", (r.(float64)/
+		(c.T101+
+			c.T102+
+			c.T103+
+			c.T104+
+			c.T105+
+			c.T106+
+			c.T107+
+			c.T108+
+			c.T109+
+			c.T110+
+			c.T111+
+			c.T112+
+			c.T113+
+			c.T114+
+			c.T115+
+			c.T116+
+			c.T117+
+			c.T118+
+			c.T119+
+			c.T120+
+			c.T121+
+			c.T122+
+			c.T123+
+			c.T124+
+			c.T125+
+			c.T126+
+			c.T127+
+			c.T128+
+			c.T129+
+			c.T130+
+			c.T131+
+			c.T132+
+			c.T133+
+			c.T134+
+			c.T135+
+			c.T136+
+			c.T137+
+			c.T138+
+			c.T139+
+			c.T140+
+			c.T141+
+			c.T142+
+			c.T143+
+			c.T144+
+			c.T145+
+			c.T146+
+			c.T147+
+			c.T148+
+			c.T149+
+			c.T150+
+			c.T151+
+			c.T152+
+			c.T153+
+			c.T154+
+			c.T155+
+			c.T156+
+			c.T157+
+			c.T158+
+			c.T159+
+			c.T160+
+			c.T161+
+			c.T162+
+			c.T163+
+			c.T164+
+			c.T165+
+			c.T166+
+			c.T167+
+			c.T168+
+			c.T169+
+			c.T170+
+			c.T171+
+			c.T172+
+			c.T173+
+			c.T174+
+			c.T175+
+			c.T176+
+			c.T177+
+			c.T178+
+			c.T179+
+			c.T180+
+			c.T181+
+			c.T182+
+			c.T183+
+			c.T184+
+			c.T185+
+			c.T186+
+			c.T187+
+			c.T188+
+			c.T189+
+			c.T190+
+			c.T191+
+			c.T192+
+			c.T193+
+			c.T194+
+			c.T195+
+			c.T196+
+			c.T197+
+			c.T198+
+			c.T199+
+			c.T200+
+			c.T201+
+			c.T202+
+			c.T203))*100)
+}
+
+func (db *Db) GetTemporaryCrops(division, district, upazilla, union, mouza string) (data Crops, err error) {
+	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
+	if err != nil {
+		return
+	}
+
+	query := fmt.Sprintf(`
+	SELECT 
+    	sum(sf + mf + lf) as number_of_farm_holdings,
+    	sum(c13) as crop_area,
+		sum(t101) as t101,
+		sum(t102) as t102,
+		sum(t103) as t103,
+		sum(t104) as t104,
+		sum(t105) as t105,
+		sum(t106) as t106,
+		sum(t107) as t107,
+		sum(t108) as t108,
+		sum(t109) as t109,
+		sum(t110) as t110,
+		sum(t111) as t111,
+		sum(t112) as t112,
+		sum(t113) as t113,
+		sum(t114) as t114,
+		sum(t115) as t115,
+		sum(t116) as t116,
+		sum(t117) as t117,
+		sum(t118) as t118,
+		sum(t119) as t119,
+		sum(t120) as t120,
+		sum(t121) as t121,
+		sum(t122) as t122,
+		sum(t123) as t123,
+		sum(t124) as t124,
+		sum(t125) as t125,
+		sum(t126) as t126,
+		sum(t127) as t127,
+		sum(t128) as t128,
+		sum(t129) as t129,
+		sum(t130) as t130,
+		sum(t131) as t131,
+		sum(t132) as t132,
+		sum(t133) as t133,
+		sum(t134) as t134,
+		sum(t135) as t135,
+		sum(t136) as t136,
+		sum(t137) as t137,
+		sum(t138) as t138,
+		sum(t139) as t139,
+		sum(t140) as t140,
+		sum(t141) as t141,
+		sum(t142) as t142,
+		sum(t143) as t143,
+		sum(t144) as t144,
+		sum(t145) as t145,
+		sum(t146) as t146,
+		sum(t147) as t147,
+		sum(t148) as t148,
+		sum(t149) as t149,
+		sum(t150) as t150,
+		sum(t151) as t151,
+		sum(t152) as t152,
+		sum(t153) as t153,
+		sum(t154) as t154,
+		sum(t155) as t155,
+		sum(t156) as t156,
+		sum(t157) as t157,
+		sum(t158) as t158,
+		sum(t159) as t159,
+		sum(t160) as t160,
+		sum(t161) as t161,
+		sum(t162) as t162,
+		sum(t163) as t163,
+		sum(t164) as t164,
+		sum(t165) as t165,
+		sum(t166) as t166,
+		sum(t167) as t167,
+		sum(t168) as t168,
+		sum(t169) as t169,
+		sum(t170) as t170,
+		sum(t171) as t171,
+		sum(t172) as t172,
+		sum(t173) as t173,
+		sum(t174) as t174,
+		sum(t175) as t175,
+		sum(t176) as t176,
+		sum(t177) as t177,
+		sum(t178) as t178,
+		sum(t179) as t179,
+		sum(t180) as t180,
+		sum(t181) as t181,
+		sum(t182) as t182,
+		sum(t183) as t183,
+		sum(t184) as t184,
+		sum(t185) as t185,
+		sum(t186) as t186,
+		sum(t187) as t187,
+		sum(t188) as t188,
+		sum(t189) as t189,
+		sum(t190) as t190,
+		sum(t191) as t191,
+		sum(t192) as t192,
+		sum(t193) as t193,
+		sum(t194) as t194,
+		sum(t195) as t195,
+		sum(t196) as t196,
+		sum(t197) as t197,
+		sum(t198) as t198,
+		sum(t199) as t199,
+		sum(t200) as t200,
+		sum(t201) as t201,
+		sum(t202) as t202,
+		sum(t203) as t203
+	FROM agregateds
+	WHERE subpath(geocode, 0, %d) = ?;
+	`, count)
+
+	_, err = db.Conn.QueryOne(&data, query,
+		geoCodeReq)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	return
+
 }
