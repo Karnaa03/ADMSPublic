@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -48,8 +49,9 @@ func (srv *Server) zila(footer string) {
 	})
 
 	srv.router.POST("/production/zila.html", func(c *gin.Context) {
-		division := c.PostForm("Division")
-		district := c.PostForm("District")
+
+		division := strings.Trim(strings.Split(c.PostForm("DivisionNumber"), "-")[0], " ")
+		district := strings.Trim(strings.Split(c.PostForm("DistrictNumber"), "-")[0], " ")
 		tableName := c.PostForm("TableName")
 		header, _ := templates.RenderHeader(c)
 
