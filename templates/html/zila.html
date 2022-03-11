@@ -28,27 +28,21 @@
                                         <h4>(Press space to get a list of all values)</h4>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Division<span
-                                            class="required">*</span>
+                                <div class="form-group remove-empty-values">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Division
                                         <br><small class="text-navy">বিভাগ</small></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control" data-inputmask="'mask' : '99'"
-                                            required="required" pattern="\d{2}" name="Division" id="Division"
-                                            autocomplete="chrome-off" value="{{.Division}}" autofocus>
-                                        <span class="fa fa-barcode form-control-feedback right"
-                                            aria-hidden="true"></span>
+                                        <input type="text" name="DivisionNumber" id="autocomplete-division"
+                                            class="form-control" value="{{.DivisionNumber}}" />
                                     </div>
                                 </div>
+
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">District<span
-                                            class="required">*</span>
-                                        <br><small class="text-navy">জেলা</small> </label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">District
+                                        <br><small class="text-navy">জেলা</small></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control" data-inputmask="'mask' : '99'"
-                                            required="required" pattern="\d{2}" name="District" value={{.District}}>
-                                        <span class="fa fa-barcode form-control-feedback right"
-                                            aria-hidden="true"></span>
+                                        <input type="text" name="DistrictNumber" id="autocomplete-district"
+                                            class="form-control" value="{{.DistrictNumber}}" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -175,3 +169,82 @@
 <!-- /page content -->
 
 {{.Footer}}
+
+<script>
+    function myReset() {
+        console.log('reset fields');
+        document.getElementById("autocomplete-division").value = "";
+        document.getElementById("autocomplete-district").value = "";
+        document.getElementById("autocomplete-upazilla").value = "";
+        document.getElementById("autocomplete-union").value = "";
+        document.getElementById("autocomplete-mouza").value = "";
+    }
+</script>
+
+<script>
+    function init_autocomplete() {
+        console.log('init_autocomplete');
+        $('#autocomplete-mouza').autocomplete({
+            serviceUrl: '/adms/mouza',
+            autoSelectFirst: true,
+            params: {
+                division: function () {
+                    return $("#autocomplete-division").val();
+                },
+                district: function () {
+                    return $("#autocomplete-district").val();
+                },
+                upazila: function () {
+                    return $("#autocomplete-upazilla").val();
+                },
+                union: function () {
+                    return $("#autocomplete-union").val();
+                },
+            }
+        });
+
+        $('#autocomplete-union').autocomplete({
+            serviceUrl: '/adms/union',
+            autoSelectFirst: true,
+            params: {
+                division: function () {
+                    return $("#autocomplete-division").val();
+                },
+                district: function () {
+                    return $("#autocomplete-district").val();
+                },
+                upazila: function () {
+                    return $("#autocomplete-upazilla").val();
+                },
+            }
+        });
+
+        $('#autocomplete-upazilla').autocomplete({
+            serviceUrl: '/adms/upazilla',
+            autoSelectFirst: true,
+            params: {
+                division: function () {
+                    return $("#autocomplete-division").val();
+                },
+                district: function () {
+                    return $("#autocomplete-district").val();
+                },
+            }
+        });
+
+        $('#autocomplete-district').autocomplete({
+            serviceUrl: '/adms/district',
+            autoSelectFirst: true,
+            params: {
+                division: function () {
+                    return $("#autocomplete-division").val();
+                },
+            }
+        });
+
+        $('#autocomplete-division').autocomplete({
+            serviceUrl: '/adms/division',
+            autoSelectFirst: true
+        });
+    }
+</script>
