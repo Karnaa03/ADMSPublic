@@ -19,18 +19,18 @@ func (srv *Server) FormatHouseholdTemporaryCrops(division, district, upazilla, u
 	<div class="x_content">
 	<h4>Result<small> ফলাফল</small></h4>
 	<h5>Data for table number : %s</h5>
+	<h5>Number of farm holdings : %s</h5>
+	<h5>Crop area : %s</h5>
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
 			<tr>
 				<th>Crop code and name</th>
-				<th>Number of farm holdings</th>
-				<th>Crop area</th>
 				<th>Total temporary crop area</th>
 				<th>Percentage of crop area</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr> <td><b>101 Aush</b> <td rowspan=103>%s</td> <td rowspan=103>%s</td> <td>%.2f</td> <td>%s</td> </tr>        
+			<tr> <td><b>101 Aush</b> <td>%.2f</td> <td>%s</td> </tr>        
 			<tr> <td><b>102 Almond</b></td> <td>%.2f</td> <td>%s</td> </tr>        
 			<tr> <td><b>103 Boro</b></td> <td>%.2f</td> <td>%s</td> </tr>          
 			<tr> <td><b>104 Wheat</b></td> <td>%.2f</td> <td>%s</td> </tr>         
