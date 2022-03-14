@@ -202,7 +202,7 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 	<tr>
 		<td>Service</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>
 	<tr>
 		<td>Business</td>
@@ -356,7 +356,7 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	<tr>
 		<td>Class–II</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>
 	<tr>
 		<td>Class–III</td>
@@ -581,7 +581,7 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	<tr>
 		<td>Hijra</td>
 		<td>%s</td>
-		<td>%.2f</td>
+		<td>%.2f%%</td>
 	</tr>	
 	<tr>
 		<td>Total</td>

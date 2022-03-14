@@ -462,4 +462,5 @@ update geo_codes
 set name_division = 'CHATTOGRAM DIVISION'
 where name_division = 'CHITTAGONG DIVISION';
 --@block
-select
+select distinct(pnn560)
+from agregateds;
