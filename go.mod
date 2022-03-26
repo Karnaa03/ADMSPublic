@@ -1,6 +1,6 @@
 module git.solutions.im/XeroxAgriCensus/ADMSPublic
 
-go 1.17
+go 1.18
 
 require (
 	git.solutions.im/Solutions.IM/ginOidc v0.0.11
@@ -14,7 +14,7 @@ require (
 	github.com/oleiade/reflections v1.0.1
 	github.com/sirupsen/logrus v1.7.0
 	github.com/stretchr/testify v1.6.1
-	golang.org/x/text v0.3.3
+	golang.org/x/text v0.3.7
 )
 
 require (
@@ -60,7 +60,7 @@ require (
 	golang.org/x/crypto v0.0.0-20201117144127-c1f2f97bffc9 // indirect
 	golang.org/x/net v0.0.0-20201110031124-69a78807bb2b // indirect
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
-	golang.org/x/sys v0.0.0-20201119102817-f84b799fce68 // indirect
+	golang.org/x/sys v0.0.0-20220325203850-36772127a21f // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6 // indirect
