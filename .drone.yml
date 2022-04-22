@@ -13,6 +13,7 @@ steps:
       - name: deps
         path: /go
     commands:
+      - go mod tidy
       - go build -ldflags "-X main.Version=${DRONE_TAG}" -o admspublic
     environment:
       GOARCH: arm64
@@ -56,6 +57,7 @@ steps:
       - name: deps
         path: /go
     commands:
+      - go mod tidy
       - go build -ldflags "-X main.Version=${DRONE_TAG}" -o admspublic
     environment:
       GOARCH: amd64
