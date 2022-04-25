@@ -70,7 +70,7 @@ func (db *Db) Close() {
 func (db *Db) createIndex() {
 	for name, index := range index {
 		log.Infof("create index : %s", name)
-		_, err := db.Conn.Model((*Agregated)(nil)).Exec(index)
+		_, err := db.Conn.Model((*Aggregates)(nil)).Exec(index)
 		if err != nil {
 			log.Error(err)
 		}
@@ -79,7 +79,7 @@ func (db *Db) createIndex() {
 
 func (db *Db) createSchema() (err error) {
 	for _, model := range []interface{}{
-		(*Agregated)(nil),
+		(*Aggregates)(nil),
 	} {
 		err := db.Conn.Model(model).CreateTable(&orm.CreateTableOptions{
 			IfNotExists:   true,
@@ -262,7 +262,7 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 	if err != nil {
 		return
 	}
-	query := fmt.Sprintf(`SELECT %s as data, rmo FROM agregateds where subpath(geocode, 0,%d) = ?;`, columns, count)
+	query := fmt.Sprintf(`SELECT %s as data, rmo FROM aggregates where subpath(geocode, 0,%d) = ?;`, columns, count)
 	if conditions != "" {
 		query = strings.Replace(query, ";", fmt.Sprintf(" AND %s;", conditions), 1)
 	}
@@ -296,7 +296,7 @@ func (db *Db) GetOccupationOfHouseHold(division, district, upazilla, union, mouz
     sum(occ4) as occ4,
     sum(occ5) as occ5,
 	(sum(occ) + sum(occ2) + sum(occ3) + sum(occ4) + sum(occ5)) as total
-	from agregateds
+	from aggregates
 	where subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
@@ -362,7 +362,7 @@ func (db *Db) GetEducationOfTheHouseholdHead(division, district, upazilla, union
 		sum(edu15) + 
 		sum(edu18)
     ) as Total
-from agregateds where subpath(geocode, 0,%d) = ?;`,
+from aggregates where subpath(geocode, 0,%d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
@@ -390,7 +390,7 @@ func (db *Db) GetGenderOfTheHouseholdHead(division, district, upazilla, union, m
     sum(sex2) as female,
     sum(sex3) as hijra,
     (sum(sex) + sum(sex2) + sum(sex3)) as total
-	from agregateds
+	from aggregates
 	where subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
@@ -415,7 +415,7 @@ func (db *Db) GetFisheryHolding(division, district, upazilla, union, mouza strin
 	query := fmt.Sprintf(`
 	SELECT sum(hh_f) as Number_Of_Fishery_Household,
     	(sum(hh_f)::NUMERIC / sum(hh_sno)::NUMERIC)::NUMERIC * 100 as Percentage
-	FROM agregateds
+	FROM aggregates
 	WHERE hh_f = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
@@ -440,7 +440,7 @@ func (db *Db) GetAgriculuralLaborHolding(division, district, upazilla, union, mo
 	query := fmt.Sprintf(`
 	SELECT sum(hh_a) as Number_Of_Agri_Labor_House_Hold,
     	(sum(hh_f)::NUMERIC / sum(hh_sno)::NUMERIC)::NUMERIC * 100 as Percentage
-	FROM agregateds
+	FROM aggregates
 	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
@@ -527,7 +527,7 @@ func (db *Db) GetHouseholdHeadInformation(division, district, upazilla, union, m
     	sum(c03f) as Household_Worker_15_Plus_Female,
     	sum(c03h) as Household_Worker_15_Plus_Hijra,
     	(sum(c03m) + sum(c03f) + sum(c03h)) as Household_Worker_15_Plus_Total
-	FROM agregateds
+	FROM aggregates
 	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
@@ -562,7 +562,7 @@ func (db *Db) GetOccupationOfHouseholdHead(division, district, upazilla, union, 
     	(
     	    sum(occ) + sum(occ2) + sum(occ3) + sum(occ4) + sum(occ5)
     	) as Total
-	FROM agregateds
+	FROM aggregates
 	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
@@ -591,7 +591,7 @@ func (db *Db) GetTotalNumberOfHouseholdMembers(division, district, upazilla, uni
     	sum(c01f) as Female,
     	sum(c01h) as Hijra,
     	(sum(c01m) + sum(c01f) + sum(c01h)) as Total
-	FROM agregateds
+	FROM aggregates
 	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
@@ -613,7 +613,7 @@ func (db *Db) GetTotalNumberOfHouseholdWorkers(division, district, upazilla, uni
     	sum(c02f + c03f) as Female,
     	sum(c02h + c03h) as Hijra,
     	(sum(c02m + c03m) + sum(c02f + c03f) + sum(c02h + c03h)) as Total
-	FROM agregateds
+	FROM aggregates
 	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
@@ -635,7 +635,7 @@ func (db *Db) GetTotalNumberOfHouseholdWorkers1014(division, district, upazilla,
     	sum(c02f) as Female,
     	sum(c02h) as Hijra,
     	(sum(c02m) + sum(c02f) + sum(c02h)) as Total
-	FROM agregateds
+	FROM aggregates
 	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
@@ -657,7 +657,7 @@ func (db *Db) GetTotalNumberOfHouseholdWorkers15plus(division, district, upazill
     	sum(c03f) as Female,
     	sum(c03h) as Hijra,
     	(sum(c03m) + sum(c03f) + sum(c03h)) as Total
-	FROM agregateds
+	FROM aggregates
 	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
@@ -755,25 +755,25 @@ func (db *Db) GetHouseholdLandInformation(division, district, upazilla, union, m
 		query := fmt.Sprintf(`
 		SELECT (
 			SELECT count(hh_sno)
-			FROM agregateds
+			FROM aggregates
 			WHERE %s > 0
 				AND subpath(geocode, 0, %d) = ?
 		) AS number_of_reporting_holdings,
 		(
 			SELECT count(hh_sno)
-			FROM agregateds
+			FROM aggregates
 			WHERE c18 >= 0.05
 				AND %s > 0
 				AND subpath(geocode, 0, %d) = ?
 		) AS number_of_farm_holdings,
 		(
 			SELECT sum(%s)
-			FROM agregateds
+			FROM aggregates
 			WHERE subpath(geocode, 0, %d) = ?
 		) AS total_area_of_own_land,
 		(
 			SELECT sum(c18)
-			FROM agregateds
+			FROM aggregates
 			WHERE c18 >= 0.05
 				AND %s > 0
 				AND subpath(geocode, 0, %d) = ?
@@ -825,25 +825,25 @@ func (db *Db) GetHouseholdFisheryLandInformation(division, district, upazilla, u
 		query := fmt.Sprintf(`
 		SELECT (
 			SELECT count(hh_sno)
-			FROM agregateds
+			FROM aggregates
 			WHERE %s > 0
 				AND subpath(geocode, 0, %d) = ?
 		) AS number_of_reporting_holdings,
 		(
 			SELECT count(hh_sno)
-			FROM agregateds
+			FROM aggregates
 			WHERE c18 >= 0.05
 				AND %s > 0
 				AND subpath(geocode, 0, %d) = ?
 		) AS number_of_farm_holdings,
 		(
 			SELECT sum(%s)
-			FROM agregateds
+			FROM aggregates
 			WHERE subpath(geocode, 0, %d) = ?
 		) AS total_area_of_own_land,
 		(
 			SELECT sum(c18)
-			FROM agregateds
+			FROM aggregates
 			WHERE c18 >= 0.05
 				AND %s > 0
 				AND subpath(geocode, 0, %d) = ?
@@ -917,23 +917,23 @@ func (db *Db) GetHouseholdPoultryInformation(division, district, upazilla, union
 		query := fmt.Sprintf(`
 		SELECT (
 			SELECT count(hh_sno)
-			FROM agregateds
+			FROM aggregates
 			WHERE %s > 0
 				AND subpath(geocode, 0, %d) = ?
 		) AS number_of_reporting_holdings,
 		(
 			SELECT sum(%s)
-			FROM agregateds
+			FROM aggregates
 			WHERE subpath(geocode, 0, %d) = ?
 		) AS total_number_of_poultry,
 		(
 			SELECT sum(%s)
-			FROM agregateds
+			FROM aggregates
 			WHERE subpath(geocode, 0, %d) = ?
 		) AS number_of_household_poultry,
 		(
 			SELECT sum(%s)
-			FROM agregateds
+			FROM aggregates
 			WHERE subpath(geocode, 0, %d) = ?
 		) AS number_of_household_attach_farm_poultry;`,
 			c.Column, count,
@@ -1011,23 +1011,23 @@ func (db *Db) GetHouseholdCattlenformation(division, district, upazilla, union, 
 		query := fmt.Sprintf(`
 		SELECT (
 			SELECT count(hh_sno)
-			FROM agregateds
+			FROM aggregates
 			WHERE %s > 0
 				AND subpath(geocode, 0, %d) = ?
 		) AS number_of_reporting_holdings,
 		(
 			SELECT sum(%s)
-			FROM agregateds
+			FROM aggregates
 			WHERE subpath(geocode, 0, %d) = ?
 		) AS total_number_of_cattle,
 		(
 			SELECT sum(%s)
-			FROM agregateds
+			FROM aggregates
 			WHERE subpath(geocode, 0, %d) = ?
 		) AS number_of_household_cattle,
 		(
 			SELECT sum(%s)
-			FROM agregateds
+			FROM aggregates
 			WHERE subpath(geocode, 0, %d) = ?
 		) AS number_of_household_attach_farm_cattle;`,
 			c.Column, count,
@@ -1145,13 +1145,13 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 		query := fmt.Sprintf(`
 		SELECT (
 			SELECT count(hh_sno)
-			FROM agregateds
+			FROM aggregates
 			WHERE %s > 0
 				AND subpath(geocode, 0, %d) = ?
 		) AS number_of_reporting_holdings,
 		(
 			SELECT sum(%s)
-			FROM agregateds
+			FROM aggregates
 			WHERE subpath(geocode, 0, %d) = ?
 		) AS total_number`,
 			c.NumberOfReportingHoldingsColumn, count,
@@ -1161,7 +1161,7 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 			query += fmt.Sprintf(`
 			,(
 				SELECT sum(%s)
-				FROM agregateds
+				FROM aggregates
 				WHERE subpath(geocode, 0, %d) = ?
 			) AS number_of_non_mechanical_device
 			`, c.NumberOfNonMechanicalDeviceColumn, count)
@@ -1170,7 +1170,7 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 			query += fmt.Sprintf(`
 			,(
 				SELECT sum(%s)
-				FROM agregateds
+				FROM aggregates
 				WHERE subpath(geocode, 0, %d) = ?
 			) AS number_of_diesel_device
 			`, c.NumberOfDieselDeviceColumn, count)
@@ -1179,7 +1179,7 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 			query += fmt.Sprintf(`
 			,(
 				SELECT sum(%s)
-				FROM agregateds
+				FROM aggregates
 				WHERE subpath(geocode, 0, %d) = ?
 			) AS number_of_electrical_device
 			`, c.NumberOfElectricalDeviceColumn, count)
@@ -1529,7 +1529,7 @@ func (db *Db) GetTemporaryCrops(division, district, upazilla, union, mouza strin
 		sum(t201) as t201,
 		sum(t202) as t202,
 		sum(t203) as t203
-	FROM agregateds
+	FROM aggregates
 	WHERE subpath(geocode, 0, %d) = ?;
 	`, count)
 
@@ -1877,7 +1877,7 @@ func (db *Db) GetPermanantCrops(division, district, upazilla, union, mouza strin
 		sum(t201) as t201,
 		sum(t202) as t202,
 		sum(t203) as t203
-	FROM agregateds
+	FROM aggregates
 	WHERE subpath(geocode, 0, %d) = ?;
 	`, count)
 

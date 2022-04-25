@@ -1,5 +1,8 @@
-copy agregateds
-from '/update.csv' delimiter ';' csv header;
+--@block
+drop TABLE aggregates;
+--@block
+copy aggregates
+from '/46.csv' delimiter ';' csv header;
 --@block
 select edu,
     edu1 as NoEducation,
