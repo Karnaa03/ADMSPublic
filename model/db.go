@@ -172,7 +172,6 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "lf"
 	case "6":
 		columns = "hh_sno-c04gtrhh"
-
 	case "7":
 		columns = "sum(hh_a)"
 		conditions = "hh_a = 1 GROUP BY rmo"
