@@ -32,3 +32,6 @@
     	(sum(c03m) + sum(c03f) + sum(c03h)) as Household_Worker_15_Plus_Total
 	FROM aggregates
 	WHERE hh_a = 1 AND subpath(geocode, 0, 0) = '';
+
+--@block
+SELECT sum(hh_sno) as data FROM aggregates where subpath(geocode, 0,0) = '' ;	
