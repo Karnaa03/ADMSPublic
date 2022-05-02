@@ -232,9 +232,6 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 	case "27":
 		columns = "sum(c35h+c35f)"
 		conditions = "c18 >= 0.05 GROUP BY rmo"
-	case "28":
-		columns = "sum(c36h+c36f)"
-		conditions = "true = true GROUP BY rmo"
 	case "29":
 		columns = "sum(c28h+c28f)"
 		conditions = "true = true GROUP BY rmo"
