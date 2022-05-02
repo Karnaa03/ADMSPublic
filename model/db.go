@@ -179,11 +179,13 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "sum(hh_f)"
 		conditions = "hh_f = 1 GROUP BY rmo"
 	case "9":
-		columns = "SUM(+c02f+c0c02m2h+c03m+c03f+c03h)/SUM hh_sno"
+		columns = "SUM(c02f+c0c02m2h+c03m+c03f+c03h)/SUM(hh_sno)"
 	case "10":
 		columns = "SUM (c02mfarm+c02ffarm+c02hfarm+c03mfarm+c03ffarm+c03hfarm) / SUM (sf+mf+lf) "
+		conditions = "true = true GROUP BY rmo"
 	case "11":
 		columns = "sum(c07) / SUM (hh_sno)"
+		conditions = "true = true GROUP BY rmo"
 	case "12":
 		columns = "sum(c07)"
 		conditions = "c18 >= 0.05 GROUP BY rmo"
