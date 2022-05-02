@@ -256,7 +256,6 @@ func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q 
 	tableName["22"] = "Total number of buffalo"
 	tableName["25"] = "Total number of goat"
 	tableName["26"] = "Total number of sheep "
-	tableName["27"] = "Total number of goat in farm holding"
 	tableName["28"] = "Total number of sheep in farm holding"
 	tableName["29"] = "Total number of cock/hen"
 	tableName["30"] = "Total number of duck"
