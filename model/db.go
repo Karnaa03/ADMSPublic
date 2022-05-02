@@ -179,22 +179,23 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "sum(hh_f)"
 		conditions = "hh_f = 1 GROUP BY rmo"
 	case "9":
-		columns = "c02m+c02f+c02h+c03m+c03f+c03h"
+		columns = "SUM(c02m+c02f+c02h+c03m+c03f+c03h)::NUMERIC/SUM(hh_sno)::NUMERIC"
+		conditions = "true = true GROUP BY rmo"
 	case "10":
-		columns = "c02m+c02f+c02h+c03m+c03f+c03h "
-		conditions = "c18 >= 0.05"
+		columns = "SUM (c02mfarm+c02ffarm+c02hfarm+c03mfarm+c03ffarm+c03hfarm) / SUM (sf+mf+lf) "
+		conditions = "true = true GROUP BY rmo"
 	case "11":
-		columns = "sum(c07)"
+		columns = "sum(c07) / SUM (hh_sno)"
 		conditions = "true = true GROUP BY rmo"
 	case "12":
-		columns = "sum(c07)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
+		columns = "sum(c07farm) / SUM (sf + mf + lf)"
+		conditions = "true = true GROUP BY rmo"
 	case "13":
-		columns = "sum(c08)"
+		columns = "sum(c08) / SUM (hh_sno)"
 		conditions = "true = true GROUP BY rmo"
 	case "14":
-		columns = "sum(c08)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
+		columns = "sum(c08farm) / SUM (sf + mf + lf)"
+		conditions = "true = true GROUP BY rmo"
 	case "15":
 		columns = "sum(sex)"
 		conditions = "true = true GROUP BY rmo"
@@ -202,36 +203,27 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "sum(sex2)"
 		conditions = "true = true GROUP BY rmo"
 	case "17":
-		columns = "count(c19)"
-		conditions = "c19 > 0 GROUP BY rmo"
+		columns = "SUM(c19gtrhh)"
+		conditions = "true = true GROUP BY rmo"
 	case "18":
 		columns = "sum(c19)"
 		conditions = "true = true GROUP BY rmo"
 	case "19":
-		columns = "count(sf+lf+mf)"
-		conditions = "c19 is not null GROUP BY rmo"
+		columns = "SUM (c19gtrhh)"
+		conditions = "true = true GROUP BY rmo"
 	case "20":
-		columns = "sum(c19)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
+		columns = "sum(c19farm)"
+		conditions = "true = true GROUP BY rmo"
 	case "21":
 		columns = "c33h+c33f"
 	case "22":
 		columns = "c34h+c34f"
-	case "23":
-		columns = "sum(c33h+c33f)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
-	case "24":
-		columns = "sum(c34h+c34f)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
 	case "25":
 		columns = "sum(c35h+c35f)"
 		conditions = "true = true GROUP BY rmo"
 	case "26":
 		columns = "sum(c36h+c36f)"
 		conditions = "true = true GROUP BY rmo"
-	case "27":
-		columns = "sum(c35h+c35f)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
 	case "29":
 		columns = "sum(c28h+c28f)"
 		conditions = "true = true GROUP BY rmo"
