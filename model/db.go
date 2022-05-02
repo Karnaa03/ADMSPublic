@@ -179,22 +179,23 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "sum(hh_f)"
 		conditions = "hh_f = 1 GROUP BY rmo"
 	case "9":
-		columns = "c02m+c02f+c02h+c03m+c03f+c03h"
+		columns = "SUM(c02m+c02f+c02h+c03m+c03f+c03h)::NUMERIC/SUM(hh_sno)::NUMERIC"
+		conditions = "true = true GROUP BY rmo"
 	case "10":
-		columns = "c02m+c02f+c02h+c03m+c03f+c03h "
-		conditions = "c18 >= 0.05"
+		columns = "SUM (c02mfarm+c02ffarm+c02hfarm+c03mfarm+c03ffarm+c03hfarm) / SUM (sf+mf+lf) "
+		conditions = "true = true GROUP BY rmo"
 	case "11":
-		columns = "sum(c07)"
+		columns = "sum(c07) / SUM (hh_sno)"
 		conditions = "true = true GROUP BY rmo"
 	case "12":
-		columns = "sum(c07)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
+		columns = "sum(c07farm) / SUM (sf + mf + lf)"
+		conditions = "true = true GROUP BY rmo"
 	case "13":
-		columns = "sum(c08)"
+		columns = "sum(c08) / SUM (hh_sno)"
 		conditions = "true = true GROUP BY rmo"
 	case "14":
-		columns = "sum(c08)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
+		columns = "sum(c08farm) / SUM (sf + mf + lf)"
+		conditions = "true = true GROUP BY rmo"
 	case "15":
 		columns = "sum(sex)"
 		conditions = "true = true GROUP BY rmo"
@@ -202,37 +203,25 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "sum(sex2)"
 		conditions = "true = true GROUP BY rmo"
 	case "17":
-		columns = "count(c19)"
-		conditions = "c19 > 0 GROUP BY rmo"
+		columns = "SUM(c19gtrhh)"
+		conditions = "true = true GROUP BY rmo"
 	case "18":
 		columns = "sum(c19)"
 		conditions = "true = true GROUP BY rmo"
 	case "19":
-		columns = "count(sf+lf+mf)"
-		conditions = "c19 is not null GROUP BY rmo"
+		columns = "SUM (c19gtrhh)"
+		conditions = "true = true GROUP BY rmo"
 	case "20":
-		columns = "sum(c19)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
+		columns = "sum(c19farm)"
+		conditions = "true = true GROUP BY rmo"
 	case "21":
 		columns = "c33h+c33f"
 	case "22":
 		columns = "c34h+c34f"
-	case "23":
-		columns = "sum(c33h+c33f)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
-	case "24":
-		columns = "sum(c34h+c34f)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
 	case "25":
 		columns = "sum(c35h+c35f)"
 		conditions = "true = true GROUP BY rmo"
 	case "26":
-		columns = "sum(c36h+c36f)"
-		conditions = "true = true GROUP BY rmo"
-	case "27":
-		columns = "sum(c35h+c35f)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
-	case "28":
 		columns = "sum(c36h+c36f)"
 		conditions = "true = true GROUP BY rmo"
 	case "29":
@@ -241,9 +230,6 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 	case "30":
 		columns = "sum(c29h+c29f)"
 		conditions = "true = true GROUP BY rmo"
-	case "32":
-		columns = "sum(c29h+c29f)"
-		conditions = "c18 >= 0.05 GROUP BY rmo"
 	case "33":
 		columns = "sum(t101+t102+t103+t104+t105+t112+t113+t114+t121+t122+t123+t124+t125+t127+t128+t129+t130+t131+t132+t134+t135+t157+t158+t159+t160+t161+t167+t169+t175+t176+t177+t179+t182+t185+t106+t107+t108+t109+t110+t111+t115+t116+t117+t118+t119+t120+t126+t133+t136+t137+t138+t139+t140+t141+t142+t143+t144+t145+t146+t147+t148+t149+t150+t151+t152+t153+t154+t155+t156+t162+t163+t164+t165+t166+t168+t170+t171+t172+t173+t174+t178+t180+t181+t183+t184+t186+t187+t188+t189+t190+t191+t192+t193+t194+t195+t196+t197+t198+t199+t200+t201+t202+t203)/c13"
 		conditions = "true = true GROUP BY rmo, c13"
