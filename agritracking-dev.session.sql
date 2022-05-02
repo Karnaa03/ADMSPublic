@@ -1,9 +1,10 @@
 --@block
 drop TABLE aggregates;
-
 --@block
 delete from aggregates;
-
+--@block
+select geocode
+from aggregates;
 --@block
 copy aggregates
 from '/46.csv' delimiter ';' csv header;
