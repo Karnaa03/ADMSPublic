@@ -203,8 +203,8 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "sum(sex2)"
 		conditions = "true = true GROUP BY rmo"
 	case "17":
-		columns = "count(c19)"
-		conditions = "c19 > 0 GROUP BY rmo"
+		columns = "SUM(c19gtrhh)"
+		conditions = "true = true GROUP BY rmo"
 	case "18":
 		columns = "sum(c19)"
 		conditions = "true = true GROUP BY rmo"
