@@ -783,23 +783,23 @@ func (db *Db) GetHouseholdFisheryLandInformation(division, district, upazilla, u
 	data = []HouseholdLandInformation{
 		{
 			Name:   "Land under ponds/digi",
-			Column: "c21",
+			Column: "SUM(c21gtrhh)",
 		},
 		{
 			Name:   "Fishery Land other than ponds",
-			Column: "(c22+c23+c24)",
+			Column: "SUM(c22gtrhh + c23gtrhh + c24gtrhh)",
 		},
 		{
 			Name:   "Fishery Land under salt cultivation",
-			Column: "c25",
+			Column: "SUM(c25gtrhh)",
 		},
 		{
 			Name:   "Fishery Land cultivated under pan/cage",
-			Column: "c26",
+			Column: "sum(c26gtrhh)",
 		},
 		{
 			Name:   "Fishery Land under fish cultivation by Creek",
-			Column: "c27",
+			Column: "SUM(c27gtrhh)",
 		},
 	}
 
