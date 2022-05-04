@@ -383,6 +383,13 @@ create table aggregates (
     c18gtrhh integer,
     c19gtrhh integer,
     c20gtrhh integer,
+    c21gtrhh integer,
+    c22gtrhh integer,
+    c23gtrhh integer,
+    c24gtrhh integer,
+    c25gtrhh integer,
+    c26gtrhh integer,
+    c27gtrhh integer,
     c02mfarm integer,
     c02ffarm integer,
     c02hfarm integer,
@@ -418,3 +425,5 @@ create table aggregates (
     c27smlf numeric
 );
 alter table aggregates owner to agritracking;
+--@block
+drop TABLE aggregates;
