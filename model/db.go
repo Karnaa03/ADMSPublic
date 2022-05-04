@@ -677,39 +677,39 @@ func (db *Db) GetHouseholdLandInformation(division, district, upazilla, union, m
 	data = []HouseholdLandInformation{
 		{
 			Name:   "Own land",
-			Column: "c04",
+			Column: "c04gtrhh",
 		},
 		{
 			Name:   "Given land",
-			Column: "c05",
+			Column: "c05gtrhh",
 		},
 		{
 			Name:   "Taken land",
-			Column: "c06",
+			Column: "c06gtrhh",
 		},
 		{
 			Name:   "Operated land",
-			Column: "c07",
+			Column: "c07gtrhh",
 		},
 		{
-			Name:   "Homestead",
-			Column: "c08",
+			Name:   "Homestead land",
+			Column: "c08gtrhh",
 		},
 		{
 			Name:   "Permanent Fellow land",
-			Column: "c11",
+			Column: "c11gtrhh",
 		},
 		{
 			Name:   "Uncultivated land",
-			Column: "c12",
+			Column: "c12gtrhh",
 		},
 		{
 			Name:   "Land under temporary crops",
-			Column: "c13",
+			Column: "c13gtrhh",
 		},
 		{
 			Name:   "Land under permanent crops",
-			Column: "c14",
+			Column: "c14gtrhh",
 		},
 		{
 			Name:   "Land under nursery",
@@ -717,19 +717,19 @@ func (db *Db) GetHouseholdLandInformation(division, district, upazilla, union, m
 		},
 		{
 			Name:   "Land under current fallow",
-			Column: "c17",
+			Column: "c17gtrhh",
 		},
 		{
 			Name:   "Total cultivated land",
-			Column: "c18",
+			Column: "c18gtrhh",
 		},
 		{
 			Name:   "Land under irrigation",
-			Column: "c19",
+			Column: "c19gtrhh",
 		},
 		{
 			Name:   "Land under salt cultivation",
-			Column: "c20",
+			Column: "c20gtrhh",
 		},
 	}
 
