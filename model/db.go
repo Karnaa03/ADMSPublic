@@ -174,10 +174,10 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "hh_sno-c04gtrhh"
 	case "7":
 		columns = "sum(hh_a)"
-		conditions = "hh_a = 1 GROUP BY rmo"
+		conditions = "true = true GROUP BY rmo"
 	case "8":
 		columns = "sum(hh_f)"
-		conditions = "hh_f = 1 GROUP BY rmo"
+		conditions = "true = true GROUP BY rmo"
 	case "9":
 		columns = "SUM(c02m+c02f+c02h+c03m+c03f+c03h)::NUMERIC/SUM(hh_sno)::NUMERIC"
 		conditions = "true = true GROUP BY rmo"
@@ -1619,7 +1619,7 @@ func (c PermanantCrops) PercentageOfPermantCropArea(cropArea string) string {
 		log.Errorf("unable to get %s field from Crops struct : %s", cropArea, err)
 		return "err"
 	}
-	return p.Sprintf("%f%%", (r.(float64)/
+	return p.Sprintf("%.2f%%", (r.(float64)/
 		(c.P501a+
 			c.P502a+
 			c.P503a+
@@ -1712,7 +1712,7 @@ func (db *Db) GetPermanantCrops(division, district, upazilla, union, mouza strin
 	query := fmt.Sprintf(`
 	SELECT 
     	sum(sf + mf + lf) as number_of_farm_holdings,
-    	sum(c13) as crop_area,
+    	sum(c14) as crop_area,
 		sum(p501a) as p501a,
 		sum(p502a) as p502a,
 		sum(p503a) as p503a,
