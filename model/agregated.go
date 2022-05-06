@@ -390,6 +390,13 @@ type Aggregates struct {
 	C18Gtrhh uint
 	C19Gtrhh uint
 	C20Gtrhh uint
+	C21Gtrhh uint
+	C23Gtrhh uint
+	C22Gtrhh uint
+	C25Gtrhh uint
+	C24Gtrhh uint
+	C27Gtrhh uint
+	C26Gtrhh uint
 	C02Mfarm uint
 	C02Ffarm uint
 	C02Hfarm uint
