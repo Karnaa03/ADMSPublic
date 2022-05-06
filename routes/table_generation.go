@@ -66,6 +66,8 @@ func (srv *Server) tableGeneration(footer string) {
 			tableAndDonut, err = srv.FormatHouseholdCattleInformation(division, district, upazilla, union, mouza, &q)
 		case "6":
 			tableAndDonut, err = srv.FormatHouseholdTemporaryCrops(division, district, upazilla, union, mouza, &q)
+		case "7":
+			tableAndDonut, err = srv.FormatHouseholdPermanentCrops(division, district, upazilla, union, mouza, &q)
 		case "8":
 			tableAndDonut, err = srv.FormatHouseholdAgricultureEquipementInformation(division, district, upazilla, union, mouza, &q)
 		}
@@ -193,6 +195,6 @@ func getTableGenerationName(tableNumber string) string {
 	tableName["5"] = "Household cattle"
 	tableName["6"] = "Temporary Crops"
 	tableName["7"] = "Permanent Crops"
-
+	tableName["8"] = "Household Agriculture Equipment"
 	return tableName[tableNumber]
 }
