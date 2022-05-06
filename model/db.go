@@ -398,7 +398,7 @@ func (db *Db) GetFisheryHolding(division, district, upazilla, union, mouza strin
 	SELECT sum(hh_f) as Number_Of_Fishery_Household,
     	(sum(hh_f)::NUMERIC / sum(hh_sno)::NUMERIC)::NUMERIC * 100 as Percentage
 	FROM aggregates
-	WHERE hh_f = 1 AND subpath(geocode, 0, %d) = ?;`,
+	WHERE   subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
@@ -423,7 +423,7 @@ func (db *Db) GetAgriculuralLaborHolding(division, district, upazilla, union, mo
 	SELECT sum(hh_a) as Number_Of_Agri_Labor_House_Hold,
     	(sum(hh_f)::NUMERIC / sum(hh_sno)::NUMERIC)::NUMERIC * 100 as Percentage
 	FROM aggregates
-	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+	WHERE  subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
