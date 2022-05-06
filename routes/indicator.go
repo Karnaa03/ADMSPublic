@@ -254,12 +254,12 @@ func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q 
 	tableName["20"] = "Total number of farms holding area irrigated & percentage "
 	tableName["21"] = "Total number of cow"
 	tableName["22"] = "Total number of buffalo"
-	tableName["25"] = "Total number of goat"
-	tableName["26"] = "Total number of sheep "
-	tableName["29"] = "Total number of cock/hen"
-	tableName["30"] = "Total number of duck"
-	tableName["33"] = "Cropping Intensity"
-	tableName["34"] = "Net cropped area "
+	tableName["23"] = "Total number of goat"
+	tableName["24"] = "Total number of sheep "
+	tableName["25"] = "Total number of cock/hen"
+	tableName["26"] = "Total number of duck"
+	tableName["27"] = "Cropping Intensity"
+	tableName["28"] = "Net cropped area "
 
 	c.HTML(http.StatusOK, "indicator.html", gin.H{
 		// "Name":                   name,

@@ -218,22 +218,22 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "c33h+c33f"
 	case "22":
 		columns = "c34h+c34f"
-	case "25":
+	case "23":
 		columns = "sum(c35h+c35f)"
 		conditions = "true = true GROUP BY rmo"
-	case "26":
+	case "24":
 		columns = "sum(c36h+c36f)"
 		conditions = "true = true GROUP BY rmo"
-	case "29":
+	case "25":
 		columns = "sum(c28h+c28f)"
 		conditions = "true = true GROUP BY rmo"
-	case "30":
+	case "26":
 		columns = "sum(c29h+c29f)"
 		conditions = "true = true GROUP BY rmo"
-	case "33":
+	case "27":
 		columns = "sum(t101+t102+t103+t104+t105+t112+t113+t114+t121+t122+t123+t124+t125+t127+t128+t129+t130+t131+t132+t134+t135+t157+t158+t159+t160+t161+t167+t169+t175+t176+t177+t179+t182+t185+t106+t107+t108+t109+t110+t111+t115+t116+t117+t118+t119+t120+t126+t133+t136+t137+t138+t139+t140+t141+t142+t143+t144+t145+t146+t147+t148+t149+t150+t151+t152+t153+t154+t155+t156+t162+t163+t164+t165+t166+t168+t170+t171+t172+t173+t174+t178+t180+t181+t183+t184+t186+t187+t188+t189+t190+t191+t192+t193+t194+t195+t196+t197+t198+t199+t200+t201+t202+t203)/c13"
 		conditions = "true = true GROUP BY rmo, c13"
-	case "34":
+	case "28":
 		columns = "sum(c13)"
 		conditions = "true = true GROUP BY rmo"
 	default:
