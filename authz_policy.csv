@@ -1,38 +1,9 @@
 # public ressources
-p, /agritracking/*, /vendors/*, GET
-p, /agritracking/*, /build/*, GET
-p, /agritracking/*, /images/*, GET
-p, /agritracking/*, /favicon.ico, GET
-p, /agritracking/*, /, GET
-p, /adms/*, /vendors/*, GET
-p, /adms/*, /build/*, GET
-p, /adms/*, /images/*, GET
-p, /adms/*, /favicon.ico, GET
-p, /adms/*, /, GET
+p, /admspublic/*, /vendors/*, GET
+p, /admspublic/*, /build/*, GET
+p, /admspublic/*, /images/*, GET
+p, /admspublic/*, /favicon.ico, GET
+p, /admspublic/*, /, GET
 
-# operator
-p, /agritracking/operator, /production/*, *
-
-# supervisor
-p, /agritracking/supervisor, /production/*, *
-p, /agritracking/supervisor, /reporting/*, *
-
-# administrator
-p, /agritracking/administrator, /production/*, *
-p, /agritracking/administrator, /reporting/*, *
-p, /agritracking/administrator, /admin/*, *
-p, /agritracking/administrator, /warehouse/*, *
-
-# customer
-p, /agritracking/customer, /reporting/*, *
-
-# archivist
-p, /agritracking/archivist, /warehouse/*, *
-
-# adms
-p, /adms/read, /adms/search.html, *
-p, /adms/read, /adms/*, GET
-p, /adms/update, /adms/*, *
-
-# geocodeUpdater
-p, /agritracking/geocodeUpdater, /geocodeUpdate/*, *
+# registered members
+p, /admspublic/member, /production/*, *

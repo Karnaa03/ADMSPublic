@@ -7,16 +7,20 @@ import (
 )
 
 type Config struct {
-	DbHost     string
-	DbUser     string
-	DbPassword string
-	DbDatabase string
-	DbLog      bool
-	DbInit     bool
-	ListenAddr string
-	BaseUrl    string
-	Version    string
-	S3Config   S3Config
+	DbHost             string
+	DbUser             string
+	DbPassword         string
+	DbDatabase         string
+	DbLog              bool
+	DbInit             bool
+	ListenAddr         string
+	BaseUrl            string
+	Version            string
+	OpenIdURL          string
+	OpenIdClientID     string
+	OpenIdClientSecret string
+	OpenIdLogoutPath   string
+	S3Config           S3Config
 }
 
 type S3Config struct {
@@ -45,6 +49,10 @@ func (c *Config) Load() {
 	c.DbInit = dbInit
 	c.ListenAddr = env.GetEnvOrElse("LISTEN_ADDR", "0.0.0.0:4000")
 	c.BaseUrl = env.GetEnvOrElse("BASE_URL", "http://localhost:4000/")
+	c.OpenIdURL = env.GetEnvOrElse("OPENID_URL", "https://auth.solutions.im/auth/realms/adms_public")
+	c.OpenIdClientID = env.GetEnvOrElse("OPENID_CLIENT_ID", "admspublic")
+	c.OpenIdClientSecret = env.GetEnvOrElse("OPENID_CLIENT_SECRET", "9XLa3ANDYfEnjJ7ytGi87yZaa9AVuheU")
+	c.OpenIdLogoutPath = env.GetEnvOrElse("OPENID_LOGOUT_PATH", "auth/realms/adms_public/protocol/openid-connect/logout")
 
 	c.S3Config.Endpoint = env.GetEnvOrElse("S3_ENDPOINT", "minio.solutions.im:10443")
 	c.S3Config.AccessKey = env.GetEnvOrElse("S3_ACCESS_KEY", "U65Z81EH9S39NTNYZ71U")

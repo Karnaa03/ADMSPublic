@@ -3,10 +3,14 @@ package routes
 import (
 	"os"
 
+	"github.com/casbin/casbin/v2"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 
+	ginoidc "git.solutions.im/Solutions.IM/ginOidc"
+	"git.solutions.im/XeroxAgriCensus/ADMSPublic/auth"
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/conf"
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/model"
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/s3"
@@ -14,18 +18,33 @@ import (
 )
 
 type Server struct {
-	Config      conf.Config
-	Db          model.Db
-	S3          s3.S3
-	CookieStore cookie.Store
-	// AuthParam           ginoidc.InitParams
+	Config              conf.Config
+	Db                  model.Db
+	S3                  s3.S3
+	CookieStore         cookie.Store
+	AuthParam           ginoidc.InitParams
 	router              *gin.Engine
 	autoCompleteGeoCode string
 }
 
 func (srv *Server) InitRouter() (err error) {
 	srv.router = gin.Default()
+	srv.AuthParam, err = auth.InitAuth(srv.Config, srv.router)
+	if err != nil {
+		log.Fatal(err)
+	}
+	srv.CookieStore = cookie.NewStore([]byte("secret"))
+
+	srv.router.Use(sessions.Sessions("agritracking", srv.CookieStore))
+	// manage authentication
+	srv.router.Use(ginoidc.Init(srv.AuthParam))
+	// manage authorization
+	enforcer, err := casbin.NewEnforcer("authz_model.conf", "authz_policy.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
 	srv.registerStatic()
+	srv.router.Use(ginoidc.NewAuthorizer(enforcer))
 	srv.registerPages()
 	return
 }
