@@ -35,3 +35,11 @@
 
 --@block
 SELECT sum(hh_sno) as data FROM aggregates where subpath(geocode, 0,0) = '' ;	
+
+
+--@block
+Select  SUM(c02m+c02f+c02h+c03m+c03f+c03h)::NUMERIC as somme, 
+SUM(c02m+c02f+c02h+c03m+c03f+c03h)::NUMERIC/SUM(hh_sno)::NUMERIC as ratio, 
+SUM(hh_sno)::NUMERIC as somme_hno, rmo
+from aggregates
+where true = true GROUP BY rmo;

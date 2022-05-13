@@ -22,23 +22,19 @@ func (srv *Server) FormatHouseholdCattleInformation(division, district, upazilla
 			<td>%s</td>
 			<td>%s</td>
 			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
 		</tr>
 								
 		`,
 			hli.Name,
 			p.Sprintf("%d", hli.NumberOfReportingHoldings),
 			p.Sprintf("%d", hli.TotalNumberOfCattle),
-			p.Sprintf("%d", hli.NumberOfHouseholdCattle),
-			p.Sprintf("%d", hli.NumberOfHouseholdAttachFarmCattle),
 			p.Sprintf("%.2f", (float64(hli.TotalNumberOfCattle)/float64(hli.NumberOfReportingHoldings))),
 		)
 	}
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
-	<h4>Result<small> ফলাফল</small></h4>
+	<h4>Result></h4>
 	<h5>Data for table number : %s</h5>
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
@@ -46,8 +42,6 @@ func (srv *Server) FormatHouseholdCattleInformation(division, district, upazilla
 				<th>Report</th>
 				<th>Number of reporting holdings</th>
 				<th>Total number of cattle</th>
-				<th>Number of household cattle</th>
-				<th>Number of household attach farm cattle</th>
 				<th>Average type of cattle per holding</th>
 			</tr>
 		</thead>

@@ -992,7 +992,7 @@ func (db *Db) GetHouseholdCattlenformation(division, district, upazilla, union, 
 	for i, c := range data {
 		query := fmt.Sprintf(`
 		SELECT (
-			SELECT count(hh_sno)
+			SELECT sum(hh_sno)
 			FROM aggregates
 			WHERE %s > 0
 				AND subpath(geocode, 0, %d) = ?
