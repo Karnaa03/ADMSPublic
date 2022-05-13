@@ -22,16 +22,16 @@
                             <br />
                             <form id="bar-code-generation" data-parsley-validate
                                 class="form-horizontal form-label-left">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">National</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" name="National" id="autocomplete-National"  class="form-control" autocomplete="off" value="Bangladesh" readonly="true" />
+                                    </div>
+                                </div>
                                 <div class="form-group remove-empty-values">
                                     <div class="col-md3 col-sm-3 col-xs-3"></div>
                                     <div class="col-md6 col-sm-6 col-xs-12">
                                         <h4>(Press space to get a list of all values)</h4>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">National</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                   <input type="text" name="National" id="autocomplete-National"  class="form-control" autocomplete="off" value="Bangladesh" readonly="true" />
                                     </div>
                                 </div>
                                 <div class="form-group remove-empty-values">
@@ -39,16 +39,16 @@
                                         </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" name="DivisionNumber" id="autocomplete-division"
-                                            class="form-control" autocomplete="off" value="{{.DivisionNumber}}" placeholder="Press space or Type Division Name" />
+                                            class="form-control" value="{{.DivisionNumber}}" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3">District
-                                        </label>
+                                       </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" name="DistrictNumber" id="autocomplete-district"
-                                            class="form-control" value="{{.DistrictNumber}}" placeholder="Press space or Type District Name" />
+                                            class="form-control" value="{{.DistrictNumber}}" />
                                     </div>
                                 </div>
 
@@ -57,7 +57,7 @@
                                        </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" name="UpazilaNumber" id="autocomplete-upazilla"
-                                            class="form-control" value="{{.UpazilaNumber}}" placeholder="Press space or Type Upazila Name" />
+                                            class="form-control" value="{{.UpazilaNumber}}" />
                                     </div>
                                 </div>
 
@@ -66,7 +66,7 @@
                                        </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" name="UnionNumber" id="autocomplete-union"
-                                            class="form-control" value="{{.UnionNumber}}" placeholder="Press space or Type Union Name"/>
+                                            class="form-control" value="{{.UnionNumber}}" />
                                     </div>
                                 </div>
 
@@ -75,7 +75,7 @@
                                        </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" name="MouzaNumber" id="autocomplete-mouza"
-                                            class="form-control" value="{{.MouzaNumber}}" placeholder="Press space or Type Mouza Name"/>
+                                            class="form-control" value="{{.MouzaNumber}}" />
                                     </div>
                                 </div>
 
