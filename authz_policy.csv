@@ -7,3 +7,4 @@ p, /admspublic/*, /, GET
 
 # registered members
 p, /admspublic/member, /production/*, *
+p, /admspublic/member, /adms/*, *
