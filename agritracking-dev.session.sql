@@ -472,3 +472,6 @@ where name_division = 'CHITTAGONG DIVISION';
 --@block
 select distinct(pnn560)
 from agregateds;
+--@block
+select SUM(c02m + c02f + c02h + c03m + c03f + c03h)::NUMERIC / SUM(hh_sno)::NUMERIC
+from aggregates;

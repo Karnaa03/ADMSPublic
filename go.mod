@@ -7,6 +7,8 @@ require (
 	git.solutions.im/Solutions.IM/goUtils v1.0.15
 	git.solutions.im/XeroxAgriCensus/AgriInject v0.0.18
 	github.com/antonfisher/nested-logrus-formatter v1.3.0
+	github.com/casbin/casbin/v2 v2.8.7
+	github.com/coreos/go-oidc v2.2.1+incompatible
 	github.com/gin-contrib/sessions v0.0.3
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-pg/pg/v10 v10.7.3
@@ -22,8 +24,6 @@ require (
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20211218093645-b94a6e3cc137 // indirect
-	github.com/casbin/casbin/v2 v2.8.7 // indirect
-	github.com/coreos/go-oidc v2.2.1+incompatible // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-pg/zerochecker v0.2.0 // indirect
