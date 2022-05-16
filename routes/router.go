@@ -15,6 +15,7 @@ import (
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/model"
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/s3"
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/templates"
+	"github.com/gin-contrib/gzip"
 )
 
 type Server struct {
@@ -29,6 +30,9 @@ type Server struct {
 
 func (srv *Server) InitRouter() (err error) {
 	srv.router = gin.Default()
+
+	srv.router.Use(gzip.Gzip(gzip.DefaultCompression))
+
 	srv.AuthParam, err = auth.InitAuth(srv.Config, srv.router)
 	if err != nil {
 		log.Fatal(err)
