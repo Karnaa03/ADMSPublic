@@ -330,7 +330,8 @@ func (db *Db) GetEducationOfTheHouseholdHead(division, district, upazilla, union
     sum(edu15) as Bachelor_equivalent,
     sum(edu18) as Masters_Equivalent_Or_Higher,
     (
-        sum(edu1) + 
+        sum(edu) + 
+		sum(edu1) + 
 		sum(edu2) + 
 		sum(edu3) + 
 		sum(edu4) + 
