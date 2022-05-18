@@ -510,7 +510,7 @@ func (db *Db) GetHouseholdHeadInformation(division, district, upazilla, union, m
     	sum(c03h) as Household_Worker_15_Plus_Hijra,
     	(sum(c03m) + sum(c03f) + sum(c03h)) as Household_Worker_15_Plus_Total
 	FROM aggregates
-	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+	WHERE subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
@@ -545,7 +545,7 @@ func (db *Db) GetOccupationOfHouseholdHead(division, district, upazilla, union, 
     	    sum(occ) + sum(occ2) + sum(occ3) + sum(occ4) + sum(occ5)
     	) as Total
 	FROM aggregates
-	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+	WHERE subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
@@ -574,7 +574,7 @@ func (db *Db) GetTotalNumberOfHouseholdMembers(division, district, upazilla, uni
     	sum(c01h) as Hijra,
     	(sum(c01m) + sum(c01f) + sum(c01h)) as Total
 	FROM aggregates
-	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+	WHERE subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
@@ -596,7 +596,7 @@ func (db *Db) GetTotalNumberOfHouseholdWorkers(division, district, upazilla, uni
     	sum(c02h + c03h) as Hijra,
     	(sum(c02m + c03m) + sum(c02f + c03f) + sum(c02h + c03h)) as Total
 	FROM aggregates
-	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+	WHERE subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
@@ -618,7 +618,7 @@ func (db *Db) GetTotalNumberOfHouseholdWorkers1014(division, district, upazilla,
     	sum(c02h) as Hijra,
     	(sum(c02m) + sum(c02f) + sum(c02h)) as Total
 	FROM aggregates
-	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+	WHERE subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
@@ -640,7 +640,7 @@ func (db *Db) GetTotalNumberOfHouseholdWorkers15plus(division, district, upazill
     	sum(c03h) as Hijra,
     	(sum(c03m) + sum(c03f) + sum(c03h)) as Total
 	FROM aggregates
-	WHERE hh_a = 1 AND subpath(geocode, 0, %d) = ?;`,
+	WHERE subpath(geocode, 0, %d) = ?;`,
 		count)
 	_, err = db.Conn.QueryOne(&data, query,
 		geoCodeReq)
@@ -736,13 +736,13 @@ func (db *Db) GetHouseholdLandInformation(division, district, upazilla, union, m
 	for i, c := range data {
 		query := fmt.Sprintf(`
 		SELECT (
-			SELECT count(hh_sno)
+			SELECT sum(hh_sno)
 			FROM aggregates
 			WHERE %s > 0
 				AND subpath(geocode, 0, %d) = ?
 		) AS number_of_reporting_holdings,
 		(
-			SELECT count(hh_sno)
+			SELECT sum(hh_sno)
 			FROM aggregates
 			WHERE c18 >= 0.05
 				AND %s > 0
@@ -898,7 +898,7 @@ func (db *Db) GetHouseholdPoultryInformation(division, district, upazilla, union
 	for i, c := range data {
 		query := fmt.Sprintf(`
 		SELECT (
-			SELECT count(hh_sno)
+			SELECT sum(hh_sno)
 			FROM aggregates
 			WHERE %s > 0
 				AND subpath(geocode, 0, %d) = ?
