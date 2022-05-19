@@ -182,7 +182,7 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "SUM(c02m+c02f+c02h+c03m+c03f+c03h)::NUMERIC/SUM(hh_sno)::NUMERIC"
 		conditions = "true = true GROUP BY rmo"
 	case "10":
-		columns = "SUM (c02mfarm+c02ffarm+c02hfarm+c03mfarm+c03ffarm+c03hfarm) / SUM (sf+mf+lf) "
+		columns = "SUM (c02mfarm+c02ffarm+c02hfarm+c03mfarm+c03ffarm+c03hfarm) ::decimal / SUM (sf+mf+lf) ::decimal"
 		conditions = "true = true GROUP BY rmo"
 	case "11":
 		columns = "sum(c07) / SUM (hh_sno)"
