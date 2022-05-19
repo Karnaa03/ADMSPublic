@@ -1,3 +1,7 @@
+--@vlock
+drop table aggregates;
+--@block
+-- auto-generated definition
 create table aggregates (
     geocode ltree,
     rmo integer,
@@ -422,8 +426,35 @@ create table aggregates (
     c24smlf numeric,
     c25smlf numeric,
     c26smlf numeric,
-    c27smlf numeric
+    c27smlf numeric,
+    c28gtrhh integer,
+    c29gtrhh integer,
+    c30gtrhh integer,
+    c31gtrhh integer,
+    c32gtrhh integer,
+    c33gtrhh integer,
+    c34gtrhh integer,
+    c35gtrhh integer,
+    c36gtrhh integer,
+    c37gtrhh integer,
+    c38gtrhh integer,
+    c39gtrhh integer,
+    c40gtrhh integer,
+    c41gtrhh integer,
+    c42gtrhh integer,
+    c43gtrhh integer,
+    c44gtrhh integer,
+    c45gtrhh integer,
+    c46gtrhh integer,
+    c47gtrhh integer,
+    c48gtrhh integer,
+    c49gtrhh integer,
+    c21smlfhh integer,
+    c22smlfhh integer,
+    c23smlfhh integer,
+    c24smlfhh integer,
+    c25smlfhh integer,
+    c26smlfhh integer,
+    c27smlfhh integer
 );
 alter table aggregates owner to agritracking;
---@block
-drop TABLE aggregates;

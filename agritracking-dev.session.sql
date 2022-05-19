@@ -96,7 +96,7 @@ from agregateds
 where hh_f = 1;
 --@block
 COPY agregateds
-FROM '/data.csv' DELIMITER ';' CSV HEADER;
+FROM '/46.csv' DELIMITER ';' CSV HEADER;
 --@block
 alter table agregateds
 alter COLUMN t101 TYPE NUMERIC USING t101::NUMERIC,
