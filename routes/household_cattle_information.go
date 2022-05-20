@@ -34,7 +34,7 @@ func (srv *Server) FormatHouseholdCattleInformation(division, district, upazilla
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
-	<h4>Result></h4>
+	<h4>Result<small> </small></h4>
 	<h5>Data for table number : %s</h5>
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
