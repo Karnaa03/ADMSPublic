@@ -455,6 +455,23 @@ create table aggregates (
     c24smlfhh integer,
     c25smlfhh integer,
     c26smlfhh integer,
-    c27smlfhh integer
+    c27smlfhh integer,
+    c04smlfhh integer,
+    c05smlfhh integer,
+    c06smlfhh integer,
+    c07smlfhh integer,
+    c08smlfhh integer,
+    c09smlfhh integer,
+    c010smlfhh integer,
+    c11smlfhh integer,
+    c12smlfhh integer,
+    c13smlfhh integer,
+    c14smlfhh integer,
+    c15smlfhh integer,
+    c16smlfhh integer,
+    c17smlfhh integer,
+    c18smlfhh integer,
+    c19smlfhh integer,
+    c20smlfhh integer
 );
 alter table aggregates owner to agritracking;
