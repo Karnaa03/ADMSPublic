@@ -776,65 +776,91 @@ func (db *Db) GetHouseholdLandInformation(division, district, upazilla, union, m
 	return
 }
 
-func (db *Db) GetHouseholdFisheryLandInformation(division, district, upazilla, union, mouza string) (data []HouseholdLandInformation, err error) {
+type HouseholdFisheryLandInformation struct {
+	Name                            string
+	NumberOfReportingHoldingsColumn string
+	NumberOfReportingHoldings       uint
+	NumberOfFarmHoldingsColumn      string
+	NumberOfFarmHoldings            uint
+	TotalAreaOfOwnLandColumn        string
+	TotalAreaOfOwnLand              float64
+	TotalFarmHoldingAreaColumn      string
+	TotalFarmHoldingArea            float64
+	AverageAreaPerFarmHolding       float64
+}
+
+func (db *Db) GetHouseholdFisheryLandInformation(division, district, upazilla, union, mouza string) (data []HouseholdFisheryLandInformation, err error) {
 	geoCodeReq, count, err := GetGeoRequest(division, district, upazilla, union, mouza)
 	if err != nil {
 		return
 	}
-	data = []HouseholdLandInformation{
+	data = []HouseholdFisheryLandInformation{
 		{
-			Name:   "Land under ponds/digi",
-			Column: "SUM(c21gtrhh)",
+			Name:                            "Land under ponds/digi",
+			NumberOfReportingHoldingsColumn: "c21gtrhh",
+			NumberOfFarmHoldingsColumn:      "c21smlfhh",
+			TotalAreaOfOwnLandColumn:        "c21",
+			TotalFarmHoldingAreaColumn:      "c21smlf",
 		},
 		{
-			Name:   "Fishery Land other than ponds",
-			Column: "SUM(c22gtrhh + c23gtrhh + c24gtrhh)",
+			Name:                            "Fishery Land other than ponds",
+			NumberOfReportingHoldingsColumn: "c22gtrhh",
+			NumberOfFarmHoldingsColumn:      "c22smlfhh",
+			TotalAreaOfOwnLandColumn:        "c22",
+			TotalFarmHoldingAreaColumn:      "c22smlf",
 		},
+
 		{
-			Name:   "Fishery Land under salt cultivation",
-			Column: "SUM(c25gtrhh)",
+			Name:                            "Fishery Land under salt cultivation",
+			NumberOfReportingHoldingsColumn: "c23gtrhh",
+			NumberOfFarmHoldingsColumn:      "c23smlfhh",
+			TotalAreaOfOwnLandColumn:        "c23",
+			TotalFarmHoldingAreaColumn:      "c23smlf",
 		},
+
 		{
-			Name:   "Fishery Land cultivated under pan/cage",
-			Column: "sum(c26gtrhh)",
+			Name:                            "Fishery Land cultivated under pan/cage",
+			NumberOfReportingHoldingsColumn: "c24gtrhh",
+			NumberOfFarmHoldingsColumn:      "c24smlfhh",
+			TotalAreaOfOwnLandColumn:        "c24",
+			TotalFarmHoldingAreaColumn:      "c24smlf",
 		},
+
 		{
-			Name:   "Fishery Land under fish cultivation by Creek",
-			Column: "SUM(c27gtrhh)",
+			Name:                            "Fishery Land under fish cultivation by Creek",
+			NumberOfReportingHoldingsColumn: "c25gtrhh",
+			NumberOfFarmHoldingsColumn:      "c25smlfhh",
+			TotalAreaOfOwnLandColumn:        "c25",
+			TotalFarmHoldingAreaColumn:      "c25smlf",
 		},
 	}
 
 	for i, c := range data {
 		query := fmt.Sprintf(`
 		SELECT (
-			SELECT count(hh_sno)
+			SELECT sum(%s)
 			FROM aggregates
-			WHERE %s > 0
-				AND subpath(geocode, 0, %d) = ?
+			WHERE subpath(geocode, 0, %d) = ''
 		) AS number_of_reporting_holdings,
 		(
-			SELECT count(hh_sno)
+			SELECT sum(%s)
 			FROM aggregates
-			WHERE c18 >= 0.05
-				AND %s > 0
-				AND subpath(geocode, 0, %d) = ?
+			WHERE subpath(geocode, 0, %d) = ''
 		) AS number_of_farm_holdings,
 		(
 			SELECT sum(%s)
 			FROM aggregates
-			WHERE subpath(geocode, 0, %d) = ?
+			WHERE subpath(geocode, 0, %d) = ''
 		) AS total_area_of_own_land,
 		(
-			SELECT sum(c18)
+			SELECT sum(%s)
 			FROM aggregates
-			WHERE c18 >= 0.05
-				AND %s > 0
-				AND subpath(geocode, 0, %d) = ?
-		) AS total_farm_holding_area;`,
-			c.Column, count,
-			c.Column, count,
-			c.Column, count,
-			c.Column, count)
+			WHERE subpath(geocode, 0, %d) = ''
+		) AS total_farm_holding_area`,
+			c.NumberOfReportingHoldingsColumn, count,
+			c.NumberOfFarmHoldingsColumn, count,
+			c.TotalAreaOfOwnLandColumn, count,
+			c.TotalFarmHoldingAreaColumn, count)
 		_, err = db.Conn.QueryOne(&c, query,
 			geoCodeReq, geoCodeReq, geoCodeReq, geoCodeReq)
 		if err != nil {
