@@ -475,3 +475,29 @@ create table aggregates (
     c20smlfhh integer
 );
 alter table aggregates owner to agritracking;
+--@block
+SELECT (
+        SELECT sum(c21gtrhh)
+        FROM aggregates
+        WHERE subpath(geocode, 0, 0) = ''
+    ) AS number_of_reporting_holdings,
+    (
+        SELECT sum(c21smlfhh)
+        FROM aggregates
+        WHERE subpath(geocode, 0, 0) = ''
+    ) AS number_of_farm_holdings,
+    (
+        SELECT sum(c21)
+        FROM aggregates
+        WHERE subpath(geocode, 0, 0) = ''
+    ) AS total_area_of_own_land,
+    (
+        SELECT sum(c21smlf)
+        FROM aggregates
+        WHERE subpath(geocode, 0, 0) = ''
+    ) AS total_farm_holding_area;
+--@block
+SELECT count(hh_sno)
+FROM aggregates
+WHERE c21gtrhh > 0
+    AND subpath(geocode, 0, 0) = ''

@@ -848,13 +848,12 @@ func (db *Db) GetHouseholdFisheryLandInformation(division, district, upazilla, u
 
 type HouseholdPoultryInformation struct {
 	Name                                     string
+	NumberOfHousehold                        string
 	Column                                   string
 	NumberOfHouseholdPoultryColumn           string
 	NumberOfHouseholdAttachFarmPoultryColumn string
 	NumberOfReportingHoldings                uint
 	TotalNumberOfPoultry                     uint
-	NumberOfHouseholdPoultry                 uint
-	NumberOfHouseholdAttachFarmPoultry       uint
 	AverageTypeOfPoultryPerHolding           float64
 }
 
@@ -866,43 +865,42 @@ func (db *Db) GetHouseholdPoultryInformation(division, district, upazilla, union
 	data = []HouseholdPoultryInformation{
 		{
 			Name:                                     "Cock/Hen",
-			Column:                                   "(c28h + c28f)",
-			NumberOfHouseholdPoultryColumn:           "c28h",
-			NumberOfHouseholdAttachFarmPoultryColumn: "c28f",
+			Column:                                   "c28gtrhh",
+			NumberOfHouseholdPoultryColumn:           "c28h + c28f",
+			NumberOfHouseholdAttachFarmPoultryColumn: "sum(c28h + c28f)/sum(hh_sno)",
 		},
 		{
 			Name:                                     "Duck",
-			Column:                                   "(c29h + c29f)",
-			NumberOfHouseholdPoultryColumn:           "c29h",
-			NumberOfHouseholdAttachFarmPoultryColumn: "c29f",
+			Column:                                   "c29gtrhh",
+			NumberOfHouseholdPoultryColumn:           "c29h + c29f",
+			NumberOfHouseholdAttachFarmPoultryColumn: "sum(c29h + c29f) / sum(hh_sno)",
 		},
 		{
 			Name:                                     "Pigeon",
-			Column:                                   "(c30h + c30f)",
-			NumberOfHouseholdPoultryColumn:           "c30h",
-			NumberOfHouseholdAttachFarmPoultryColumn: "c30f",
+			Column:                                   "c30gtrhh",
+			NumberOfHouseholdPoultryColumn:           "c30h + c30f",
+			NumberOfHouseholdAttachFarmPoultryColumn: "sum(c30h + c30f) / sum(hh_sno)",
 		},
 		{
 			Name:                                     "Quail",
-			Column:                                   "(c31h + c31f)",
-			NumberOfHouseholdPoultryColumn:           "c31h",
-			NumberOfHouseholdAttachFarmPoultryColumn: "c31f",
+			Column:                                   "c31gtrhh",
+			NumberOfHouseholdPoultryColumn:           "c31h + c31f",
+			NumberOfHouseholdAttachFarmPoultryColumn: "sum(c31h + c31f) / sum(hh_sno)",
 		},
 		{
 			Name:                                     "Turkey",
-			Column:                                   "(c32h + c32f)",
-			NumberOfHouseholdPoultryColumn:           "c32h",
-			NumberOfHouseholdAttachFarmPoultryColumn: "c32f",
+			Column:                                   "c32gtrhh",
+			NumberOfHouseholdPoultryColumn:           "c32h + c32f",
+			NumberOfHouseholdAttachFarmPoultryColumn: "sum(c32h + c32f) / sum(hh_sno)",
 		},
 	}
 
 	for i, c := range data {
 		query := fmt.Sprintf(`
 		SELECT (
-			SELECT sum(hh_sno)
+			SELECT sum(%s)
 			FROM aggregates
-			WHERE %s > 0
-				AND subpath(geocode, 0, %d) = ?
+			WHERE subpath(geocode, 0, %d) = ?
 		) AS number_of_reporting_holdings,
 		(
 			SELECT sum(%s)
@@ -910,16 +908,10 @@ func (db *Db) GetHouseholdPoultryInformation(division, district, upazilla, union
 			WHERE subpath(geocode, 0, %d) = ?
 		) AS total_number_of_poultry,
 		(
-			SELECT sum(%s)
+			SELECT %s::FLOAT
 			FROM aggregates
 			WHERE subpath(geocode, 0, %d) = ?
-		) AS number_of_household_poultry,
-		(
-			SELECT sum(%s)
-			FROM aggregates
-			WHERE subpath(geocode, 0, %d) = ?
-		) AS number_of_household_attach_farm_poultry;`,
-			c.Column, count,
+		) AS average_type_of_poultry_per_holding;`,
 			c.Column, count,
 			c.NumberOfHouseholdPoultryColumn, count,
 			c.NumberOfHouseholdAttachFarmPoultryColumn, count)
@@ -941,8 +933,6 @@ type HouseholdCattleInformation struct {
 	NumberOfHouseholdAttachFarmCattleColumn string
 	NumberOfReportingHoldings               uint
 	TotalNumberOfCattle                     uint
-	NumberOfHouseholdCattle                 uint
-	NumberOfHouseholdAttachFarmCattle       uint
 	AverageTypeOfCattlePerHolding           float64
 }
 
@@ -954,49 +944,48 @@ func (db *Db) GetHouseholdCattlenformation(division, district, upazilla, union, 
 	data = []HouseholdCattleInformation{
 		{
 			Name:                                    "Cow",
-			Column:                                  "(c33h + c33f)",
-			NumberOfHouseholdCattleColumn:           "c33h",
-			NumberOfHouseholdAttachFarmCattleColumn: "c33f",
+			Column:                                  "c33gtrhh",
+			NumberOfHouseholdCattleColumn:           "c33h + c33f",
+			NumberOfHouseholdAttachFarmCattleColumn: "sum(c33h + c33f) / sum(hh_sno)",
 		},
 		{
 			Name:                                    "Buffalo",
-			Column:                                  "(c34h + c34f)",
-			NumberOfHouseholdCattleColumn:           "c34h",
-			NumberOfHouseholdAttachFarmCattleColumn: "c34f",
+			Column:                                  "c34gtrhh",
+			NumberOfHouseholdCattleColumn:           "c34h + c34f",
+			NumberOfHouseholdAttachFarmCattleColumn: "sum(c34h + c34f) / sum(hh_sno)",
 		},
 		{
 			Name:                                    "Goat",
-			Column:                                  "(c35h + c35f)",
-			NumberOfHouseholdCattleColumn:           "c35h",
-			NumberOfHouseholdAttachFarmCattleColumn: "c35f",
+			Column:                                  "c35gtrhh",
+			NumberOfHouseholdCattleColumn:           "c35h + c35f",
+			NumberOfHouseholdAttachFarmCattleColumn: "sum(c35h + c35f) / sum(hh_sno)",
 		},
 		{
 			Name:                                    "Sheep",
-			Column:                                  "(c36h + c36f)",
-			NumberOfHouseholdCattleColumn:           "c36h",
-			NumberOfHouseholdAttachFarmCattleColumn: "c36f",
+			Column:                                  "c36gtrhh",
+			NumberOfHouseholdCattleColumn:           "c36h + c36f",
+			NumberOfHouseholdAttachFarmCattleColumn: "sum(c36h + c36f) / sum(hh_sno)",
 		},
 		{
 			Name:                                    "Pig",
-			Column:                                  "(c37h + c37f)",
-			NumberOfHouseholdCattleColumn:           "c37h",
-			NumberOfHouseholdAttachFarmCattleColumn: "c37f",
+			Column:                                  "c37gtrhh",
+			NumberOfHouseholdCattleColumn:           "c37h + c37f",
+			NumberOfHouseholdAttachFarmCattleColumn: "sum(c37h + c37f) / sum(hh_sno)",
 		},
 		{
 			Name:                                    "Horse",
-			Column:                                  "(c38h + c38f)",
-			NumberOfHouseholdCattleColumn:           "c38h",
-			NumberOfHouseholdAttachFarmCattleColumn: "c38f",
+			Column:                                  "c38gtrhh",
+			NumberOfHouseholdCattleColumn:           "c38h + c38f",
+			NumberOfHouseholdAttachFarmCattleColumn: "sum(c38h + c38f) / sum(hh_sno)",
 		},
 	}
 
 	for i, c := range data {
 		query := fmt.Sprintf(`
 		SELECT (
-			SELECT sum(hh_sno)
+			SELECT sum(%s)
 			FROM aggregates
-			WHERE %s > 0
-				AND subpath(geocode, 0, %d) = ?
+			WHERE subpath(geocode, 0, %d) = ?
 		) AS number_of_reporting_holdings,
 		(
 			SELECT sum(%s)
@@ -1004,16 +993,10 @@ func (db *Db) GetHouseholdCattlenformation(division, district, upazilla, union, 
 			WHERE subpath(geocode, 0, %d) = ?
 		) AS total_number_of_cattle,
 		(
-			SELECT sum(%s)
+			SELECT %s::FLOAT
 			FROM aggregates
 			WHERE subpath(geocode, 0, %d) = ?
-		) AS number_of_household_cattle,
-		(
-			SELECT sum(%s)
-			FROM aggregates
-			WHERE subpath(geocode, 0, %d) = ?
-		) AS number_of_household_attach_farm_cattle;`,
-			c.Column, count,
+		) AS average_type_of_cattle_per_holding;`,
 			c.Column, count,
 			c.NumberOfHouseholdCattleColumn, count,
 			c.NumberOfHouseholdAttachFarmCattleColumn, count)
@@ -1050,47 +1033,47 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 	data = []HouseholdAgricultureEquipement{
 		{
 			Name:                            "Tractor",
-			NumberOfReportingHoldingsColumn: "c39",
+			NumberOfReportingHoldingsColumn: "c39gtrhh",
 			TotalNumberColumn:               "c39",
 			NumberOfDieselDeviceColumn:      "c39",
 		},
 		{
 			Name:                            "Power tiller",
-			NumberOfReportingHoldingsColumn: "c40",
+			NumberOfReportingHoldingsColumn: "c40gtrhh",
 			TotalNumberColumn:               "c40",
 			NumberOfDieselDeviceColumn:      "c40",
 		},
 		{
 			Name:                            "Power pump",
-			NumberOfReportingHoldingsColumn: "(c41a + c41b)",
+			NumberOfReportingHoldingsColumn: "c41gtrhh",
 			TotalNumberColumn:               "(c41a + c41b)",
 			NumberOfDieselDeviceColumn:      "c41a",
 			NumberOfElectricalDeviceColumn:  "c41b",
 		},
 		{
 			Name:                            "Deep/Shallow tube well",
-			NumberOfReportingHoldingsColumn: "(c42a + c42b)",
+			NumberOfReportingHoldingsColumn: "c42gtrhh",
 			TotalNumberColumn:               "(c42a + c42b)",
 			NumberOfDieselDeviceColumn:      "c42a",
 			NumberOfElectricalDeviceColumn:  "c42b",
 		},
 		{
 			Name:                              "Crop planting machine",
-			NumberOfReportingHoldingsColumn:   "(c43a + c43b)",
+			NumberOfReportingHoldingsColumn:   "c43gtrhh",
 			TotalNumberColumn:                 "(c43a + c43b)",
 			NumberOfNonMechanicalDeviceColumn: "c43a",
 			NumberOfDieselDeviceColumn:        "c43b",
 		},
 		{
 			Name:                              "Crop cutting machine",
-			NumberOfReportingHoldingsColumn:   "(c44a + c44b)",
+			NumberOfReportingHoldingsColumn:   "c44gtrhh",
 			TotalNumberColumn:                 "(c44a + c44b)",
 			NumberOfNonMechanicalDeviceColumn: "c44a",
 			NumberOfDieselDeviceColumn:        "c44b",
 		},
 		{
 			Name:                              "Crop threshing machine",
-			NumberOfReportingHoldingsColumn:   "(c45a + c45b + c45c)",
+			NumberOfReportingHoldingsColumn:   "c45gtrhh",
 			TotalNumberColumn:                 "(c45a + c45b + c45c)",
 			NumberOfNonMechanicalDeviceColumn: "c45a",
 			NumberOfDieselDeviceColumn:        "c45b",
@@ -1098,27 +1081,27 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 		},
 		{
 			Name:                              "Fertilizer Appling machine",
-			NumberOfReportingHoldingsColumn:   "(c46a + c46b)",
+			NumberOfReportingHoldingsColumn:   "c46gtrhh",
 			TotalNumberColumn:                 "(c46a + c46b)",
 			NumberOfNonMechanicalDeviceColumn: "c46a",
 			NumberOfDieselDeviceColumn:        "c46b",
 		},
 		{
 			Name:                              "Fish catching boat/trailer",
-			NumberOfReportingHoldingsColumn:   "(c47a + c47b)",
+			NumberOfReportingHoldingsColumn:   "c47gtrhh",
 			TotalNumberColumn:                 "(c47a + c47b)",
 			NumberOfNonMechanicalDeviceColumn: "c47a",
 			NumberOfDieselDeviceColumn:        "c47b",
 		},
 		{
 			Name:                              "Fish catching net (business)",
-			NumberOfReportingHoldingsColumn:   "c48",
+			NumberOfReportingHoldingsColumn:   "c48gtrhh",
 			TotalNumberColumn:                 "c48",
 			NumberOfNonMechanicalDeviceColumn: "c48",
 		},
 		{
 			Name:                              "Plough",
-			NumberOfReportingHoldingsColumn:   "c49",
+			NumberOfReportingHoldingsColumn:   "c49gtrhh",
 			TotalNumberColumn:                 "c49",
 			NumberOfNonMechanicalDeviceColumn: "c49",
 		},
@@ -1127,10 +1110,9 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 	for i, c := range data {
 		query := fmt.Sprintf(`
 		SELECT (
-			SELECT count(hh_sno)
+			SELECT sum(%s)
 			FROM aggregates
-			WHERE %s > 0
-				AND subpath(geocode, 0, %d) = ?
+			WHERE subpath(geocode, 0, %d) = ?
 		) AS number_of_reporting_holdings,
 		(
 			SELECT sum(%s)
