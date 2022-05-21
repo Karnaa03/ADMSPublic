@@ -497,7 +497,9 @@ SELECT (
         WHERE subpath(geocode, 0, 0) = ''
     ) AS total_farm_holding_area;
 --@block
-SELECT count(hh_sno)
+SELECT SUM(c02m + c02f + c02h + c03m + c03f + c03h)::NUMERIC / SUM(hh_sno)::NUMERIC as data,
+    rmo
 FROM aggregates
-WHERE c21gtrhh > 0
-    AND subpath(geocode, 0, 0) = ''
+where subpath(geocode, 0, 0) = ''
+    AND true = true
+GROUP BY rmo;
