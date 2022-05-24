@@ -234,7 +234,7 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 		columns = "sum(t101+t102+t103+t104+t105+t112+t113+t114+t121+t122+t123+t124+t125+t127+t128+t129+t130+t131+t132+t134+t135+t157+t158+t159+t160+t161+t167+t169+t175+t176+t177+t179+t182+t185+t106+t107+t108+t109+t110+t111+t115+t116+t117+t118+t119+t120+t126+t133+t136+t137+t138+t139+t140+t141+t142+t143+t144+t145+t146+t147+t148+t149+t150+t151+t152+t153+t154+t155+t156+t162+t163+t164+t165+t166+t168+t170+t171+t172+t173+t174+t178+t180+t181+t183+t184+t186+t187+t188+t189+t190+t191+t192+t193+t194+t195+t196+t197+t198+t199+t200+t201+t202+t203)/c13"
 		conditions = "true = true GROUP BY rmo, c13"
 	case "28":
-		columns = "sum(c13)"
+		columns = "sum(c18-c15)"
 		conditions = "true = true GROUP BY rmo"
 	default:
 		return tableData, fmt.Errorf(("don't know this table name"))
@@ -1050,47 +1050,47 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 	data = []HouseholdAgricultureEquipement{
 		{
 			Name:                            "Tractor",
-			NumberOfReportingHoldingsColumn: "c39",
+			NumberOfReportingHoldingsColumn: "c39gtrhh",
 			TotalNumberColumn:               "c39",
 			NumberOfDieselDeviceColumn:      "c39",
 		},
 		{
 			Name:                            "Power tiller",
-			NumberOfReportingHoldingsColumn: "c40",
+			NumberOfReportingHoldingsColumn: "c40gtrhh",
 			TotalNumberColumn:               "c40",
 			NumberOfDieselDeviceColumn:      "c40",
 		},
 		{
 			Name:                            "Power pump",
-			NumberOfReportingHoldingsColumn: "(c41a + c41b)",
+			NumberOfReportingHoldingsColumn: "(c41gtrhh)",
 			TotalNumberColumn:               "(c41a + c41b)",
 			NumberOfDieselDeviceColumn:      "c41a",
 			NumberOfElectricalDeviceColumn:  "c41b",
 		},
 		{
 			Name:                            "Deep/Shallow tube well",
-			NumberOfReportingHoldingsColumn: "(c42a + c42b)",
+			NumberOfReportingHoldingsColumn: "(c42gtrhh)",
 			TotalNumberColumn:               "(c42a + c42b)",
 			NumberOfDieselDeviceColumn:      "c42a",
 			NumberOfElectricalDeviceColumn:  "c42b",
 		},
 		{
 			Name:                              "Crop planting machine",
-			NumberOfReportingHoldingsColumn:   "(c43a + c43b)",
+			NumberOfReportingHoldingsColumn:   "(c43gtrhh)",
 			TotalNumberColumn:                 "(c43a + c43b)",
 			NumberOfNonMechanicalDeviceColumn: "c43a",
 			NumberOfDieselDeviceColumn:        "c43b",
 		},
 		{
 			Name:                              "Crop cutting machine",
-			NumberOfReportingHoldingsColumn:   "(c44a + c44b)",
+			NumberOfReportingHoldingsColumn:   "(c44gtrhh)",
 			TotalNumberColumn:                 "(c44a + c44b)",
 			NumberOfNonMechanicalDeviceColumn: "c44a",
 			NumberOfDieselDeviceColumn:        "c44b",
 		},
 		{
 			Name:                              "Crop threshing machine",
-			NumberOfReportingHoldingsColumn:   "(c45a + c45b + c45c)",
+			NumberOfReportingHoldingsColumn:   "(c45gtrhh)",
 			TotalNumberColumn:                 "(c45a + c45b + c45c)",
 			NumberOfNonMechanicalDeviceColumn: "c45a",
 			NumberOfDieselDeviceColumn:        "c45b",
@@ -1098,27 +1098,27 @@ func (db *Db) GetHouseholdAgricultureEquipement(division, district, upazilla, un
 		},
 		{
 			Name:                              "Fertilizer Appling machine",
-			NumberOfReportingHoldingsColumn:   "(c46a + c46b)",
+			NumberOfReportingHoldingsColumn:   "(c46gtrhh)",
 			TotalNumberColumn:                 "(c46a + c46b)",
 			NumberOfNonMechanicalDeviceColumn: "c46a",
 			NumberOfDieselDeviceColumn:        "c46b",
 		},
 		{
 			Name:                              "Fish catching boat/trailer",
-			NumberOfReportingHoldingsColumn:   "(c47a + c47b)",
+			NumberOfReportingHoldingsColumn:   "(c47gtrhh)",
 			TotalNumberColumn:                 "(c47a + c47b)",
 			NumberOfNonMechanicalDeviceColumn: "c47a",
 			NumberOfDieselDeviceColumn:        "c47b",
 		},
 		{
 			Name:                              "Fish catching net (business)",
-			NumberOfReportingHoldingsColumn:   "c48",
+			NumberOfReportingHoldingsColumn:   "c48gtrhh",
 			TotalNumberColumn:                 "c48",
 			NumberOfNonMechanicalDeviceColumn: "c48",
 		},
 		{
 			Name:                              "Plough",
-			NumberOfReportingHoldingsColumn:   "c49",
+			NumberOfReportingHoldingsColumn:   "c49gtrhh",
 			TotalNumberColumn:                 "c49",
 			NumberOfNonMechanicalDeviceColumn: "c49",
 		},
