@@ -383,6 +383,8 @@ create table aggregates (
     c12gtrhh integer,
     c13gtrhh integer,
     c14gtrhh integer,
+    c15gtrhh integer,
+    c16gtrhh integer,
     c17gtrhh integer,
     c18gtrhh integer,
     c19gtrhh integer,
@@ -462,7 +464,7 @@ create table aggregates (
     c07smlfhh integer,
     c08smlfhh integer,
     c09smlfhh integer,
-    c010smlfhh integer,
+    c10smlfhh integer,
     c11smlfhh integer,
     c12smlfhh integer,
     c13smlfhh integer,
@@ -474,6 +476,7 @@ create table aggregates (
     c19smlfhh integer,
     c20smlfhh integer
 );
+alter table aggregates owner to agritracking;
 alter table aggregates owner to agritracking;
 --@block
 SELECT (
