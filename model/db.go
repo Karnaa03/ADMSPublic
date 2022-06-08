@@ -852,26 +852,26 @@ func (db *Db) GetHouseholdFisheryLandInformation(division, district, upazilla, u
 
 		{
 			Name:                            "Fishery Land under salt cultivation",
-			NumberOfReportingHoldingsColumn: "c23gtrhh",
-			NumberOfFarmHoldingsColumn:      "c23smlfhh",
-			TotalAreaOfOwnLandColumn:        "c23",
-			TotalFarmHoldingAreaColumn:      "c23smlf",
-		},
-
-		{
-			Name:                            "Fishery Land cultivated under pan/cage",
-			NumberOfReportingHoldingsColumn: "c24gtrhh",
-			NumberOfFarmHoldingsColumn:      "c24smlfhh",
-			TotalAreaOfOwnLandColumn:        "c24",
-			TotalFarmHoldingAreaColumn:      "c24smlf",
-		},
-
-		{
-			Name:                            "Fishery Land under fish cultivation by Creek",
 			NumberOfReportingHoldingsColumn: "c25gtrhh",
 			NumberOfFarmHoldingsColumn:      "c25smlfhh",
 			TotalAreaOfOwnLandColumn:        "c25",
 			TotalFarmHoldingAreaColumn:      "c25smlf",
+		},
+
+		{
+			Name:                            "Fishery Land cultivated under pan/cage",
+			NumberOfReportingHoldingsColumn: "c26gtrhh",
+			NumberOfFarmHoldingsColumn:      "c26smlfhh",
+			TotalAreaOfOwnLandColumn:        "c26",
+			TotalFarmHoldingAreaColumn:      "c26smlf",
+		},
+
+		{
+			Name:                            "Fishery Land under fish cultivation by Creek",
+			NumberOfReportingHoldingsColumn: "c27gtrhh",
+			NumberOfFarmHoldingsColumn:      "c27smlfhh",
+			TotalAreaOfOwnLandColumn:        "c27",
+			TotalFarmHoldingAreaColumn:      "c27smlf",
 		},
 	}
 
