@@ -661,13 +661,16 @@ func (db *Db) GetGeoCode(geoCodeNumber string) (geoCode GeoCodes, err error) {
 }
 
 type HouseholdLandInformation struct {
-	Name                      string
-	Column                    string
-	NumberOfReportingHoldings uint
-	NumberOfFarmHoldings      uint
-	TotalAreaOfOwnLand        float64
-	TotalFarmHoldingArea      float64
-	AverageAreaPerFarmHolding float64
+	Name                           string
+	NumberOfReportingHoldingColumn string
+	NumberOfReportingHoldings      uint
+	NumberOfFarmHoldingsColumn     string
+	NumberOfFarmHoldings           uint
+	TotalAreaOfOwnLandColumn       string
+	TotalAreaOfOwnLand             float64
+	TotalFarmHoldingAreaColumn     string
+	TotalFarmHoldingArea           float64
+	AverageAreaPerFarmHolding      float64
 }
 
 func (db *Db) GetHouseholdLandInformation(division, district, upazilla, union, mouza string) (data []HouseholdLandInformation, err error) {
@@ -677,77 +680,116 @@ func (db *Db) GetHouseholdLandInformation(division, district, upazilla, union, m
 	}
 	data = []HouseholdLandInformation{
 		{
-			Name:   "Own land",
-			Column: "c04gtrhh",
+			Name:                           "Own land",
+			NumberOfReportingHoldingColumn: "c04gtrhh",
+			NumberOfFarmHoldingsColumn:     "c04smlfhh",
+			TotalAreaOfOwnLandColumn:       "c04",
+			TotalFarmHoldingAreaColumn:     "c04smlf",
 		},
 		{
-			Name:   "Given land",
-			Column: "c05gtrhh",
+			Name:                           "Given land",
+			NumberOfReportingHoldingColumn: "c05gtrhh",
+			NumberOfFarmHoldingsColumn:     "c05smlfhh",
+			TotalAreaOfOwnLandColumn:       "c05",
+			TotalFarmHoldingAreaColumn:     "c05smlf",
 		},
 		{
-			Name:   "Taken land",
-			Column: "c06gtrhh",
+			Name:                           "Taken land",
+			NumberOfReportingHoldingColumn: "c06gtrhh",
+			NumberOfFarmHoldingsColumn:     "c06smlfhh",
+			TotalAreaOfOwnLandColumn:       "c06",
+			TotalFarmHoldingAreaColumn:     "c06smlf",
 		},
 		{
-			Name:   "Operated land",
-			Column: "c07gtrhh",
+			Name:                           "Operated land",
+			NumberOfReportingHoldingColumn: "c07gtrhh",
+			NumberOfFarmHoldingsColumn:     "c07smlfhh",
+			TotalAreaOfOwnLandColumn:       "c07",
+			TotalFarmHoldingAreaColumn:     "c07smlf",
 		},
 		{
-			Name:   "Homestead land",
-			Column: "c08gtrhh",
+			Name:                           "Homestead land",
+			NumberOfReportingHoldingColumn: "c08gtrhh",
+			NumberOfFarmHoldingsColumn:     "c08smlfhh",
+			TotalAreaOfOwnLandColumn:       "c08",
+			TotalFarmHoldingAreaColumn:     "c08smlf",
 		},
 		{
-			Name:   "Permanent Fellow land",
-			Column: "c11gtrhh",
+			Name:                           "Permanent Fellow land",
+			NumberOfReportingHoldingColumn: "c11gtrhh",
+			NumberOfFarmHoldingsColumn:     "c11smlfhh",
+			TotalAreaOfOwnLandColumn:       "c11",
+			TotalFarmHoldingAreaColumn:     "c11smlf",
 		},
 		{
-			Name:   "Uncultivated land",
-			Column: "c12gtrhh",
+			Name:                           "Uncultivated land",
+			NumberOfReportingHoldingColumn: "c12gtrhh",
+			NumberOfFarmHoldingsColumn:     "c12smlfhh",
+			TotalAreaOfOwnLandColumn:       "c12",
+			TotalFarmHoldingAreaColumn:     "c12smlf",
 		},
 		{
-			Name:   "Land under temporary crops",
-			Column: "c13gtrhh",
+			Name:                           "Land under temporary crops",
+			NumberOfReportingHoldingColumn: "c13gtrhh",
+			NumberOfFarmHoldingsColumn:     "c13smlfhh",
+			TotalAreaOfOwnLandColumn:       "c13",
+			TotalFarmHoldingAreaColumn:     "c13smlf",
 		},
 		{
-			Name:   "Land under permanent crops",
-			Column: "c14gtrhh",
+			Name:                           "Land under permanent crops",
+			NumberOfReportingHoldingColumn: "c14gtrhh",
+			NumberOfFarmHoldingsColumn:     "c14smlfhh",
+			TotalAreaOfOwnLandColumn:       "c14",
+			TotalFarmHoldingAreaColumn:     "c14smlf",
 		},
 		{
-			Name:   "Land under nursery",
-			Column: "c16",
+			Name:                           "Land under nursery",
+			NumberOfReportingHoldingColumn: "c16gtrhh",
+			NumberOfFarmHoldingsColumn:     "c16smlfhh",
+			TotalAreaOfOwnLandColumn:       "c16",
+			TotalFarmHoldingAreaColumn:     "c16smlf",
 		},
 		{
-			Name:   "Land under current fallow",
-			Column: "c17gtrhh",
+			Name:                           "Land under current fallow",
+			NumberOfReportingHoldingColumn: "c17gtrhh",
+			NumberOfFarmHoldingsColumn:     "c17smlfhh",
+			TotalAreaOfOwnLandColumn:       "c17",
+			TotalFarmHoldingAreaColumn:     "c17smlf",
 		},
 		{
-			Name:   "Total cultivated land",
-			Column: "c18gtrhh",
+			Name:                           "Total cultivated land",
+			NumberOfReportingHoldingColumn: "c18gtrhh",
+			NumberOfFarmHoldingsColumn:     "c18smlfhh",
+			TotalAreaOfOwnLandColumn:       "c18",
+			TotalFarmHoldingAreaColumn:     "c18smlf",
 		},
 		{
-			Name:   "Land under irrigation",
-			Column: "c19gtrhh",
+			Name:                           "Land under irrigation",
+			NumberOfReportingHoldingColumn: "c19gtrhh",
+			NumberOfFarmHoldingsColumn:     "c19smlfhh",
+			TotalAreaOfOwnLandColumn:       "c19",
+			TotalFarmHoldingAreaColumn:     "c19smlf",
 		},
 		{
-			Name:   "Land under salt cultivation",
-			Column: "c20gtrhh",
+			Name:                           "Land under salt cultivation",
+			NumberOfReportingHoldingColumn: "c20gtrhh",
+			NumberOfFarmHoldingsColumn:     "c20smlfhh",
+			TotalAreaOfOwnLandColumn:       "c20",
+			TotalFarmHoldingAreaColumn:     "c20smlf",
 		},
 	}
 
 	for i, c := range data {
 		query := fmt.Sprintf(`
 		SELECT (
-			SELECT sum(hh_sno)
+			SELECT sum(%s)
 			FROM aggregates
-			WHERE %s > 0
-				AND subpath(geocode, 0, %d) = ?
+			WHERE subpath(geocode, 0, %d) = ?
 		) AS number_of_reporting_holdings,
 		(
-			SELECT sum(hh_sno)
+			SELECT sum(%s)
 			FROM aggregates
-			WHERE c18 >= 0.05
-				AND %s > 0
-				AND subpath(geocode, 0, %d) = ?
+			WHERE subpath(geocode, 0, %d) = ?
 		) AS number_of_farm_holdings,
 		(
 			SELECT sum(%s)
@@ -755,16 +797,14 @@ func (db *Db) GetHouseholdLandInformation(division, district, upazilla, union, m
 			WHERE subpath(geocode, 0, %d) = ?
 		) AS total_area_of_own_land,
 		(
-			SELECT sum(c18)
+			SELECT sum(%s)
 			FROM aggregates
-			WHERE c18 >= 0.05
-				AND %s > 0
-				AND subpath(geocode, 0, %d) = ?
+			WHERE subpath(geocode, 0, %d) = ?
 		) AS total_farm_holding_area;`,
-			c.Column, count,
-			c.Column, count,
-			c.Column, count,
-			c.Column, count)
+			c.NumberOfReportingHoldingColumn, count,
+			c.NumberOfFarmHoldingsColumn, count,
+			c.TotalAreaOfOwnLandColumn, count,
+			c.TotalFarmHoldingAreaColumn, count)
 		_, err = db.Conn.QueryOne(&c, query,
 			geoCodeReq, geoCodeReq, geoCodeReq, geoCodeReq)
 		if err != nil {
