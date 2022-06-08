@@ -18,7 +18,7 @@ func (srv *Server) FormatHouseholdPermanentCrops(division, district, upazilla, u
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result<small> </small></h4>
-	<h5>Data for table number : %s</h5>
+	<h5>Data for table name : %s</h5>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<h5>Number of farm holdings : %s</h5>
 	<h5>Crop area : %s</h5>
