@@ -844,10 +844,10 @@ func (db *Db) GetHouseholdFisheryLandInformation(division, district, upazilla, u
 		},
 		{
 			Name:                            "Fishery Land other than ponds",
-			NumberOfReportingHoldingsColumn: "c22gtrhh",
-			NumberOfFarmHoldingsColumn:      "c22smlfhh",
-			TotalAreaOfOwnLandColumn:        "c22",
-			TotalFarmHoldingAreaColumn:      "c22smlf",
+			NumberOfReportingHoldingsColumn: "c22gtrhh+c23gtrhh+c24gtrhh",
+			NumberOfFarmHoldingsColumn:      "c22smlfhh+c23smlfhh+c24smlfhh",
+			TotalAreaOfOwnLandColumn:        "c22+c23+c24",
+			TotalFarmHoldingAreaColumn:      "c22smlf+c23smlf+c24smlf",
 		},
 
 		{
