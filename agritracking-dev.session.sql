@@ -475,3 +475,14 @@ from agregateds;
 --@block
 select SUM(c02m + c02f + c02h + c03m + c03f + c03h)::NUMERIC / SUM(hh_sno)::NUMERIC
 from aggregates;
+--@block
+SELECT SUM(c02m + c02f + c02h + c03m + c03f + c03h)::NUMERIC / SUM(hh_sno)::NUMERIC as data,
+    rmo
+FROM aggregates
+where subpath(geocode, 0, 0) = ''
+    AND true = true
+GROUP BY rmo
+UNION
+SELECT SUM(c02m + c02f + c02h + c03m + c03f + c03h)::NUMERIC / SUM(hh_sno)::NUMERIC as data,
+    -1 as rmo
+from aggregates;

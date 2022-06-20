@@ -101,7 +101,7 @@ func (db *Db) createExtension() {
 
 type RawTableData struct {
 	Data float64
-	Rmo  uint
+	Rmo  int
 }
 
 func GetGeoRequest(division, district, upazilla, union, mouza string) (selector string, count uint, err error) {
@@ -154,6 +154,7 @@ func GetGeoRequest(division, district, upazilla, union, mouza string) (selector 
 func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName string) (tableData []RawTableData, err error) {
 	columns := ""
 	conditions := ""
+	summable := false
 
 	// sex = male
 	// sex2 = female
@@ -162,80 +163,102 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 	switch tableName {
 	case "1":
 		columns = "hh_sno"
+		summable = true
 	case "2":
 		columns = "sf+mf+lf"
+		summable = true
 	case "3":
 		columns = "sf"
+		summable = true
 	case "4":
 		columns = "mf"
+		summable = true
 	case "5":
 		columns = "lf"
+		summable = true
 	case "6":
 		columns = "hh_sno-c04gtrhh"
+		summable = true
 	case "7":
 		columns = "sum(hh_a)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "8":
 		columns = "sum(hh_f)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "9":
 		columns = "SUM(c02m+c02f+c02h+c03m+c03f+c03h)::NUMERIC/SUM(hh_sno)::NUMERIC"
-		conditions = "true = true GROUP BY rmo"
+		summable = false
 	case "10":
 		columns = "SUM (c02mfarm+c02ffarm+c02hfarm+c03mfarm+c03ffarm+c03hfarm) ::decimal / SUM (sf+mf+lf) ::decimal"
-		conditions = "true = true GROUP BY rmo"
+		summable = false
 	case "11":
 		columns = "sum(c07) / SUM (hh_sno)"
-		conditions = "true = true GROUP BY rmo"
+		summable = false
 	case "12":
 		columns = "sum(c07farm) / SUM (sf + mf + lf)"
-		conditions = "true = true GROUP BY rmo"
+		summable = false
 	case "13":
 		columns = "sum(c08) / SUM (hh_sno)"
-		conditions = "true = true GROUP BY rmo"
+		summable = false
 	case "14":
 		columns = "sum(c08farm) / SUM (sf + mf + lf)"
-		conditions = "true = true GROUP BY rmo"
+		summable = false
 	case "15":
 		columns = "sum(sex)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "16":
 		columns = "sum(sex2)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "17":
 		columns = "SUM(c19gtrhh)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "18":
 		columns = "sum(c19)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "19":
 		columns = "SUM (c19smlfhh)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "20":
 		columns = "sum(c19farm)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "21":
 		columns = "c33h+c33f"
+		summable = true
 	case "22":
 		columns = "c34h+c34f"
+		summable = true
 	case "23":
 		columns = "sum(c35h+c35f)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "24":
 		columns = "sum(c36h+c36f)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "25":
 		columns = "sum(c28h+c28f)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "26":
 		columns = "sum(c29h+c29f)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "27":
 		columns = "sum(t101+t102+t103+t104+t105+t112+t113+t114+t121+t122+t123+t124+t125+t127+t128+t129+t130+t131+t132+t134+t135+t157+t158+t159+t160+t161+t167+t169+t175+t176+t177+t179+t182+t185+t106+t107+t108+t109+t110+t111+t115+t116+t117+t118+t119+t120+t126+t133+t136+t137+t138+t139+t140+t141+t142+t143+t144+t145+t146+t147+t148+t149+t150+t151+t152+t153+t154+t155+t156+t162+t163+t164+t165+t166+t168+t170+t171+t172+t173+t174+t178+t180+t181+t183+t184+t186+t187+t188+t189+t190+t191+t192+t193+t194+t195+t196+t197+t198+t199+t200+t201+t202+t203)/ sum(c13)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	case "28":
 		columns = "sum(c18-c15)"
 		conditions = "true = true GROUP BY rmo"
+		summable = true
 	default:
 		return tableData, fmt.Errorf(("don't know this table name"))
 	}
@@ -244,9 +267,27 @@ func (db *Db) GetAgregate(division, district, upazilla, union, mouza, tableName 
 	if err != nil {
 		return
 	}
-	query := fmt.Sprintf(`SELECT %s as data, rmo FROM aggregates where subpath(geocode, 0,%d) = ?;`, columns, count)
-	if conditions != "" {
-		query = strings.Replace(query, ";", fmt.Sprintf(" AND %s;", conditions), 1)
+
+	var query string
+	switch summable {
+	case true:
+		query = fmt.Sprintf(`SELECT %s as data, rmo FROM aggregates where subpath(geocode, 0,%d) = ?;`, columns, count)
+		if conditions != "" {
+			query = strings.Replace(query, ";", fmt.Sprintf(" AND %s;", conditions), 1)
+		}
+	case false:
+		query = fmt.Sprintf(`
+		SELECT %s as data,
+		    rmo
+		FROM aggregates
+		WHERE subpath(geocode, 0, %d) = ?
+		GROUP BY rmo
+		UNION
+		SELECT %s as data,
+		    -1 as rmo
+		from aggregates;
+		`, columns, count, columns,
+		)
 	}
 	_, err = db.Conn.Query(&tableData, query,
 		geoCodeReq)

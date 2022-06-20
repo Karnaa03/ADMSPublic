@@ -365,15 +365,22 @@ func (srv *Server) GetGeoCodeNames(q searchQuery) (g model.GeoCodes, err error) 
 
 func FormatDonuts(data []model.RawTableData) (donuts string) {
 	if len(data) > 0 {
-		var urban, rural float64
+		var urban, rural, total float64
+		with_percentage := true
 		for _, line := range data {
-			if line.Rmo == 2 {
+			switch line.Rmo {
+			case 2:
 				urban += line.Data
-			} else {
+			case -1:
+				total = line.Data
+				with_percentage = false
+			default:
 				rural += line.Data
 			}
 		}
-		total := urban + rural
+		if total == 0.0 {
+			total = urban + rural
+		}
 		donuts = fmt.Sprintf(`
 		<div id="main" style="width: 600px;height:400px; align:center" class="x_content"></div>
 		<script type="text/javascript">	
@@ -421,32 +428,53 @@ func FormatDonuts(data []model.RawTableData) (donuts string) {
 				}
 			]
 		};
-	
 		option && myChart.setOption(option);
-	
 	</script>
 	`,
 			urban,
-			fmt.Sprintf("Urban : %.2f%%", (float64(urban)/float64(total))*100),
+			GetUrban(with_percentage, urban, total),
 			rural,
-			fmt.Sprintf("Rural: %.2f%%", (float64(rural)/float64(total))*100),
+			GetRural(with_percentage, rural, total),
 		)
 	}
 	return
 }
 
+func GetUrban(with_percentage bool, urban, total float64) string {
+	if with_percentage {
+		return fmt.Sprintf("Urban : %.2f%%", (float64(urban)/float64(total))*100)
+	} else {
+		return fmt.Sprintf("Urban : %.2f", urban)
+	}
+}
+
+func GetRural(with_percentage bool, rural, total float64) string {
+	if with_percentage {
+		return fmt.Sprintf("Rural: %.2f%%", (float64(rural)/float64(total))*100)
+	} else {
+		return fmt.Sprintf("Rural: %.2f", rural)
+	}
+}
+
 func FormatTable(data []model.RawTableData) (tableData string) {
 	p := message.NewPrinter(language.English)
 	if len(data) > 0 {
-		var urban, rural float64
+		var urban, rural, total float64
+		with_percentage := true
 		for _, line := range data {
-			if line.Rmo == 2 {
+			switch line.Rmo {
+			case 2:
 				urban += line.Data
-			} else {
+			case -1:
+				total = line.Data
+				with_percentage = false
+			default:
 				rural += line.Data
 			}
 		}
-		total := urban + rural
+		if total == 0.0 {
+			total = urban + rural
+		}
 		tableData += fmt.Sprintf(`
 			<tr>
 				<td>%s</td>
@@ -454,21 +482,28 @@ func FormatTable(data []model.RawTableData) (tableData string) {
 				<td>%s</td>
 				<td>%s</td>
 			</tr>
+			`,
+			"Holdings",
+			p.Sprintf("%.2f", total),
+			p.Sprintf("%.2f", urban),
+			p.Sprintf("%.2f", rural),
+		)
+
+		if with_percentage {
+			tableData += fmt.Sprintf(`
 			<tr>
 				<td>%s</td>
 				<td>%s</td>
 				<td>%s</td>
 				<td>%s</td>
-			</tr>`,
-			"Holdings",
-			p.Sprintf("%.2f", total),
-			p.Sprintf("%.2f", urban),
-			p.Sprintf("%.2f", rural),
-			"Percentage",
-			"100%",
-			fmt.Sprintf("%.2f%%", (float64(urban)/float64(total))*100),
-			fmt.Sprintf("%.2f%%", (float64(rural)/float64(total))*100),
-		)
+			</tr>
+			`,
+				"Percentage",
+				"100%",
+				fmt.Sprintf("%.2f%%", (float64(urban)/float64(total))*100),
+				fmt.Sprintf("%.2f%%", (float64(rural)/float64(total))*100),
+			)
+		}
 	}
 	return
 }
