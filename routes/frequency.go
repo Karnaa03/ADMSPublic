@@ -298,7 +298,7 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result</h4>
-	<h5>Data for table number : %s</h5>
+	<h5>Data for table name : %s</h5>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
@@ -534,7 +534,7 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result</h4>
-	<h5>Data for table number : %s</h5>
+	<h5>Data for table name : %s</h5>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
@@ -661,7 +661,7 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result</h4>
-	<h5>Data for table number : %s</h5>
+	<h5>Data for table name : %s</h5>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
@@ -709,7 +709,7 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result</h4>
-	<h5>Data for table number : %s</h5>
+	<h5>Data for table name : %s</h5>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
@@ -750,7 +750,7 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result</h4>
-	<h5>Data for table number : %s</h5>
+	<h5>Data for table name : %s</h5>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
