@@ -1381,7 +1381,7 @@ func (c TemporaryCrops) PercentageOfCropArea(cropArea string) string {
 		log.Errorf("unable to get %s field from Crops struct : %s", cropArea, err)
 		return "err"
 	}
-	return p.Sprintf("%f%%", (r.(float64)/
+	return p.Sprintf("%.2f%%", (r.(float64)/
 		(c.T101+
 			c.T102+
 			c.T103+

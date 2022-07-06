@@ -9,7 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${fileDirname}",
+            "program": "${workspaceFolder}/main.go",
             "env": {
                 "DB_INIT": "false",
                 "DB_LOG": "true"

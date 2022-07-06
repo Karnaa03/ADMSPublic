@@ -299,6 +299,7 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 	<div class="x_content">
 	<h4>Result</h4>
 	<h5>Data for table name : %s</h5>
+	<title>Data for table name : %s</title>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
@@ -319,6 +320,7 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 		</div>
 	</div>
 	`,
+		getTableName(q.TableNumber),
 		getTableName(q.TableNumber),
 		tableData,
 		donutData)
