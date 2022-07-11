@@ -47,9 +47,9 @@ func (srv *Server) FormatHouseholdLandInformation(division, district, upazilla, 
 				<th>Report</th>
 				<th>Number of reporting holdings</th>
 				<th>Number of farm holdings</th>
-				<th>Total Area of own land</th>
+				<th>Total Area (acres) of own land</th>
 				<th>Total farm holding area</th>
-				<th>Average area per farm holding</th>
+				<th>Average area (acres) per farm holding</th>
 			</tr>
 		</thead>
 		<tbody>
