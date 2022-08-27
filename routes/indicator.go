@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"strconv"
 	"strings"
 
 	agriInject "git.solutions.im/XeroxAgriCensus/AgriInject/goPg"
@@ -362,6 +363,14 @@ func (srv *Server) GetGeoCodeNames(q searchQuery) (g model.GeoCodes, err error) 
 	}
 	return
 }
+func FormatFloat(num float64, prc int) string {
+	p := message.NewPrinter(language.English)
+	var (
+		zero, dot = "0", "."
+		str       = p.Sprintf("%."+strconv.Itoa(prc)+"f", num)
+	)
+	return strings.TrimRight(strings.TrimRight(str, zero), dot)
+}
 
 func FormatDonuts(data []model.RawTableData) (donuts string) {
 	if len(data) > 0 {
@@ -457,7 +466,6 @@ func GetRural(with_percentage bool, rural, total float64) string {
 }
 
 func FormatTable(data []model.RawTableData) (tableData string) {
-	p := message.NewPrinter(language.English)
 	if len(data) > 0 {
 		var urban, rural, total float64
 		with_percentage := true
@@ -484,9 +492,9 @@ func FormatTable(data []model.RawTableData) (tableData string) {
 			</tr>
 			`,
 			"Holdings",
-			p.Sprintf("%.2f", total),
-			p.Sprintf("%.2f", urban),
-			p.Sprintf("%.2f", rural),
+			FormatFloat(total, 2),
+			FormatFloat(urban, 2),
+			FormatFloat(rural, 2),
 		)
 
 		if with_percentage {
