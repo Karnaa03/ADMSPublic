@@ -5,7 +5,6 @@ import (
 	"html/template"
 	"io"
 	"net/http"
-	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -50,16 +49,9 @@ func (srv *Server) zila(footer string) {
 	})
 
 	srv.router.POST("/production/zila.html", func(c *gin.Context) {
+
 		division := strings.Trim(strings.Split(c.PostForm("DivisionNumber"), "-")[0], " ")
-		division_num, err := strconv.Atoi(division)
-		if err == nil {
-			division = fmt.Sprintf("%.2d", division_num)
-		}
 		district := strings.Trim(strings.Split(c.PostForm("DistrictNumber"), "-")[0], " ")
-		district_num, err := strconv.Atoi(district)
-		if err == nil {
-			district = fmt.Sprintf("%.2d", district_num)
-		}
 		tableName := c.PostForm("TableName")
 		header, _ := templates.RenderHeader(c)
 
