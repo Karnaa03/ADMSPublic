@@ -15,6 +15,29 @@ import (
 	"git.solutions.im/XeroxAgriCensus/ADMSPublic/templates"
 )
 
+func formatGeoSelection(division, district, updazila, union, mouza string) (geoSelection string) {
+
+	if division != "" {
+		geoSelection += fmt.Sprintf("%s; ", division)
+	}
+	if district != "" {
+		geoSelection += fmt.Sprintf("%s; ", district)
+	}
+	if updazila != "" {
+		geoSelection += fmt.Sprintf("%s; ", updazila)
+	}
+	if union != "" {
+		geoSelection += fmt.Sprintf("%s; ", union)
+	}
+	if mouza != "" {
+		geoSelection += fmt.Sprintf("%s; ", mouza)
+	}
+	if geoSelection == "" {
+		geoSelection = "All country"
+	}
+	return
+}
+
 func (srv *Server) frequency(footer string) {
 	srv.router.GET("/production/frequency.html", func(c *gin.Context) {
 		header, _ := templates.RenderHeader(c)
@@ -44,6 +67,8 @@ func (srv *Server) frequency(footer string) {
 		union := strings.Trim(strings.Split(q.UnionNumber, "-")[0], " ")
 		mouza := strings.Trim(strings.Split(q.MouzaNumber, "-")[0], " ")
 		tableNumber := q.TableNumber
+		geoLocation := formatGeoSelection(q.DivisionNumber, q.DistrictNumber, q.UpazilaNumber, q.UnionNumber, q.MouzaNumber)
+
 		if err != nil {
 			log.Error(err)
 			srv.frequencyWithError(
@@ -57,15 +82,15 @@ func (srv *Server) frequency(footer string) {
 		var tableAndDonut string
 		switch tableNumber {
 		case "1":
-			tableAndDonut, err = srv.FormatOccupationOfTheHouseHold(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatOccupationOfTheHouseHold(division, district, upazilla, union, mouza, &q, geoLocation)
 		case "2":
-			tableAndDonut, err = srv.FormatEducationHouseHoldHead(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatEducationHouseHoldHead(division, district, upazilla, union, mouza, &q, geoLocation)
 		case "3":
-			tableAndDonut, err = srv.FormatGenderOfTheHouseholdHead(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatGenderOfTheHouseholdHead(division, district, upazilla, union, mouza, &q, geoLocation)
 		case "4":
-			tableAndDonut, err = srv.FormatFisheryHolding(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatFisheryHolding(division, district, upazilla, union, mouza, &q, geoLocation)
 		case "5":
-			tableAndDonut, err = srv.FormatAgriculuralLaborHolding(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatAgriculuralLaborHolding(division, district, upazilla, union, mouza, &q, geoLocation)
 		}
 
 		if err != nil {
@@ -181,7 +206,7 @@ func FormatFrequencyDonuts(data []model.RawTableData) (donuts string) {
 	return
 }
 
-func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, union, mouza string, q *searchQuery) (tableAndDonut string, err error) {
+func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, union, mouza string, q *searchQuery, geoLocation string) (tableAndDonut string, err error) {
 	p := message.NewPrinter(language.English)
 	data, err := srv.Db.GetOccupationOfHouseHold(division, district, upazilla, union, mouza)
 	if err != nil {
@@ -300,7 +325,6 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 	<h4>Result</h4>
 	<h5>Data for table name : %s</h5>
 	<title>Data for table name : %s</title>
-	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
 			<tr>
@@ -319,8 +343,9 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 			%s
 		</div>
 	</div>
+	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		getTableName(q.TableNumber),
+		fmt.Sprintf("%s for : %s", getTableName(q.TableNumber), geoLocation),
 		getTableName(q.TableNumber),
 		tableData,
 		donutData)
@@ -338,7 +363,7 @@ func getTableName(tableNumber string) string {
 	return tableName[tableNumber]
 }
 
-func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, union, mouza string, q *searchQuery) (tableAndDonut string, err error) {
+func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, union, mouza string, q *searchQuery, geoLocation string) (tableAndDonut string, err error) {
 	p := message.NewPrinter(language.English)
 	data, err := srv.Db.GetEducationOfTheHouseholdHead(division, district, upazilla, union, mouza)
 	if err != nil {
@@ -557,14 +582,14 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 		</div>
 	</div>
 	`,
-		getTableName(q.TableNumber),
+		fmt.Sprintf("%s for : %s", getTableName(q.TableNumber), geoLocation),
 		tableData,
 		donutData)
 
 	return
 }
 
-func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, union, mouza string, q *searchQuery) (tableAndDonut string, err error) {
+func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, union, mouza string, q *searchQuery, geoLocation string) (tableAndDonut string, err error) {
 	p := message.NewPrinter(language.English)
 	data, err := srv.Db.GetGenderOfTheHouseholdHead(division, district, upazilla, union, mouza)
 	if err != nil {
@@ -684,14 +709,14 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 		</div>
 	</div>
 	`,
-		getTableName(q.TableNumber),
+		fmt.Sprintf("%s for : %s", getTableName(q.TableNumber), geoLocation),
 		tableData,
 		donutData)
 
 	return
 }
 
-func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mouza string, q *searchQuery) (tableAndDonut string, err error) {
+func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mouza string, q *searchQuery, geoLocation string) (tableAndDonut string, err error) {
 	p := message.NewPrinter(language.English)
 	data, err := srv.Db.GetFisheryHolding(division, district, upazilla, union, mouza)
 	if err != nil {
@@ -726,13 +751,13 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	</table>
 	</div>
 	`,
-		getTableName(q.TableNumber),
+		fmt.Sprintf("%s for : %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
 
 	return
 }
 
-func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, union, mouza string, q *searchQuery) (tableAndDonut string, err error) {
+func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, union, mouza string, q *searchQuery, geoLocation string) (tableAndDonut string, err error) {
 	p := message.NewPrinter(language.English)
 	data, err := srv.Db.GetAgriculuralLaborHolding(division, district, upazilla, union, mouza)
 	if err != nil {
@@ -767,7 +792,7 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 	</table>
 	</div>
 	`,
-		getTableName(q.TableNumber),
+		fmt.Sprintf("%s for : %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
 
 	return

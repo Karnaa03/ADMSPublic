@@ -42,6 +42,7 @@ func (srv *Server) tableGeneration(footer string) {
 		union := strings.Trim(strings.Split(q.UnionNumber, "-")[0], " ")
 		mouza := strings.Trim(strings.Split(q.MouzaNumber, "-")[0], " ")
 		tableNumber := q.TableNumber
+		geoLocation := formatGeoSelection(q.DivisionNumber, q.DistrictNumber, q.UpazilaNumber, q.UnionNumber, q.MouzaNumber)
 		if err != nil {
 			log.Error(err)
 			srv.tableGenerationWithError(
@@ -55,21 +56,21 @@ func (srv *Server) tableGeneration(footer string) {
 		var tableAndDonut string
 		switch tableNumber {
 		case "1":
-			tableAndDonut, err = srv.FormatHouseholdHeadInformation(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatHouseholdHeadInformation(division, district, upazilla, union, mouza, &q, geoLocation)
 		case "2":
-			tableAndDonut, err = srv.FormatHouseholdLandInformation(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatHouseholdLandInformation(division, district, upazilla, union, mouza, &q, geoLocation)
 		case "3":
-			tableAndDonut, err = srv.FormatHouseholdLandFisheryInformation(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatHouseholdLandFisheryInformation(division, district, upazilla, union, mouza, &q, geoLocation)
 		case "4":
-			tableAndDonut, err = srv.FormatHouseholdPoultryInformation(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatHouseholdPoultryInformation(division, district, upazilla, union, mouza, &q, geoLocation)
 		case "5":
-			tableAndDonut, err = srv.FormatHouseholdCattleInformation(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatHouseholdCattleInformation(division, district, upazilla, union, mouza, &q, geoLocation)
 		case "6":
-			tableAndDonut, err = srv.FormatHouseholdTemporaryCrops(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatHouseholdTemporaryCrops(division, district, upazilla, union, mouza, &q, geoLocation)
 		case "7":
-			tableAndDonut, err = srv.FormatHouseholdPermanentCrops(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatHouseholdPermanentCrops(division, district, upazilla, union, mouza, &q, geoLocation)
 		case "8":
-			tableAndDonut, err = srv.FormatHouseholdAgricultureEquipementInformation(division, district, upazilla, union, mouza, &q)
+			tableAndDonut, err = srv.FormatHouseholdAgricultureEquipementInformation(division, district, upazilla, union, mouza, &q, geoLocation)
 		}
 
 		if err != nil {

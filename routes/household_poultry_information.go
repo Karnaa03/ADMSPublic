@@ -7,7 +7,7 @@ import (
 	"golang.org/x/text/message"
 )
 
-func (srv *Server) FormatHouseholdPoultryInformation(division, district, upazilla, union, mouza string, q *searchQuery) (tableAndDonut string, err error) {
+func (srv *Server) FormatHouseholdPoultryInformation(division, district, upazilla, union, mouza string, q *searchQuery, geoLocation string) (tableAndDonut string, err error) {
 	p := message.NewPrinter(language.English)
 	householdLandInformation, err := srv.Db.GetHouseholdPoultryInformation(division, district, upazilla, union, mouza)
 	if err != nil {
@@ -36,23 +36,23 @@ func (srv *Server) FormatHouseholdPoultryInformation(division, district, upazill
 	<div class="x_content">
 	<h4>Result<small> </small></h4>
 	<h5>Data for table name : %s</h5>
-	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<table id="datatable-buttons" class="table table-striped">
-		<thead>
-			<tr>
-				<th>Report</th>
-				<th>Number of reporting holdings</th>
-				<th>Total number of poultry</th>
-				<th>Average type of poultry per holding</th>
-			</tr>
-		</thead>
-		<tbody>
-			%s
-		</tbody>
+	<thead>
+	<tr>
+	<th>Report</th>
+	<th>Number of reporting holdings</th>
+	<th>Total number of poultry</th>
+	<th>Average type of poultry per holding</th>
+	</tr>
+	</thead>
+	<tbody>
+	%s
+	</tbody>
 	</table>
 	</div>
+	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		getTableGenerationName(q.TableNumber),
+		fmt.Sprintf("%s for : %s", getTableGenerationName(q.TableNumber), geoLocation),
 		tableData)
 
 	return

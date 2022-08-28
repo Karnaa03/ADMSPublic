@@ -33,7 +33,7 @@ func (srv *Server) indicator(footer string) {
 				q)
 			return
 		}
-		srv.indicatorOkWithData(c, header, footer, &q, []model.RawTableData{})
+		srv.indicatorOkWithData(c, header, footer, &q, []model.RawTableData{}, "")
 	})
 
 	srv.router.GET("/adms/division", func(context *gin.Context) {
@@ -196,6 +196,7 @@ func (srv *Server) indicator(footer string) {
 		union := strings.Trim(strings.Split(q.UnionNumber, "-")[0], " ")
 		mouza := strings.Trim(strings.Split(q.MouzaNumber, "-")[0], " ")
 		tableNumber := q.TableNumber
+		geoLocation := formatGeoSelection(q.DivisionNumber, q.DistrictNumber, q.UpazilaNumber, q.UnionNumber, q.MouzaNumber)
 		if err != nil {
 			log.Error(err)
 			srv.searchWithError(
@@ -217,7 +218,7 @@ func (srv *Server) indicator(footer string) {
 				q)
 			return
 		}
-		srv.indicatorOkWithData(c, header, footer, &q, data)
+		srv.indicatorOkWithData(c, header, footer, &q, data, geoLocation)
 
 	})
 }
@@ -231,7 +232,7 @@ func getNumber(numberAndName string) string {
 	}
 }
 
-func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q *searchQuery, data []model.RawTableData) {
+func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q *searchQuery, data []model.RawTableData, geoLocation string) {
 	tableName := make(map[string]string)
 	tableName["1"] = "Total number of holdings"
 	tableName["2"] = "Total number of farm holdings & percentage"
@@ -271,7 +272,7 @@ func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q 
 		"UpazilaNumber":  q.UpazilaNumber,
 		"UnionNumber":    q.UnionNumber,
 		"MouzaNumber":    q.MouzaNumber,
-		"QueryType":      tableName[q.TableNumber],
+		"QueryType":      fmt.Sprintf("%s, for : %s", tableName[q.TableNumber], geoLocation),
 		"TableData":      template.HTML(FormatTable(data)),
 		"Donuts":         template.HTML(FormatDonuts(data)),
 	})
