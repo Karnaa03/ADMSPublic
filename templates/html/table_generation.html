@@ -25,7 +25,9 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3">National</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" name="National" id="autocomplete-National"  class="form-control" autocomplete="off" value="Bangladesh" readonly="true" />
+                                        <input type="text" name="National" id="autocomplete-National"
+                                            class="form-control" autocomplete="off" value="Bangladesh"
+                                            readonly="true" />
                                     </div>
                                 </div>
                                 <div class="form-group remove-empty-values">
@@ -36,7 +38,7 @@
                                 </div>
                                 <div class="form-group remove-empty-values">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Division
-                                        </label>
+                                    </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" name="DivisionNumber" id="autocomplete-division"
                                             class="form-control" value="{{.DivisionNumber}}" />
@@ -45,7 +47,7 @@
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3">District
-                                       </label>
+                                    </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" name="DistrictNumber" id="autocomplete-district"
                                             class="form-control" value="{{.DistrictNumber}}" />
@@ -54,7 +56,7 @@
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Upazila
-                                       </label>
+                                    </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" name="UpazilaNumber" id="autocomplete-upazilla"
                                             class="form-control" value="{{.UpazilaNumber}}" />
@@ -63,7 +65,7 @@
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Union
-                                       </label>
+                                    </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" name="UnionNumber" id="autocomplete-union"
                                             class="form-control" value="{{.UnionNumber}}" />
@@ -72,7 +74,7 @@
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Mouza
-                                       </label>
+                                    </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" name="MouzaNumber" id="autocomplete-mouza"
                                             class="form-control" value="{{.MouzaNumber}}" />
@@ -82,7 +84,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Table generation<span
                                             class="required">*</span>
-                                        </label>
+                                    </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="TableNumber">
 
@@ -108,6 +110,7 @@
                                             onclick="myReset();">Reset</button>
                                         <button type="submit" class="btn btn-success">Submit</button>
                                     </div>
+                                    <div>Please scroll down to see the output</div>
                                 </div>
 
                                 {{.TableAndDonut}}

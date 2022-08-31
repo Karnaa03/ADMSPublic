@@ -562,25 +562,25 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	<div class="x_content">
 	<h4>Result</h4>
 	<h5>Data for table name : %s</h5>
-	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<table id="datatable-buttons" class="table table-striped">
-		<thead>
-			<tr>
-				<th>Household Head Occupation</th>
-				<th>Number of household</th>
-				<th>Percentage</th>
-			</tr>
-		</thead>
-		<tbody>
-			%s
-		</tbody>
+	<thead>
+	<tr>
+	<th>Household Head Occupation</th>
+	<th>Number of household</th>
+	<th>Percentage</th>
+	</tr>
+	</thead>
+	<tbody>
+	%s
+	</tbody>
 	</table>
 	</div>
 	<div class="form-group">
-		<div class="col-md-2 col-sm-2 col-xs-12 col-md-offset-3">
-			%s
-		</div>
+	<div class="col-md-2 col-sm-2 col-xs-12 col-md-offset-3">
+	%s
 	</div>
+	</div>
+	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
 		fmt.Sprintf("%s for : %s", getTableName(q.TableNumber), geoLocation),
 		tableData,
@@ -689,25 +689,25 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	<div class="x_content">
 	<h4>Result</h4>
 	<h5>Data for table name : %s</h5>
-	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<table id="datatable-buttons" class="table table-striped">
-		<thead>
-			<tr>
-				<th>Household Head Occupation</th>
-				<th>Number of household</th>
-				<th>Percentage</th>
-			</tr>
-		</thead>
-		<tbody>
-			%s
-		</tbody>
+	<thead>
+	<tr>
+	<th>Household Head Occupation</th>
+	<th>Number of household</th>
+	<th>Percentage</th>
+	</tr>
+	</thead>
+	<tbody>
+	%s
+	</tbody>
 	</table>
 	</div>
 	<div class="form-group">
-		<div class="col-md-2 col-sm-2 col-xs-12 col-md-offset-3">
-			%s
-		</div>
+	<div class="col-md-2 col-sm-2 col-xs-12 col-md-offset-3">
+	%s
 	</div>
+	</div>
+	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
 		fmt.Sprintf("%s for : %s", getTableName(q.TableNumber), geoLocation),
 		tableData,
@@ -737,19 +737,19 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	<div class="x_content">
 	<h4>Result</h4>
 	<h5>Data for table name : %s</h5>
-	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<table id="datatable-buttons" class="table table-striped">
-		<thead>
-			<tr>
-				<th>Number of Fishery Household</th>
+	<thead>
+	<tr>
+	<th>Number of Fishery Household</th>
 				<th>Percentage</th>
-			</tr>
-		</thead>
-		<tbody>
-			%s
-		</tbody>
-	</table>
-	</div>
+				</tr>
+				</thead>
+				<tbody>
+				%s
+				</tbody>
+				</table>
+				</div>
+				<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
 		fmt.Sprintf("%s for : %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
@@ -778,19 +778,19 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 	<div class="x_content">
 	<h4>Result</h4>
 	<h5>Data for table name : %s</h5>
-	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	<table id="datatable-buttons" class="table table-striped">
-		<thead>
-			<tr>
-				<th>Number of Agri labor household</th>
-				<th>Percentage</th>
-			</tr>
-		</thead>
-		<tbody>
-			%s
-		</tbody>
+	<thead>
+	<tr>
+	<th>Number of Agri labor household</th>
+	<th>Percentage</th>
+	</tr>
+	</thead>
+	<tbody>
+	%s
+	</tbody>
 	</table>
 	</div>
+	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
 		fmt.Sprintf("%s for : %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
