@@ -73,6 +73,8 @@ func (srv *Server) registerPages() {
 	srv.indicator(footer)
 	srv.frequency(footer)
 	srv.tableGeneration(footer)
+	srv.metadata(footer)
+	srv.contact_us(footer)
 
 }
 

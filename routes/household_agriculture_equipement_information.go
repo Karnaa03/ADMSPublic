@@ -57,7 +57,7 @@ func (srv *Server) FormatHouseholdAgricultureEquipementInformation(division, dis
 	</div>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s for : %s", getTableGenerationName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s GEO CODE : %s", getTableGenerationName(q.TableNumber), geoLocation),
 		tableData)
 
 	return

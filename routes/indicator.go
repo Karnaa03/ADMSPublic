@@ -272,7 +272,7 @@ func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q 
 		"UpazilaNumber":  q.UpazilaNumber,
 		"UnionNumber":    q.UnionNumber,
 		"MouzaNumber":    q.MouzaNumber,
-		"QueryType":      fmt.Sprintf("%s, for : %s", tableName[q.TableNumber], geoLocation),
+		"QueryType":      fmt.Sprintf("%s, GEO CODE : %s", tableName[q.TableNumber], geoLocation),
 		"TableData":      template.HTML(FormatTable(data)),
 		"Donuts":         template.HTML(FormatDonuts(data)),
 	})
@@ -489,10 +489,8 @@ func FormatTable(data []model.RawTableData) (tableData string) {
 				<td>%s</td>
 				<td>%s</td>
 				<td>%s</td>
-				<td>%s</td>
 			</tr>
 			`,
-			"Holdings",
 			FormatFloat(total, 2),
 			FormatFloat(urban, 2),
 			FormatFloat(rural, 2),
@@ -504,10 +502,8 @@ func FormatTable(data []model.RawTableData) (tableData string) {
 				<td>%s</td>
 				<td>%s</td>
 				<td>%s</td>
-				<td>%s</td>
 			</tr>
 			`,
-				"Percentage",
 				"100%",
 				fmt.Sprintf("%.2f%%", (float64(urban)/float64(total))*100),
 				fmt.Sprintf("%.2f%%", (float64(rural)/float64(total))*100),
