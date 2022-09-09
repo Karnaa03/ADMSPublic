@@ -920,22 +920,22 @@ func (db *Db) GetHouseholdFisheryLandInformation(division, district, upazilla, u
 		SELECT (
 			SELECT sum(%s)
 			FROM aggregates
-			WHERE subpath(geocode, 0, %d) = ''
+			WHERE subpath(geocode, 0, %d) = ?
 		) AS number_of_reporting_holdings,
 		(
 			SELECT sum(%s)
 			FROM aggregates
-			WHERE subpath(geocode, 0, %d) = ''
+			WHERE subpath(geocode, 0, %d) = ?
 		) AS number_of_farm_holdings,
 		(
 			SELECT sum(%s)
 			FROM aggregates
-			WHERE subpath(geocode, 0, %d) = ''
+			WHERE subpath(geocode, 0, %d) = ?
 		) AS total_area_of_own_land,
 		(
 			SELECT sum(%s)
 			FROM aggregates
-			WHERE subpath(geocode, 0, %d) = ''
+			WHERE subpath(geocode, 0, %d) = ?
 		) AS total_farm_holding_area`,
 			c.NumberOfReportingHoldingsColumn, count,
 			c.NumberOfFarmHoldingsColumn, count,
