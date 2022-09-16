@@ -39,7 +39,7 @@ func (srv *Server) FormatHouseholdCattleInformation(division, district, upazilla
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
-	<th>Report</th>
+	<th>Cattle</th>
 	<th>Number of reporting holdings</th>
 	<th>Total number of cattle</th>
 	<th>Average type of cattle per holding</th>

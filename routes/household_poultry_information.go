@@ -39,7 +39,7 @@ func (srv *Server) FormatHouseholdPoultryInformation(division, district, upazill
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
-	<th>Report</th>
+	<th>Poultry</th>
 	<th>Number of reporting holdings</th>
 	<th>Total number of poultry</th>
 	<th>Average type of poultry per holding</th>

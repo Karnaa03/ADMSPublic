@@ -87,6 +87,7 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="TableNumber">
+                                            <option value="0">Please select frequency list</option>
                                             <option value="1">1 Occupation of the household head</option>
                                             <option value="2">2 Education of the household head</option>
                                             <option value="3">3 Gender of the household head</option>
@@ -107,8 +108,10 @@
                                     </div>
                                     <div>Please scroll down to see the output</div>
                                 </div>
-
+                                <button onclick="printDiv('printableArea')">Print</button>
+                                <div id="printableArea">
                                 {{.TableAndDonut}}
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -132,6 +135,16 @@
         document.getElementById("autocomplete-union").value = "";
         document.getElementById("autocomplete-mouza").value = "";
     }
+    function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
 </script>
 
 <script>

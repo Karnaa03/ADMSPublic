@@ -87,6 +87,7 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="TableNumber">
+                                            <option value="1">Please select the indicator</option>
                                             <option value="1">1 Total number of holdings</option>
                                             <option value="2">2 Total number of farm holdings & percentage</option>
                                             <option value="3">3 Total number of small farm & percentage</option>
@@ -142,12 +143,13 @@
                                     </div>
                                     <div>Please scroll down to see the output</div>
                                 </div>
-
+                                <button onclick="printDiv('printableArea')">Print</button>
+                                <div id="printableArea">
                                 <div class="x_content">
-
-                                    <h5>Data for table name : {{.QueryType}}</h5>
+                                    
                                     <table id="datatable-buttons" class="table table-striped">
                                         <thead>
+                                            <tr><th colspan="3">Data for table name : {{.QueryType}}</th></tr>
                                             <tr>
                                                 <th>Total</th>
                                                 <th>Urban</th>
@@ -167,6 +169,7 @@
                                 <h7>Source: Bangladesh Bureau of Statistics.
                                     Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018
                                     Project.</h7>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -190,6 +193,15 @@
         document.getElementById("autocomplete-union").value = "";
         document.getElementById("autocomplete-mouza").value = "";
     }
+    function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+     
+    //document.body.style.display = "block";
+}
 </script>
 
 <script>

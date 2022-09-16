@@ -565,7 +565,7 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
-	<th>Household Head Occupation</th>
+	<th>Household Head Education</th>
 	<th>Number of household</th>
 	<th>Percentage</th>
 	</tr>
@@ -692,7 +692,7 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
-	<th>Household Head Occupation</th>
+	<th>Household Head Gender</th>
 	<th>Number of household</th>
 	<th>Percentage</th>
 	</tr>
