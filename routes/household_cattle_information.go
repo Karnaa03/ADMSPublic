@@ -35,17 +35,24 @@ func (srv *Server) FormatHouseholdCattleInformation(division, district, upazilla
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result<small> </small></h4>
-	<h5>Data for table name : %s</h5>
+	
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
+	<tr>
+	<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+	<th></th>
+	<th></th>
+	<th></th>
+	</tr>
+	
+	</thead>
+	<tbody>
 	<tr>
 	<th>Cattle</th>
 	<th>Number of reporting holdings</th>
 	<th>Total number of cattle</th>
 	<th>Average type of cattle per holding</th>
 	</tr>
-	</thead>
-	<tbody>
 	%s
 	</tbody>
 	</table>

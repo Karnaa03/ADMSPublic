@@ -652,18 +652,27 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result<small> </small></h4>
-	<h5>Data for table name : %s</h5>
-	<table class="table">
+	
+	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
+	<tr>
+		<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+	</tr>
+	</thead>
+	
+	
+	<tbody>
 	<th>Report</th>
 	<th>Indicator</th>
 	<th>Total</th>
 	<th>Percentage</th>
 	<th>Graph</th>
 	</tr>
-	</thead>
-	<tbody>
 	%s
 	</tbody>
 	</table>

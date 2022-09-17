@@ -143,17 +143,17 @@
                                     </div>
                                     <div>Please scroll down to see the output</div>
                                 </div>
-                                <button onclick="printDiv('printableArea')">Print</button>
+                                <!-- <button onclick="printDiv('printableArea')">Print</button> -->
                                 <div id="printableArea">
                                 <div class="x_content">
                                     
                                     <table id="datatable-buttons" class="table table-striped">
                                         <thead>
-                                            <tr><th colspan="3">Data for table name : {{.QueryType}}</th></tr>
+                                            
                                             <tr>
-                                                <th>Total</th>
-                                                <th>Urban</th>
-                                                <th>Rural</th>
+                                                <td scope="col" class="text-wrap" style="width: 300px;">Data for table name : {{.QueryType}}</td>
+                                                <td></td>
+                                                 <td></td>
                                             </tr>
                                         </thead>
                                         <tbody>
