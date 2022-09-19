@@ -189,8 +189,8 @@ func FormattableGenerationDonuts(data []model.RawTableData) (donuts string) {
 func getTableGenerationName(tableNumber string) string {
 	tableName := make(map[string]string)
 
-	tableName["1"] = "Information of the household head"
-	tableName["2"] = "Land information"
+	tableName["1"] = "Information of the Household Head"
+	tableName["2"] = "Land Information"
 	tableName["3"] = "Household Fishery Land"
 	tableName["4"] = "Household Poultry"
 	tableName["5"] = "Household cattle"

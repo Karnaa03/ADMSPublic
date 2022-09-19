@@ -19,27 +19,27 @@ func formatGeoSelection(division, district, updazila, union, mouza string) (geoS
 
 	if division != "" {
 		geoSelection += string("<br>")
-		geoSelection += fmt.Sprintf("Division: %s;", division)
+		geoSelection += fmt.Sprintf("Division: %s", division)
 	}
 	if district != "" {
 		geoSelection += string("<br>")
-		geoSelection += fmt.Sprintf("District: %s;", district)
+		geoSelection += fmt.Sprintf("District: %s", district)
 	}
 	if updazila != "" {
 		geoSelection += string("<br>")
-		geoSelection += fmt.Sprintf("Updazila: %s;", updazila)
+		geoSelection += fmt.Sprintf("Updazila: %s", updazila)
 	}
 	if union != "" {
 		geoSelection += string("<br>")
-		geoSelection += fmt.Sprintf("Union: %s;", union)
+		geoSelection += fmt.Sprintf("Union: %s", union)
 	}
 	if mouza != "" {
 		geoSelection += string("<br>")
-		geoSelection += fmt.Sprintf("Mouza: %s;", mouza)
+		geoSelection += fmt.Sprintf("Mouza: %s", mouza)
 	}
 	if geoSelection == "" {
-		geoSelection += string("<br>")
-		geoSelection = "Bangladesh"
+		 
+		geoSelection += fmt.Sprintf("%s Bangladesh", "<br>")
 	}
 	return
 }
@@ -331,14 +331,14 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 	<h4>Result</h4>
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
-	<tr><th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+	<tr><th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
 	<th></th>
 	<th></th></tr>
 	</thead>
 	<tbody>
 		<tr>
 			<th>Household Head Occupation</th>
-			<th>Number of household</th>
+			<th>Number of Household</th>
 			<th>Percentage</th>
 		</tr>
 			%s
@@ -362,11 +362,11 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 
 func getTableName(tableNumber string) string {
 	tableName := make(map[string]string)
-	tableName["1"] = "Occupation of the household head"
-	tableName["2"] = "Education of the household head"
-	tableName["3"] = "Gender of the household head"
-	tableName["4"] = "Fishery holding"
-	tableName["5"] = "Agricultural labor holding"
+	tableName["1"] = "Occupation of the Household Head"
+	tableName["2"] = "Education of the Household Head"
+	tableName["3"] = "Gender of the Household Head"
+	tableName["4"] = "Fishery Holding"
+	tableName["5"] = "Agricultural Labor Holding"
 	return tableName[tableNumber]
 }
 
@@ -572,7 +572,7 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
-		<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+		<th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
 		<th></th>
 		<th></th>
 	</tr>
@@ -581,7 +581,7 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	<tbody>
 	<tr>
 	<th>Household Head Education</th>
-	<th>Number of household</th>
+	<th>Number of Household</th>
 	<th>Percentage</th>
 	</tr>
 	
@@ -705,7 +705,7 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
-	<tr><th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+	<tr><th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
 <th></th>
 <th></th></tr>
 	
@@ -713,7 +713,7 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	<tbody>
 	<tr>
 	<th>Household Head Gender</th>
-	<th>Number of household</th>
+	<th>Number of Household</th>
 	<th>Percentage</th>
 	</tr>
 	%s
@@ -757,7 +757,7 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 		<tr>
-		<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+		<th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
 		<th></th>
 		</tr>
 	</thead>
@@ -772,7 +772,7 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
-		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
 
 	return
@@ -801,14 +801,14 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 	
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
-	<tr><th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+	<tr><th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
 
 <th></th></tr>
 	
 	</thead>
 	<tbody>
 	<tr>
-	<th>Number of Agri labor household</th>
+	<th>Number of Agri Labor Household</th>
 	<th>Percentage</th>
 	</tr>
 	%s

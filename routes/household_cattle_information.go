@@ -39,7 +39,7 @@ func (srv *Server) FormatHouseholdCattleInformation(division, district, upazilla
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
-	<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+	<th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
 	<th></th>
 	<th></th>
 	<th></th>

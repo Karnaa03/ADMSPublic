@@ -56,7 +56,7 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 			},
 			series: [
 				{
-					name: 'Education of the household head',
+					name: 'Education of the Household Head',
 					type: 'pie',
 					radius: ['40%%', '70%%'],
 					avoidLabelOverlap: false,
@@ -122,7 +122,7 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 		},
 		series: [
 			{
-				name: 'Occupation of household head',
+				name: 'Occupation of Household Head',
 				type: 'pie',
 				radius: ['40%%', '70%%'],
 				avoidLabelOverlap: false,
@@ -401,7 +401,7 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 
 	tableData := fmt.Sprintf(`
 	<tr>
-		<td rowspan="8" scope="rowgroup"><b>Education of the household head</b></td>
+		<td rowspan="8" scope="rowgroup"><b>Education of the Household Head</b></td>
 		<td>No education</td>
 		<td>%s</td>
 		<td>%.2f%%</td>
@@ -446,7 +446,7 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 		<td><b>%.2f%%</b></td>
 	</tr>	
 	<tr>
-		<td rowspan="6" scope="rowgroup"><b>Occupation of household head</b></td>
+		<td rowspan="6" scope="rowgroup"><b>Occupation of Household Head</b></td>
 		<td>Agriculture</td>
 		<td>%s</td>
 		<td>%.2f%%</td>
@@ -657,7 +657,7 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 	<thead>
 	<tr>
 	<tr>
-		<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+		<th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
 		<th></th>
 		<th></th>
 		<th></th>
