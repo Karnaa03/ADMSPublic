@@ -65,7 +65,7 @@ func (srv *Server) FormatHouseholdLandInformation(division, district, upazilla, 
 	</tbody>
 	</table>
 	</div>
-	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
+	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
 		fmt.Sprintf("%s Geo CODE : %s", getTableGenerationName(q.TableNumber), geoLocation),
 		tableData)

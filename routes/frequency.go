@@ -348,7 +348,7 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 			%s
 		</div>
 	</div>
-	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
+	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
 		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 
@@ -592,7 +592,7 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	%s
 	</div>
 	</div>
-	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
+	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
 		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData,
@@ -723,7 +723,7 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	%s
 	</div>
 	</div>
-	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
+	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
 		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData,
@@ -768,7 +768,7 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	</tbody>
 	</table>
 	</div>
-				<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
+				<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
 		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
@@ -813,7 +813,7 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 	</tbody>
 	</table>
 	</div>
-	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
+	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
 		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
