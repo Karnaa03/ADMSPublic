@@ -140,7 +140,7 @@ func (srv *Server) FormatHouseholdTemporaryCrops(division, district, upazilla, u
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
-		fmt.Sprintf("%s Geo CODE : %s", getTableGenerationName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s  %s", getTableGenerationName(q.TableNumber), geoLocation),
 
 		FormatFloat(c.T101, 2), c.PercentageOfCropArea("T101"),
 		FormatFloat(c.T102, 2), c.PercentageOfCropArea("T102"),

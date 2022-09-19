@@ -118,7 +118,7 @@ func (srv *Server) FormatHouseholdPermanentCrops(division, district, upazilla, u
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
-		fmt.Sprintf("%s Geo CODE : %s", getTableGenerationName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s %s", getTableGenerationName(q.TableNumber), geoLocation),
 		// p.Sprintf("%d", c.NumberOfFarmHoldings),
 		// p.Sprintf("%.2f", c.CropArea),
 

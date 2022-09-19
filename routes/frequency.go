@@ -18,21 +18,27 @@ import (
 func formatGeoSelection(division, district, updazila, union, mouza string) (geoSelection string) {
 
 	if division != "" {
-		geoSelection += fmt.Sprintf("%s;", division)
+		geoSelection += string("<br>")
+		geoSelection += fmt.Sprintf("Division: %s;", division)
 	}
 	if district != "" {
-		geoSelection += fmt.Sprintf("%s;", district)
+		geoSelection += string("<br>")
+		geoSelection += fmt.Sprintf("District: %s;", district)
 	}
 	if updazila != "" {
-		geoSelection += fmt.Sprintf("%s;", updazila)
+		geoSelection += string("<br>")
+		geoSelection += fmt.Sprintf("Updazila: %s;", updazila)
 	}
 	if union != "" {
-		geoSelection += fmt.Sprintf("%s;", union)
+		geoSelection += string("<br>")
+		geoSelection += fmt.Sprintf("Union: %s;", union)
 	}
 	if mouza != "" {
-		geoSelection += fmt.Sprintf("%s;", mouza)
+		geoSelection += string("<br>")
+		geoSelection += fmt.Sprintf("Mouza: %s;", mouza)
 	}
 	if geoSelection == "" {
+		geoSelection += string("<br>")
 		geoSelection = "Bangladesh"
 	}
 	return
@@ -323,22 +329,18 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result</h4>
-	 
 	<table id="datatable-buttons" class="table table-striped">
-		<thead>
-		
-		
-<tr><th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
-<th></th>
-<th></th></tr>
-			
-		</thead>
-		<tbody>
+	<thead>
+	<tr><th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+	<th></th>
+	<th></th></tr>
+	</thead>
+	<tbody>
 		<tr>
-				<th>Household Head Occupation</th>
-				<th>Number of household</th>
-				<th>Percentage</th>
-			</tr>
+			<th>Household Head Occupation</th>
+			<th>Number of household</th>
+			<th>Percentage</th>
+		</tr>
 			%s
 		</tbody>
 	</table>
@@ -350,7 +352,7 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
-		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s %s", getTableName(q.TableNumber), geoLocation),
 
 		tableData,
 		donutData)
@@ -594,7 +596,7 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
-		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s  %s", getTableName(q.TableNumber), geoLocation),
 		tableData,
 		donutData)
 
@@ -725,7 +727,7 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
-		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s   %s", getTableName(q.TableNumber), geoLocation),
 		tableData,
 		donutData)
 
@@ -768,7 +770,7 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	</tbody>
 	</table>
 	</div>
-				<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
+	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
 		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
@@ -815,7 +817,7 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
-		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
 
 	return
