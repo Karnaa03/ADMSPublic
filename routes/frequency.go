@@ -746,7 +746,7 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	</tr>	
 	`,
 		p.Sprintf("%d", data.NumberOfFisheryHousehold),
-		p.Sprintf("%f", data.Percentage),
+		p.Sprintf("%.2f", data.Percentage),
 	)
 
 	tableAndDonut = fmt.Sprintf(`
@@ -790,7 +790,7 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 	</tr>	
 	`,
 		p.Sprintf("%d", data.NumberOfAgriLaborHouseHold),
-		p.Sprintf("%f", data.Percentage),
+		p.Sprintf("%.2f", data.Percentage),
 	)
 
 	tableAndDonut = fmt.Sprintf(`
