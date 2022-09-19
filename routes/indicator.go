@@ -272,7 +272,7 @@ func (srv *Server) indicatorOkWithData(c *gin.Context, header, footer string, q 
 		"UpazilaNumber":  q.UpazilaNumber,
 		"UnionNumber":    q.UnionNumber,
 		"MouzaNumber":    q.MouzaNumber,
-		"QueryType":      fmt.Sprintf("%s, GEO CODE : %s", tableName[q.TableNumber], geoLocation),
+		"QueryType":      fmt.Sprintf("%s, Geo CODE : %s", tableName[q.TableNumber], geoLocation),
 		"TableData":      template.HTML(FormatTable(data)),
 		"Donuts":         template.HTML(FormatDonuts(data)),
 	})

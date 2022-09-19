@@ -350,7 +350,7 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 	</div>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s GEO CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 
 		tableData,
 		donutData)
@@ -594,7 +594,7 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	</div>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s GEO CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData,
 		donutData)
 
@@ -725,7 +725,7 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	</div>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s GEO CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData,
 		donutData)
 
@@ -770,7 +770,7 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	</div>
 				<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s GEO CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
 
 	return
@@ -815,7 +815,7 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 	</div>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s GEO CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
 
 	return
