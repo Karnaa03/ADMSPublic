@@ -33,7 +33,7 @@ func formatGeoSelection(division, district, updazila, union, mouza string) (geoS
 		geoSelection += fmt.Sprintf("%s;", mouza)
 	}
 	if geoSelection == "" {
-		geoSelection = "All country"
+		geoSelection = "Bangladesh"
 	}
 	return
 }
