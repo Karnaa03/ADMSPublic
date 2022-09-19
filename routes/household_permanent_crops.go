@@ -28,7 +28,7 @@ func (srv *Server) FormatHouseholdPermanentCrops(division, district, upazilla, u
 		<tbody>
 		<tr>
 		<th>Crop code and name</th>
-		<th>Total temporary crop area (acres)</th>
+		<th>Total Permanent crop area (acres)</th>
 		<th>Percentage of crop area (acres)</th>
 	</tr>
 
