@@ -73,7 +73,7 @@ func (srv *Server) FormatHouseholdAgricultureEquipementInformation(division, dis
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
-		fmt.Sprintf("%s  %s", getTableGenerationName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s<br>%s", getTableGenerationName(q.TableNumber), geoLocation),
 		tableData)
 
 	return
