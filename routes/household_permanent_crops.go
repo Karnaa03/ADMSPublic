@@ -114,6 +114,13 @@ func (srv *Server) FormatHouseholdPermanentCrops(division, district, upazilla, u
 			<tr> <td><b>584 Silk-cotton</b></td> <td>%s</td> <td>%s</td> </tr>          
 			<tr> <td><b>585 Mulberry</b></td> <td>%s</td> <td>%s</td> </tr>                  
 		</tbody>
+		<tfoot>
+		<tr>
+		  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
+		  <th></th>
+		  <th></th>
+		</tr>
+	  </tfoot>
 	</table>
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>

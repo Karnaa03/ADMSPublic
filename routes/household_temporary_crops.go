@@ -136,6 +136,13 @@ func (srv *Server) FormatHouseholdTemporaryCrops(division, district, upazilla, u
 			<tr> <td><b>202 Other cow-Foods</b></td> <td>%s</td> <td>%s</td> </tr>       
 			<tr> <td><b>203 Seeded</b></td> <td>%s</td> <td>%s</td> </tr>                
 		</tbody>
+		<tfoot>
+		<tr>
+		  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
+		  <th></th>
+		  <th></th>
+		</tr>
+	  </tfoot>
 	</table>
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
