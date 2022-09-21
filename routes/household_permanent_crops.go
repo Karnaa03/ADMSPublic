@@ -34,84 +34,84 @@ func (srv *Server) FormatHouseholdPermanentCrops(division, district, upazilla, u
 
 			<tr> <td><b>501 Mango</b> <td>%s</td> <td>%s</td> </tr>        
 			<tr> <td><b>502 Berry</b></td> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>503 Jack Fruit</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>504 WLitchiheat</b></td> <td>%s</td> <td>%s</td> </tr>         
+			<tr> <td><b>503 Jackfruit</b></td> <td>%s</td> <td>%s</td> </tr>          
+			<tr> <td><b>504 Litchi</b></td> <td>%s</td> <td>%s</td> </tr>         
 			<tr> <td><b>505 Guava</b></td> <td>%s</td> <td>%s</td> </tr>         
-			<tr> <td><b>506 Coconut millet</b></td> <td>%s</td> <td>%s</td> </tr>
-			<tr> <td><b>507 Plum / sand</b></td> <td>%s</td> <td>%s</td> </tr> 
-			<tr> <td><b>508 Hog Plum Millet</b></td> <td>%s</td> <td>%s</td> </tr>  
-			<tr> <td><b>509 Elaeocarpus serratus grain</b></td> <td>%s</td> <td>%s</td> </tr>  
-			<tr> <td><b>510 Date corn</b></td> <td>%s</td> <td>%s</td> </tr>    
-			<tr> <td><b>511 Palmyra</b></td> <td>%s</td> <td>%s</td> </tr>   
-			<tr> <td><b>512 LentBellil</b></td> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>513 Limonia acidissima</b></td> <td>%s</td> <td>%s</td> </tr> 
-			<tr> <td><b>514 Rose Apple</b></td> <td>%s</td> <td>%s</td> </tr>    
-			<tr> <td><b>515 Carissa carandas</b></td> <td>%s</td> <td>%s</td> </tr>    
-			<tr> <td><b>516 Sugar apple</b></td> <td>%s</td> <td>%s</td> </tr>           
-			<tr> <td><b>517 custard apple</b></td> <td>%s</td> <td>%s</td> </tr>      
+			<tr> <td><b>506 Coconut</b></td> <td>%s</td> <td>%s</td> </tr>
+			<tr> <td><b>507 Jujube</b></td> <td>%s</td> <td>%s</td> </tr> 
+			<tr> <td><b>508 Hog Plum</b></td> <td>%s</td> <td>%s</td> </tr>  
+			<tr> <td><b>509 Olive</b></td> <td>%s</td> <td>%s</td> </tr>  
+			<tr> <td><b>510 Date Palm</b></td> <td>%s</td> <td>%s</td> </tr>    
+			<tr> <td><b>511 Palm</b></td> <td>%s</td> <td>%s</td> </tr>   
+			<tr> <td><b>512 Wood Apple</b></td> <td>%s</td> <td>%s</td> </tr>        
+			<tr> <td><b>513 Limonia Acidissima</b></td> <td>%s</td> <td>%s</td> </tr> 
+			<tr> <td><b>514 Star Apple</b></td> <td>%s</td> <td>%s</td> </tr>    
+			<tr> <td><b>515 Carissa Carandas</b></td> <td>%s</td> <td>%s</td> </tr>    
+			<tr> <td><b>516 Sugar Apple</b></td> <td>%s</td> <td>%s</td> </tr>           
+			<tr> <td><b>517 Custard Apple</b></td> <td>%s</td> <td>%s</td> </tr>      
 			<tr> <td><b>518 Pomegranate</b></td> <td>%s</td> <td>%s</td> </tr>       
 			<tr> <td><b>519 Sapodilla</b></td> <td>%s</td> <td>%s</td> </tr>        
 			<tr> <td><b>520 Monkey Jack</b></td> <td>%s</td> <td>%s</td> </tr>   
-			<tr> <td><b>521 Averrhoa Carambola</b></td> <td>%s</td> <td>%s</td> </tr>        
+			<tr> <td><b>521 Carambola</b></td> <td>%s</td> <td>%s</td> </tr>        
 			<tr> <td><b>522 Tamarind</b></td> <td>%s</td> <td>%s</td> </tr>       
 			<tr> <td><b>523 Lemon</b></td> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>524 Grapefruit</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>525 Indian gooseberry</b></td> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>526 Baccaurea motleyana</b></td> <td>%s</td> <td>%s</td> </tr>     
-			<tr> <td><b>527 Otaheite gooseberry</b></td> <td>%s</td> <td>%s</td> </tr>     
+			<tr> <td><b>524 Pomelo</b></td> <td>%s</td> <td>%s</td> </tr>          
+			<tr> <td><b>525 Gooseberry</b></td> <td>%s</td> <td>%s</td> </tr>        
+			<tr> <td><b>526 Baccaurea Motleyana</b></td> <td>%s</td> <td>%s</td> </tr>     
+			<tr> <td><b>527 Otaheite Gooseberry</b></td> <td>%s</td> <td>%s</td> </tr>     
 			<tr> <td><b>528 Elephant Apple</b></td> <td>%s</td> <td>%s</td> </tr> 
 			<tr> <td><b>529 Orange</b></td> <td>%s</td> <td>%s</td> </tr>      
-			<tr> <td><b>530 Citrus macroptera</b></td> <td>%s</td> <td>%s</td> </tr>
-			<tr> <td><b>531 Citrus × sinensi</b></td> <td>%s</td> <td>%s</td> </tr>                 
+			<tr> <td><b>530 Citrus Macroptera</b></td> <td>%s</td> <td>%s</td> </tr>
+			<tr> <td><b>531 Citrus Sinensis</b></td> <td>%s</td> <td>%s</td> </tr>                 
 			<tr> <td><b>532 Bilimb</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>533 Velvet apple rice</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>534 Ficus</b></td> <td>%s</td> <td>%s</td> </tr>           
+			<tr> <td><b>533 Persimmon</b></td> <td>%s</td> <td>%s</td> </tr>          
+			<tr> <td><b>534 Figs</b></td> <td>%s</td> <td>%s</td> </tr>           
 			<tr> <td><b>535 Dragon</b></td> <td>%s</td> <td>%s</td> </tr>               
 			<tr> <td><b>536 Rambutan</b></td> <td>%s</td> <td>%s</td> </tr>              
-			<tr> <td><b>537 Other fruits</b></td> <td>%s</td> <td>%s</td> </tr>              
+			<tr> <td><b>537 Other Fruits</b></td> <td>%s</td> <td>%s</td> </tr>              
 			<tr> <td><b>538 Battle Leaf</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>539 Areca Catechu</b></td> <td>%s</td> <td>%s</td> </tr>                 
+			<tr> <td><b>539 Betel-Nut</b></td> <td>%s</td> <td>%s</td> </tr>                 
 			<tr> <td><b>540 Tea</b></td> <td>%s</td> <td>%s</td> </tr>                  
-			<tr> <td><b>541 Other addicts</b></td> <td>%s</td> <td>%s</td> </tr>         
-			<tr> <td><b>542 Cinnamomum tamala</b></td> <td>%s</td> <td>%s</td> </tr>                
+			<tr> <td><b>541 Other Addicts</b></td> <td>%s</td> <td>%s</td> </tr>         
+			<tr> <td><b>542 Bay Leaf</b></td> <td>%s</td> <td>%s</td> </tr>                
 			<tr> <td><b>543 Cinnamon</b></td> <td>%s</td> <td>%s</td> </tr>               
 			<tr> <td><b>544 Cardamom</b></td> <td>%s</td> <td>%s</td> </tr>              
-			<tr> <td><b>545 Other spices</b></td> <td>%s</td> <td>%s</td> </tr>                
+			<tr> <td><b>545 Other Spices</b></td> <td>%s</td> <td>%s</td> </tr>                
 			<tr> <td><b>546 Bamboo</b></td> <td>%s</td> <td>%s</td> </tr>                 
 			<tr> <td><b>547 Cane</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>548 Hardwood Tree</b></td> <td>%s</td> <td>%s</td> </tr>          
+			<tr> <td><b>548 Lebbek</b></td> <td>%s</td> <td>%s</td> </tr>          
 			<tr> <td><b>549 Rain Tree</b></td> <td>%s</td> <td>%s</td> </tr>              
 			<tr> <td><b>550 Mahogany</b></td> <td>%s</td> <td>%s</td> </tr>      
-			<tr> <td><b>551 Tectona Grandis</b></td> <td>%s</td> <td>%s</td> </tr>               
+			<tr> <td><b>551 Teak</b></td> <td>%s</td> <td>%s</td> </tr>               
 			<tr> <td><b>552 Auri</b></td> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>553 Gum trees</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>554 Baby tree</b></td> <td>%s</td> <td>%s</td> </tr>           
-			<tr> <td><b>555 Gmelina arborea</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>556 Rhizophora apiculata</b></td> <td>%s</td> <td>%s</td> </tr>           
+			<tr> <td><b>553 Eucalyptus</b></td> <td>%s</td> <td>%s</td> </tr>               
+			<tr> <td><b>554 Dalbergia Sissoo</b></td> <td>%s</td> <td>%s</td> </tr>           
+			<tr> <td><b>555 Gmelina Arborea</b></td> <td>%s</td> <td>%s</td> </tr>          
+			<tr> <td><b>556 Rhizophora Apiculata</b></td> <td>%s</td> <td>%s</td> </tr>           
 			<tr> <td><b>557 Banyan</b></td> <td>%s</td> <td>%s</td> </tr>                 
 			<tr> <td><b>559 Typha</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>560 Polyalthia longifolia</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>561 Alstonia scholaris</b></td> <td>%s</td> <td>%s</td> </tr>              
+			<tr> <td><b>560 Polyalthia Longifolia</b></td> <td>%s</td> <td>%s</td> </tr>                
+			<tr> <td><b>561 Istonia Scholaris</b></td> <td>%s</td> <td>%s</td> </tr>              
 			<tr> <td><b>562 Jarul</b></td> <td>%s</td> <td>%s</td> </tr>                 
-			<tr> <td><b>563 Gum arabic</b></td> <td>%s</td> <td>%s</td> </tr>             
+			<tr> <td><b>563 Gum Arabic</b></td> <td>%s</td> <td>%s</td> </tr>             
 			<tr> <td><b>564 Monkey Jack</b></td> <td>%s</td> <td>%s</td> </tr>           
 			<tr> <td><b>565 Golden Shower</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>566 Natural rubber</b></td> <td>%s</td> <td>%s</td> </tr>                 
-			<tr> <td><b>567 Aquilaria malaccensis</b></td> <td>%s</td> <td>%s</td> </tr>
-			<tr> <td><b>568 Sakhua or shala</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>569 Artocarpus chama</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>570 Albizia lebbeck</b></td> <td>%s</td> <td>%s</td> </tr>                  
-			<tr> <td><b>571 Other wood and forestry</b></td> <td>%s</td> <td>%s</td> </tr>                
+			<tr> <td><b>566 Rubber</b></td> <td>%s</td> <td>%s</td> </tr>                 
+			<tr> <td><b>567 Aquilaria Malaccensis</b></td> <td>%s</td> <td>%s</td> </tr>
+			<tr> <td><b>568 Sakhua or Shala</b></td> <td>%s</td> <td>%s</td> </tr>               
+			<tr> <td><b>569 Artocarpus Chama</b></td> <td>%s</td> <td>%s</td> </tr>               
+			<tr> <td><b>570 Albizia Lebbeck</b></td> <td>%s</td> <td>%s</td> </tr>                  
+			<tr> <td><b>571 Other Wood and Forestry</b></td> <td>%s</td> <td>%s</td> </tr>                
 			<tr> <td><b>572 Neem</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>573 Arjun tree</b></td> <td>%s</td> <td>%s</td> </tr>             
-			<tr> <td><b>574 bahera or beleric</b></td> <td>%s</td> <td>%s</td> </tr>                
+			<tr> <td><b>573 Arjun Tree</b></td> <td>%s</td> <td>%s</td> </tr>             
+			<tr> <td><b>574 Bahera or Beleric</b></td> <td>%s</td> <td>%s</td> </tr>                
 			<tr> <td><b>575 Myrobalan</b></td> <td>%s</td> <td>%s</td> </tr>       
 			<tr> <td><b>577 Drumstick tree</b></td> <td>%s</td> <td>%s</td> </tr>                
 			<tr> <td><b>579 Rose</b></td> <td>%s</td> <td>%s</td> </tr>                
 			<tr> <td><b>580 Bakul</b></td> <td>%s</td> <td>%s</td> </tr>           
-			<tr> <td><b>581 Neolamarckia cadamba</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>582 Royal poinciana</b></td> <td>%s</td> <td>%s</td> </tr>            
-			<tr> <td><b>584 Silk-cotton</b></td> <td>%s</td> <td>%s</td> </tr>          
+			<tr> <td><b>581 Neolamarckia Cadamba</b></td> <td>%s</td> <td>%s</td> </tr>                
+			<tr> <td><b>582 Royal Poinciana</b></td> <td>%s</td> <td>%s</td> </tr>            
+			<tr> <td><b>584 Silk-Cotton</b></td> <td>%s</td> <td>%s</td> </tr>          
 			<tr> <td><b>585 Mulberry</b></td> <td>%s</td> <td>%s</td> </tr>                  
 		</tbody>
 	</table>
