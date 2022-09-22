@@ -14,24 +14,18 @@ func (srv *Server) FormatHouseholdTemporaryCrops(division, district, upazilla, u
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
-	<h4>Result<small> </small></h4>
-	
+	Data for table name : %s
 	
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
 		<tr>
-	<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
-	<th></th>
-	<th></th>
-	</tr>
-		
-		</thead>
-		<tbody>
-		<tr>
 		<th>Crop code and name</th>
 		<th>Total temporary crop area (acres)</th>
 		<th>Percentage of crop area (acres)</th>
-	</tr>
+		</tr>
+		</thead>
+		<tbody>
+		
 			<tr> <td><b>101 Aush</b> <td>%s</td> <td>%s</td> </tr>        
 			<tr> <td><b>102 Almond</b></td> <td>%s</td> <td>%s</td> </tr>        
 			<tr> <td><b>103 Boro</b></td> <td>%s</td> <td>%s</td> </tr>          
@@ -140,7 +134,7 @@ func (srv *Server) FormatHouseholdTemporaryCrops(division, district, upazilla, u
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
-		fmt.Sprintf("%s Geo CODE : %s", getTableGenerationName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s<br>%s", getTableGenerationName(q.TableNumber), geoLocation),
 
 		FormatFloat(c.T101, 2), c.PercentageOfCropArea("T101"),
 		FormatFloat(c.T102, 2), c.PercentageOfCropArea("T102"),

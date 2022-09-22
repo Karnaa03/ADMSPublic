@@ -13,12 +13,14 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
-                        <div class="x_title">
+                        <div class="x_title hidden-print">
                             <h2>Geo code selection</h2>
                             <div class="clearfix"></div>
                         </div>
 
                         <div class="x_content">
+                            <div class="hidden-print">
+
                             <br />
                             <form id="bar-code-generation" data-parsley-validate
                                 class="form-horizontal form-label-left">
@@ -113,7 +115,8 @@
                                     </div>
                                     
                                 </div>
-                                <!-- <button onclick="printDiv('printableArea')">Print</button> -->
+                                <button onclick="printDiv('printableArea')">Print</button> 
+                            </div>
                                 <div id="printableArea">
                                 {{.TableAndDonut}}
                                 </div>
@@ -141,14 +144,7 @@
         document.getElementById("autocomplete-mouza").value = "";
     }
     function printDiv(divName) {
-     var printContents = document.getElementById(divName).innerHTML;
-     var originalContents = document.body.innerHTML;
-
-     document.body.innerHTML = printContents;
-
      window.print();
-
-     document.body.innerHTML = originalContents;
 }
 </script>
 
