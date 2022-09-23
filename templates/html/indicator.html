@@ -151,20 +151,26 @@
                                 <!-- <button onclick="printDiv('printableArea')">Print</button> -->
                                 <div id="printableArea">
                                 <div class="x_content">
-                                    
-                                    <table id="datatable-buttons" class="table table-striped">
+                                       <table id="datatable-buttons" class="table table-striped">
                                         <thead>
                                             
                                             <tr>
-                                                <th class="text-wrap" >Data for table name : {{.QueryType}}</th>
+                                                <th class="text-wrap" >Data for Table Name : {{.QueryType}}</th>
                                                 <th> </th>
                                                 <th> </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {{.TableData}}
-                                            
+                                        
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                              <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
+                                              <th></th>
+                                              <th></th>
+                                            </tr>
+                                          </tfoot>
                                     </table>
                                 </div>
                                 <div class="form-group">

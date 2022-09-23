@@ -43,7 +43,7 @@ func (srv *Server) FormatHouseholdLandInformation(division, district, upazilla, 
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
-		<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+		<th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
 		<th></th>
 		<th></th>
 		<th></th>
@@ -63,11 +63,18 @@ func (srv *Server) FormatHouseholdLandInformation(division, district, upazilla, 
 	</tr>
 	%s
 	</tbody>
+	<tfoot>
+	<tr>
+	  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
+	  <th></th>
+	  <th></th>
+	</tr>
+  </tfoot>
 	</table>
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
-		fmt.Sprintf("%s %s", getTableGenerationName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s<br>%s", getTableGenerationName(q.TableNumber), geoLocation),
 		tableData)
 
 	return

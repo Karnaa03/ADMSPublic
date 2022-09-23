@@ -20,7 +20,7 @@ func (srv *Server) FormatHouseholdPermanentCrops(division, district, upazilla, u
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
 		<tr>
-	<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+	<th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
 	<th></th>
 	<th></th>
 	</tr>
@@ -114,11 +114,18 @@ func (srv *Server) FormatHouseholdPermanentCrops(division, district, upazilla, u
 			<tr> <td><b>584 Silk-cotton</b></td> <td>%s</td> <td>%s</td> </tr>          
 			<tr> <td><b>585 Mulberry</b></td> <td>%s</td> <td>%s</td> </tr>                  
 		</tbody>
+		<tfoot>
+		<tr>
+		  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
+		  <th></th>
+		  <th></th>
+		</tr>
+	  </tfoot>
 	</table>
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
-		fmt.Sprintf("%s %s", getTableGenerationName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s<br>%s", getTableGenerationName(q.TableNumber), geoLocation),
 		// p.Sprintf("%d", c.NumberOfFarmHoldings),
 		// p.Sprintf("%.2f", c.CropArea),
 

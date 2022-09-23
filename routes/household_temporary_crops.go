@@ -20,7 +20,7 @@ func (srv *Server) FormatHouseholdTemporaryCrops(division, district, upazilla, u
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
 		<tr>
-	<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+	<th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
 	<th></th>
 	<th></th>
 	</tr>
@@ -136,11 +136,18 @@ func (srv *Server) FormatHouseholdTemporaryCrops(division, district, upazilla, u
 			<tr> <td><b>202 Other cow-Foods</b></td> <td>%s</td> <td>%s</td> </tr>       
 			<tr> <td><b>203 Seeded</b></td> <td>%s</td> <td>%s</td> </tr>                
 		</tbody>
+		<tfoot>
+		<tr>
+		  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
+		  <th></th>
+		  <th></th>
+		</tr>
+	  </tfoot>
 	</table>
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
 	`,
-		fmt.Sprintf("%s  %s", getTableGenerationName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s<br>%s", getTableGenerationName(q.TableNumber), geoLocation),
 
 		FormatFloat(c.T101, 2), c.PercentageOfCropArea("T101"),
 		FormatFloat(c.T102, 2), c.PercentageOfCropArea("T102"),
