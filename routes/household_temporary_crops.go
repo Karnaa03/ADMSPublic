@@ -32,109 +32,109 @@ func (srv *Server) FormatHouseholdTemporaryCrops(division, district, upazilla, u
 		<th>Total temporary crop area (acres)</th>
 		<th>Percentage of crop area (acres)</th>
 	</tr>
-			<tr> <td><b>101 Aush</b> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>102 Almond</b></td> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>103 Boro</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>104 Wheat</b></td> <td>%s</td> <td>%s</td> </tr>         
-			<tr> <td><b>105 Maize</b></td> <td>%s</td> <td>%s</td> </tr>         
-			<tr> <td><b>106 Foxtail millet</b></td> <td>%s</td> <td>%s</td> </tr>
-			<tr> <td><b>107 Barley / sand</b></td> <td>%s</td> <td>%s</td> </tr> 
-			<tr> <td><b>108 Proso Millet</b></td> <td>%s</td> <td>%s</td> </tr>  
-			<tr> <td><b>109 Millet grain</b></td> <td>%s</td> <td>%s</td> </tr>  
-			<tr> <td><b>110 Broom corn</b></td> <td>%s</td> <td>%s</td> </tr>    
-			<tr> <td><b>111 Other grain</b></td> <td>%s</td> <td>%s</td> </tr>   
-			<tr> <td><b>112 Lentil</b></td> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>113 Saffran Pulse</b></td> <td>%s</td> <td>%s</td> </tr> 
-			<tr> <td><b>114 Moog Pulse</b></td> <td>%s</td> <td>%s</td> </tr>    
-			<tr> <td><b>115 Black gram</b></td> <td>%s</td> <td>%s</td> </tr>    
-			<tr> <td><b>116 Pea</b></td> <td>%s</td> <td>%s</td> </tr>           
-			<tr> <td><b>117 Chickpea</b></td> <td>%s</td> <td>%s</td> </tr>      
-			<tr> <td><b>118 Aarahar</b></td> <td>%s</td> <td>%s</td> </tr>       
-			<tr> <td><b>119 Fallon</b></td> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>120 Other pulse</b></td> <td>%s</td> <td>%s</td> </tr>   
-			<tr> <td><b>121 Potato</b></td> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>122 Brinjal</b></td> <td>%s</td> <td>%s</td> </tr>       
-			<tr> <td><b>123 Radish</b></td> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>124 Bean</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>125 Tomato</b></td> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>126 Chichenga</b></td> <td>%s</td> <td>%s</td> </tr>     
-			<tr> <td><b>127 Multitude</b></td> <td>%s</td> <td>%s</td> </tr>     
-			<tr> <td><b>128 Ladies Finger</b></td> <td>%s</td> <td>%s</td> </tr> 
-			<tr> <td><b>129 Cucumber</b></td> <td>%s</td> <td>%s</td> </tr>      
-			<tr> <td><b>130 Bitter Gourd / Momordica / Charantia</b></td> <td>%s</td> <td>%s</td> </tr>
-			<tr> <td><b>131 Gourd</b></td> <td>%s</td> <td>%s</td> </tr>                 
-			<tr> <td><b>132 Pumpkin</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>133 Pumpkin rice</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>134 Cauliflower</b></td> <td>%s</td> <td>%s</td> </tr>           
-			<tr> <td><b>135 Cabbage</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>136 Broccoli</b></td> <td>%s</td> <td>%s</td> </tr>              
-			<tr> <td><b>137 Cucumber</b></td> <td>%s</td> <td>%s</td> </tr>              
-			<tr> <td><b>138 Sweet potato</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>139 Stalk</b></td> <td>%s</td> <td>%s</td> </tr>                 
-			<tr> <td><b>140 Taro</b></td> <td>%s</td> <td>%s</td> </tr>                  
-			<tr> <td><b>141 Yardlong bean</b></td> <td>%s</td> <td>%s</td> </tr>         
-			<tr> <td><b>142 Jhinga</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>143 Carrots</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>144 Kohlrabi</b></td> <td>%s</td> <td>%s</td> </tr>              
-			<tr> <td><b>145 Turnip</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>146 Cumin</b></td> <td>%s</td> <td>%s</td> </tr>                 
-			<tr> <td><b>147 Peppers</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>148 Sponge gourd</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>149 Beetroot</b></td> <td>%s</td> <td>%s</td> </tr>              
-			<tr> <td><b>150 Other vegetables</b></td> <td>%s</td> <td>%s</td> </tr>      
-			<tr> <td><b>151 Reddish</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>152 Indian spinach</b></td> <td>%s</td> <td>%s</td> </tr>        
-			<tr> <td><b>153 Spinach</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>154 Mint leaves</b></td> <td>%s</td> <td>%s</td> </tr>           
-			<tr> <td><b>155 lettuce leaf</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>156 Others leaf</b></td> <td>%s</td> <td>%s</td> </tr>           
-			<tr> <td><b>157 Onion</b></td> <td>%s</td> <td>%s</td> </tr>                 
-			<tr> <td><b>158 Garlic</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>159 Ginger</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>160 Turmeric</b></td> <td>%s</td> <td>%s</td> </tr>              
-			<tr> <td><b>161 Chili</b></td> <td>%s</td> <td>%s</td> </tr>                 
-			<tr> <td><b>162 Coriander</b></td> <td>%s</td> <td>%s</td> </tr>             
-			<tr> <td><b>163 Black cumin</b></td> <td>%s</td> <td>%s</td> </tr>           
-			<tr> <td><b>164 Fennel</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>165 Cumin</b></td> <td>%s</td> <td>%s</td> </tr>                 
-			<tr> <td><b>166 Other spices  national</b></td> <td>%s</td> <td>%s</td> </tr>
-			<tr> <td><b>167 Mustard</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>168 Soybean</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>169 Nuts</b></td> <td>%s</td> <td>%s</td> </tr>                  
-			<tr> <td><b>170 Sesame</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>171 Linseed</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>172 sunflower</b></td> <td>%s</td> <td>%s</td> </tr>             
-			<tr> <td><b>173 Castor</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>174 Other oil seeds</b></td> <td>%s</td> <td>%s</td> </tr>       
-			<tr> <td><b>175 Banana</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>176 Papaya</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>177 Water Melon</b></td> <td>%s</td> <td>%s</td> </tr>           
-			<tr> <td><b>178 Melons</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>179 Pine Apple</b></td> <td>%s</td> <td>%s</td> </tr>            
-			<tr> <td><b>180 Strawberry</b></td> <td>%s</td> <td>%s</td> </tr>            
-			<tr> <td><b>181 Other Fruits</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>182 Jute</b></td> <td>%s</td> <td>%s</td> </tr>                  
-			<tr> <td><b>183 Cotton</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>184 Other fibers</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>185 Sugar Cane</b></td> <td>%s</td> <td>%s</td> </tr>            
-			<tr> <td><b>186 Other Sugars</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>187 Tobacco</b></td> <td>%s</td> <td>%s</td> </tr>               
-			<tr> <td><b>188 Other drugs</b></td> <td>%s</td> <td>%s</td> </tr>           
-			<tr> <td><b>189 Aloe vera</b></td> <td>%s</td> <td>%s</td> </tr>             
-			<tr> <td><b>190 Other medicinal "</b></td> <td>%s</td> <td>%s</td> </tr>     
-			<tr> <td><b>191 Tuberose</b></td> <td>%s</td> <td>%s</td> </tr>              
-			<tr> <td><b>192 Marigold</b></td> <td>%s</td> <td>%s</td> </tr>              
-			<tr> <td><b>193 Chrysanthemum</b></td> <td>%s</td> <td>%s</td> </tr>         
-			<tr> <td><b>194 Dahlia</b></td> <td>%s</td> <td>%s</td> </tr>                
-			<tr> <td><b>195 Gladiolus</b></td> <td>%s</td> <td>%s</td> </tr>             
-			<tr> <td><b>196 Transvaal daisy</b></td> <td>%s</td> <td>%s</td> </tr>       
-			<tr> <td><b>197 Other flowers</b></td> <td>%s</td> <td>%s</td> </tr>         
-			<tr> <td><b>198 Sun grass</b></td> <td>%s</td> <td>%s</td> </tr>             
-			<tr> <td><b>199 Dhaincha</b></td> <td>%s</td> <td>%s</td> </tr>              
-			<tr> <td><b>200 Other fuels</b></td> <td>%s</td> <td>%s</td> </tr>           
-			<tr> <td><b>201 Napier grass</b></td> <td>%s</td> <td>%s</td> </tr>          
-			<tr> <td><b>202 Other cow-Foods</b></td> <td>%s</td> <td>%s</td> </tr>       
-			<tr> <td><b>203 Seeded</b></td> <td>%s</td> <td>%s</td> </tr>                
+	<tr> <td><b>101	Aus</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>102	Aman</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>103	Boro</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>104	Wheat</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>105	Maize</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>106	Italian Millet</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>107	Barley/Oat</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>108	Caon Millet (Cheena)</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>109	Pearl Millet (Bazra)</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>110	Great Millet (Joar)</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>111	Other Cereals</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>112	Lentil</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>113	Chickling Vetch</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>114	Green Gram</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>115	Black Gram</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>116	Pea</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>117	Gram</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>118	Arhar</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>119	Fallon</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>120	Other Pulses</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>121	Potato</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>122	Brinjal</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>123	Radish</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>124	Bean</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>125	Tomato</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>126	Snake Gourd</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>127	Parbal</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>128	Ladies finger</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>129	Cucumber</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>130	Bitter Gourd</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>131	Water Gourd</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>132	Pumpkin</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>133	White Gourd</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>134	Cauli Flower</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>135	Cabbage</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>136	Broccoli</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>137	Kakrol</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>138	Sween Potato</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>139	Amaranth</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>140	Taro</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>141	Lobry (Barbati)</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>142	Ribbed gourd (Jhinga)</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>143	Carrots</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>144	Kholkhol</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>145	Turnip</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>146	Khirai</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>147	Capsicum</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>148	Sponge Gourd</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>149	Beetroot</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>150	Other Vegetables</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>151	Red Amaranth</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>152	Indian Spinach</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>153	Spinach</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>154	Mint Leaves</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>155	Lettuce Leaf</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>156	Other Leaf</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>157	Onion</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>158	Garlic</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>159	Ginger</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>160	Turmeric</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>161	Chili</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>162	Coriander</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>163	Black Cumin</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>164	Fennel</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>165	Cumin</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>166	Other Spices</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>167	Rape</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>168	Soyabean</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>169	Ground Nut</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>170	Sesame</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>171	Linseed</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>172	Sunflower</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>173	Verenda</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>174	Other Oil Seeds</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>175	Banana</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>176	Papaya</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>177	Watermelon </b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>178	Melon</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>179	Pineapple</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>180	Strobery</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>181	Other Fruits</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>182	Jute</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>183	Cotton</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>184	Other Fibers</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>185	Sugarcane</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>186	Other Sugar Crops</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>187	Tobacco</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>188	Other Drug Crops</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>189	Aloe Vera</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>190	Other Medical Crops</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>191	Tuberose</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>192	Marigold</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>193	Chrysanthemum</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>194	Dahlia</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>195	Gladiolus</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>196	Transvaal Daisy</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>197	Other Flowers</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>198	Sun Grass</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>199	Dhaincha</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>200	Other Fuels</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>201	Napier Grass</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>202	Other Animal Feed</b> <td>%s</td> <td>%s</td> </tr>
+	<tr> <td><b>203	Sed Bed</b> <td>%s</td> <td>%s</td> </tr>               
 		</tbody>
 		<tfoot>
 		<tr>
