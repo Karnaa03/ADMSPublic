@@ -14,24 +14,18 @@ func (srv *Server) FormatHouseholdPermanentCrops(division, district, upazilla, u
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
-	<h4>Result<small> </small></h4>
+	Data for table name : %s
 	
 	
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
 		<tr>
-	<th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
-	<th></th>
-	<th></th>
-	</tr>
-		</thead>
-		<tbody>
-		<tr>
 		<th>Crop code and name</th>
 		<th>Total Permanent crop area (acres)</th>
 		<th>Percentage of crop area (acres)</th>
-	</tr>
-
+		</tr>
+		</thead>
+		<tbody>
 			<tr> <td><b>501 Mango</b> <td>%s</td> <td>%s</td> </tr>        
 			<tr> <td><b>502 Berry</b></td> <td>%s</td> <td>%s</td> </tr>        
 			<tr> <td><b>503 Jackfruit</b></td> <td>%s</td> <td>%s</td> </tr>          

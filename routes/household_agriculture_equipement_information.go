@@ -37,21 +37,9 @@ func (srv *Server) FormatHouseholdAgricultureEquipementInformation(division, dis
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
-	<h4>Result<small> </small></h4>
-	
+	Data for table name : %s
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
-	<tr>
-	<th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
-	<th></th>
-	<th></th>
-	<th></th>
-	<th></th>
-	<th></th>
-	</tr>
-	
-	</thead>
-	<tbody>
 	<tr>
 	<th>Report</th>
 	<th>Number of reporting holdings</th>
@@ -60,6 +48,9 @@ func (srv *Server) FormatHouseholdAgricultureEquipementInformation(division, dis
 	<th>Number of diesel device</th>
 	<th>Number of electrical device</th>
 	</tr>
+	</thead>
+	<tbody>
+	
 	%s
 	</tbody>
 	<tfoot>

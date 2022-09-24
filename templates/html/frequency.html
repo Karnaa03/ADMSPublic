@@ -1,6 +1,5 @@
 {{.Header}}
 <!-- page content -->
-<script>document.title="Frequency list"</script>
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
@@ -14,12 +13,13 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
-                        <div class="x_title">
+                        <div class="x_title hidden-print">
                             <h2>Geo code selection</h2>
                             <div class="clearfix"></div>
                         </div>
 
                         <div class="x_content">
+                            <div class="hidden-print">
                             <br />
                             <form id="bar-code-generation" data-parsley-validate
                                 class="form-horizontal form-label-left">
@@ -111,6 +111,7 @@
 
                                 </div>
                                 <!-- <button onclick="printDiv('printableArea')">Print</button> -->
+                            </div>
                                 <div id="printableArea">
                                 {{.TableAndDonut}}
                                 </div>
@@ -138,14 +139,23 @@
         document.getElementById("autocomplete-mouza").value = "";
     }
     function printDiv(divName) {
-     var printContents = document.getElementById(divName).innerHTML;
-     var originalContents = document.body.innerHTML;
+//         // var doc = new jsPDF();
+//          var elementHTML = $('#printableArea').html();
+//         // doc.fromHTML(elementHTML.html(), 15, 15, {'width': 170});
+//         // doc.save('sample-document.pdf');
+      
+//   var pdf = new jsPDF('p', 'pt', 'letter');
+//   pdf.canvas.height = 72 * 11;
+//   pdf.canvas.width = 72 * 8.5;
 
-     document.body.innerHTML = printContents;
+//   pdf.fromHTML(document.body);
 
+//   pdf.fromHTML(elementHTML);
+//   pdf.save('test.pdf');
+
+
+ 
      window.print();
-
-     document.body.innerHTML = originalContents;
 }
 </script>
 

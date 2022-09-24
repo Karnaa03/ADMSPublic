@@ -38,21 +38,10 @@ func (srv *Server) FormatHouseholdLandInformation(division, district, upazilla, 
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
-	<h4>Result<small> </small></h4>
+	Data for table name : %s
 	
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
-	<tr>
-		<th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
-		<th></th>
-		<th></th>
-		<th></th>
-		<th></th>
-		<th></th>
-	</tr>
-	
-	</thead>
-	<tbody>
 	<tr>
 	<th>Report</th>
 	<th>Number of reporting holdings</th>
@@ -60,7 +49,9 @@ func (srv *Server) FormatHouseholdLandInformation(division, district, upazilla, 
 	<th>Total Area (acres)</th>
 	<th>Total farm holding area (acres)</th>
 	<th>Average area (acres) per farm holding</th>
-	</tr>
+	</tr>	
+	</thead>
+	<tbody>
 	%s
 	</tbody>
 	<tfoot>

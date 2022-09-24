@@ -14,12 +14,13 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
-                        <div class="x_title">
+                        <div class="x_title hidden-print">
                             <h2>Geo code selection</h2>
                             <div class="clearfix"></div>
                         </div>
 
                         <div class="x_content">
+                            <div class="hidden-print">
                             <br />
                             
                             
@@ -149,16 +150,17 @@
                                     
                                 </div>
                                 <!-- <button onclick="printDiv('printableArea')">Print</button> -->
+                                </div>
                                 <div id="printableArea">
                                 <div class="x_content">
-                                       <table id="datatable-buttons" class="table table-striped">
+                                    Data for table name : {{.QueryType}}
+                                    <table id="datatable-buttons" class="table table-striped">
                                         <thead>
-                                            
                                             <tr>
-                                                <th class="text-wrap" >Data for Table Name : {{.QueryType}}</th>
-                                                <th> </th>
-                                                <th> </th>
-                                            </tr>
+                                                <th>Total</th>
+                                                <th>Urban</th>
+                                                <th>Rural</th>
+                                                </tr>   
                                         </thead>
                                         <tbody>
                                             {{.TableData}}
@@ -204,12 +206,7 @@
         document.getElementById("autocomplete-mouza").value = "";
     }
     function printDiv(divName) {
-     var printContents = document.getElementById(divName).innerHTML;
-     var originalContents = document.body.innerHTML;
-     document.body.innerHTML = printContents;
      window.print();
-     document.body.innerHTML = originalContents;
-     
     //document.body.style.display = "block";
 }
 </script>

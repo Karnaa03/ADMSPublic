@@ -485,11 +485,7 @@ func FormatTable(data []model.RawTableData) (tableData string) {
 			total = urban + rural
 		}
 		tableData += fmt.Sprintf(`
-		<tr>
-		<th>Total</th>
-        <th>Urban</th>
-        <th>Rural</th>
-		</tr>
+		
 		<tr>
 				<td>%s</td>
 				<td>%s</td>

@@ -113,36 +113,40 @@ func GetGeoRequest(division, district, upazilla, union, mouza string) (selector 
 		}
 		selector = fmt.Sprintf("%02d", divisionInt)
 		count = 1
-	} else {
-		return
 	}
 	if district != "" {
 		var districtInt int
 		districtInt, err = strconv.Atoi(district)
+		if err != nil {
+			return
+		}
 		selector += "." + fmt.Sprintf("%02d", districtInt)
 		count = 2
-	} else {
-		return
 	}
 	if upazilla != "" {
 		var upazillaInt int
 		upazillaInt, err = strconv.Atoi(upazilla)
+		if err != nil {
+			return
+		}
 		selector += "." + fmt.Sprintf("%02d", upazillaInt)
 		count = 3
-	} else {
-		return
 	}
 	if union != "" {
 		var unionInt int
 		unionInt, err = strconv.Atoi(union)
+		if err != nil {
+			return
+		}
 		selector += "." + fmt.Sprintf("%03d", unionInt)
 		count = 4
-	} else {
-		return
 	}
 	if mouza != "" {
 		var mouzaInt int
 		mouzaInt, err = strconv.Atoi(mouza)
+		if err != nil {
+			return
+		}
 		selector += "." + fmt.Sprintf("%03d", mouzaInt)
 		count = 5
 	} else {

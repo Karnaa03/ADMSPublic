@@ -328,19 +328,16 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
-	<h4>Result</h4>
+	Data for table name : %s
 	<table id="datatable-buttons" class="table table-striped">
-	<thead>
-	<tr><th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
-	<th></th>
-	<th></th></tr>
-	</thead>
-	<tbody>
+		<thead>
 		<tr>
 			<th>Household Head Occupation</th>
-			<th>Number of Household</th>
+			<th>Number of household</th>
 			<th>Percentage</th>
 		</tr>
+		</thead>
+		<tbody>
 			%s
 		</tbody>
 		<tfoot>
@@ -574,24 +571,16 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
-	<h4>Result</h4>
- 
+	Data for table name : %s
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
-	<tr>
-		<th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
-		<th></th>
-		<th></th>
-	</tr>
-	</thead>
-	
-	<tbody>
 	<tr>
 	<th>Household Head Education</th>
 	<th>Number of Household</th>
 	<th>Percentage</th>
 	</tr>
-	
+	</thead>
+	<tbody>
 	%s
 	</tbody>
 	<tfoot>
@@ -715,21 +704,18 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
-	<h4>Result</h4>
+	Data for table name : %s
 	
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
-	<tr><th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
-<th></th>
-<th></th></tr>
-	
-	</thead>
-	<tbody>
 	<tr>
 	<th>Household Head Gender</th>
 	<th>Number of Household</th>
 	<th>Percentage</th>
 	</tr>
+	</thead>
+	<tbody>
+	
 	%s
 	</tbody>
 	<tfoot>
@@ -774,19 +760,15 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
-	<h4>Result</h4>
+	Data for table name : %s
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
-		<tr>
-		<th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
-		<th></th>
-		</tr>
+	<tr>
+	<th>Number of Fishery Household</th>
+	<th>Percentage</th>
+	</tr>
 	</thead>
 	<tbody>
-		<tr>
-		<th>Number of Fishery Household</th>
-		<th>Percentage</th>
-		</tr>
 		%s
 	</tbody>
 	<tfoot>
@@ -825,20 +807,17 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
-	<h4>Result</h4>
+	Data for table name : %s
 	
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
-	<tr><th class="text-wrap" style="width: 500px;">Data for Table Name : %s</th>
-
-<th></th></tr>
-	
-	</thead>
-	<tbody>
 	<tr>
 	<th>Number of Agri Labor Household</th>
 	<th>Percentage</th>
 	</tr>
+	</thead>
+	<tbody>
+	
 	%s
 	</tbody>
 	<tfoot>
