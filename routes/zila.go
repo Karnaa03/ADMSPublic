@@ -61,6 +61,7 @@ func (srv *Server) zila(footer string) {
 			divisionInt, err := strconv.Atoi(division)
 			if err != nil {
 				srv.zilaWithError(c, header, footer, err.Error(), division, district)
+				return
 			}
 			fmt.Sprintf("%02d", divisionInt)
 		}
@@ -69,6 +70,7 @@ func (srv *Server) zila(footer string) {
 			districtInt, err := strconv.Atoi(district)
 			if err != nil {
 				srv.zilaWithError(c, header, footer, err.Error(), division, district)
+				return
 			}
 			fmt.Sprintf("%02d", districtInt)
 		}
