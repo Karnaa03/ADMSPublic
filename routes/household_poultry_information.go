@@ -28,7 +28,7 @@ func (srv *Server) FormatHouseholdPoultryInformation(division, district, upazill
 			hli.Name,
 			p.Sprintf("%d", hli.NumberOfReportingHoldings),
 			p.Sprintf("%d", hli.TotalNumberOfPoultry),
-			p.Sprintf("%.4f", hli.AverageTypeOfPoultryPerHolding),
+			p.Sprintf("%.2f", hli.AverageTypeOfPoultryPerHolding),
 		)
 	}
 
@@ -48,13 +48,7 @@ func (srv *Server) FormatHouseholdPoultryInformation(division, district, upazill
 	<tbody>
 	%s
 	</tbody>
-	<tfoot>
-	<tr>
-	  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
-	  <th></th>
-	  <th></th>
-	</tr>
-  </tfoot>
+ 
 	</table>
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>

@@ -340,13 +340,7 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 		<tbody>
 			%s
 		</tbody>
-		<tfoot>
-		<tr>
-		  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
-		  <th></th>
-		  <th></th>
-		</tr>
-	  </tfoot>
+	 
 	</table>
 	</div>
 	<div class="form-group">
@@ -583,13 +577,7 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	<tbody>
 	%s
 	</tbody>
-	<tfoot>
-	<tr>
-	  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
-	  <th></th>
-	  <th></th>
-	</tr>
-  </tfoot>
+ 
 	</table>
 	</div>
 	<div class="form-group">
@@ -718,13 +706,7 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	
 	%s
 	</tbody>
-	<tfoot>
-	<tr>
-	  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
-	  <th></th>
-	  <th></th>
-	</tr>
-  </tfoot>
+ 
 	</table>
 	</div>
 	<div class="form-group">
@@ -771,13 +753,7 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	<tbody>
 		%s
 	</tbody>
-	<tfoot>
-	<tr>
-	  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
-	  <th></th>
-	  <th></th>
-	</tr>
-  </tfoot>
+ 
 	</table>
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
@@ -820,13 +796,7 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 	
 	%s
 	</tbody>
-	<tfoot>
-	<tr>
-	  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
-	  <th></th>
-	  <th></th>
-	</tr>
-  </tfoot>
+ 
 	</table>
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>

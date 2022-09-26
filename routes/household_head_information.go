@@ -666,13 +666,7 @@ func (srv *Server) FormatHouseholdHeadInformation(division, district, upazilla, 
 	<tbody>
 	%s
 	</tbody>
-	<tfoot>
-	<tr>
-	  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
-	  <th></th>
-	  <th></th>
-	</tr>
-  </tfoot>
+
 	</table>
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>

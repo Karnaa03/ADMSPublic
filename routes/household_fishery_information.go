@@ -43,7 +43,7 @@ func (srv *Server) FormatHouseholdLandFisheryInformation(division, district, upa
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
-	<th>Report</th>
+	<th>Land</th>
 	<th>Number of reporting holdings</th>
 	<th>Number of farm holdings</th>
 	<th>Total Area (acres)</th>
@@ -55,13 +55,7 @@ func (srv *Server) FormatHouseholdLandFisheryInformation(division, district, upa
 	
 	%s
 	</tbody>
-	<tfoot>
-	<tr>
-	  <th>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics</th>
-	  <th></th>
-	  <th></th>
-	</tr>
-  </tfoot>
+
 	</table>
 	</div>
 	<h7>Source: Agriculture Census 2019, Bangladesh Bureau of Statistics.</h7>
