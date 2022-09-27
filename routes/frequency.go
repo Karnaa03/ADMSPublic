@@ -18,19 +18,19 @@ import (
 func formatGeoSelection(division, district, updazila, union, mouza string) (geoSelection string) {
 
 	if division != "" {
-		geoSelection += fmt.Sprintf("%s; ", division)
+		geoSelection += fmt.Sprintf("%s;", division)
 	}
 	if district != "" {
-		geoSelection += fmt.Sprintf("%s; ", district)
+		geoSelection += fmt.Sprintf("%s;", district)
 	}
 	if updazila != "" {
-		geoSelection += fmt.Sprintf("%s; ", updazila)
+		geoSelection += fmt.Sprintf("%s;", updazila)
 	}
 	if union != "" {
-		geoSelection += fmt.Sprintf("%s; ", union)
+		geoSelection += fmt.Sprintf("%s;", union)
 	}
 	if mouza != "" {
-		geoSelection += fmt.Sprintf("%s; ", mouza)
+		geoSelection += fmt.Sprintf("%s;", mouza)
 	}
 	if geoSelection == "" {
 		geoSelection = "All country"
@@ -323,17 +323,22 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result</h4>
-	<h5>Data for table name : %s</h5>
-	<title>Data for table name : %s</title>
+	 
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
-			<tr>
+		
+		
+<tr><th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+<th></th>
+<th></th></tr>
+			
+		</thead>
+		<tbody>
+		<tr>
 				<th>Household Head Occupation</th>
 				<th>Number of household</th>
 				<th>Percentage</th>
 			</tr>
-		</thead>
-		<tbody>
 			%s
 		</tbody>
 	</table>
@@ -345,8 +350,8 @@ func (srv *Server) FormatOccupationOfTheHouseHold(division, district, upazilla, 
 	</div>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s GEO CODE : %s", getTableName(q.TableNumber), geoLocation),
-		getTableName(q.TableNumber),
+		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
+
 		tableData,
 		donutData)
 
@@ -561,16 +566,23 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result</h4>
-	<h5>Data for table name : %s</h5>
+ 
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
-	<th>Household Head Occupation</th>
+		<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+		<th></th>
+		<th></th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	<tr>
+	<th>Household Head Education</th>
 	<th>Number of household</th>
 	<th>Percentage</th>
 	</tr>
-	</thead>
-	<tbody>
+	
 	%s
 	</tbody>
 	</table>
@@ -582,7 +594,7 @@ func (srv *Server) FormatEducationHouseHoldHead(division, district, upazilla, un
 	</div>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s GEO CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData,
 		donutData)
 
@@ -688,16 +700,20 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result</h4>
-	<h5>Data for table name : %s</h5>
+	
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
+	<tr><th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+<th></th>
+<th></th></tr>
+	
+	</thead>
+	<tbody>
 	<tr>
-	<th>Household Head Occupation</th>
+	<th>Household Head Gender</th>
 	<th>Number of household</th>
 	<th>Percentage</th>
 	</tr>
-	</thead>
-	<tbody>
 	%s
 	</tbody>
 	</table>
@@ -709,7 +725,7 @@ func (srv *Server) FormatGenderOfTheHouseholdHead(division, district, upazilla, 
 	</div>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s GEO CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData,
 		donutData)
 
@@ -730,28 +746,31 @@ func (srv *Server) FormatFisheryHolding(division, district, upazilla, union, mou
 	</tr>	
 	`,
 		p.Sprintf("%d", data.NumberOfFisheryHousehold),
-		p.Sprintf("%f", data.Percentage),
+		p.Sprintf("%.2f", data.Percentage),
 	)
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result</h4>
-	<h5>Data for table name : %s</h5>
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
-	<tr>
-	<th>Number of Fishery Household</th>
-				<th>Percentage</th>
-				</tr>
-				</thead>
-				<tbody>
-				%s
-				</tbody>
-				</table>
-				</div>
+		<tr>
+		<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+		<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+		<th>Number of Fishery Household</th>
+		<th>Percentage</th>
+		</tr>
+		%s
+	</tbody>
+	</table>
+	</div>
 				<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s GEO CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
 
 	return
@@ -771,28 +790,32 @@ func (srv *Server) FormatAgriculuralLaborHolding(division, district, upazilla, u
 	</tr>	
 	`,
 		p.Sprintf("%d", data.NumberOfAgriLaborHouseHold),
-		p.Sprintf("%f", data.Percentage),
+		p.Sprintf("%.2f", data.Percentage),
 	)
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result</h4>
-	<h5>Data for table name : %s</h5>
+	
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
+	<tr><th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+
+<th></th></tr>
+	
+	</thead>
+	<tbody>
 	<tr>
 	<th>Number of Agri labor household</th>
 	<th>Percentage</th>
 	</tr>
-	</thead>
-	<tbody>
 	%s
 	</tbody>
 	</table>
 	</div>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s GEO CODE : %s", getTableName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s Geo CODE : %s", getTableName(q.TableNumber), geoLocation),
 		tableData)
 
 	return

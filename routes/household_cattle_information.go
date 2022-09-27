@@ -35,24 +35,31 @@ func (srv *Server) FormatHouseholdCattleInformation(division, district, upazilla
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result<small> </small></h4>
-	<h5>Data for table name : %s</h5>
+	
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
-	<th>Report</th>
+	<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+	<th></th>
+	<th></th>
+	<th></th>
+	</tr>
+	
+	</thead>
+	<tbody>
+	<tr>
+	<th>Cattle</th>
 	<th>Number of reporting holdings</th>
 	<th>Total number of cattle</th>
 	<th>Average type of cattle per holding</th>
 	</tr>
-	</thead>
-	<tbody>
 	%s
 	</tbody>
 	</table>
 	</div>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s GEO CODE : %s", getTableGenerationName(q.TableNumber), geoLocation),
+		fmt.Sprintf("%s Geo CODE : %s", getTableGenerationName(q.TableNumber), geoLocation),
 		tableData)
 
 	return

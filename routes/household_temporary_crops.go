@@ -2,9 +2,6 @@ package routes
 
 import (
 	"fmt"
-
-	"golang.org/x/text/language"
-	"golang.org/x/text/message"
 )
 
 func (srv *Server) FormatHouseholdTemporaryCrops(division, district, upazilla, union, mouza string, q *searchQuery, geoLocation string) (tableAndDonut string, err error) {
@@ -13,23 +10,28 @@ func (srv *Server) FormatHouseholdTemporaryCrops(division, district, upazilla, u
 		return "", err
 	}
 
-	p := message.NewPrinter(language.English)
+	//p := message.NewPrinter(language.English)
 
 	tableAndDonut = fmt.Sprintf(`
 	<div class="x_content">
 	<h4>Result<small> </small></h4>
-	<h5>Data for table name : %s</h5>
-	<h5>Number of farm holdings : %s</h5>
-	<h5>Crop area : %s</h5>
+	
+	
 	<table id="datatable-buttons" class="table table-striped">
 		<thead>
-			<tr>
-				<th>Crop code and name</th>
-				<th>Total temporary crop area (acres)</th>
-				<th>Percentage of crop area (acres)</th>
-			</tr>
+		<tr>
+	<th class="text-wrap" style="width: 500px;">Data for table name : %s</th>
+	<th></th>
+	<th></th>
+	</tr>
+		
 		</thead>
 		<tbody>
+		<tr>
+		<th>Crop code and name</th>
+		<th>Total temporary crop area (acres)</th>
+		<th>Percentage of crop area (acres)</th>
+	</tr>
 			<tr> <td><b>101 Aush</b> <td>%s</td> <td>%s</td> </tr>        
 			<tr> <td><b>102 Almond</b></td> <td>%s</td> <td>%s</td> </tr>        
 			<tr> <td><b>103 Boro</b></td> <td>%s</td> <td>%s</td> </tr>          
@@ -138,9 +140,8 @@ func (srv *Server) FormatHouseholdTemporaryCrops(division, district, upazilla, u
 	</div>
 	<h7>Source: Bangladesh Bureau of Statistics. Report produced by Agriculture (Crops, Fisheries and Livestock) Census 2018 Project.</h7>
 	`,
-		fmt.Sprintf("%s GEO CODE : %s", getTableGenerationName(q.TableNumber), geoLocation),
-		p.Sprintf("%d", c.NumberOfFarmHoldings),
-		p.Sprintf("%.2f", c.CropArea),
+		fmt.Sprintf("%s Geo CODE : %s", getTableGenerationName(q.TableNumber), geoLocation),
+
 		FormatFloat(c.T101, 2), c.PercentageOfCropArea("T101"),
 		FormatFloat(c.T102, 2), c.PercentageOfCropArea("T102"),
 		FormatFloat(c.T103, 2), c.PercentageOfCropArea("T103"),
