@@ -28,7 +28,7 @@ func (srv *Server) FormatHouseholdCattleInformation(division, district, upazilla
 			hli.Name,
 			p.Sprintf("%d", hli.NumberOfReportingHoldings),
 			p.Sprintf("%d", hli.TotalNumberOfCattle),
-			p.Sprintf("%.4f", hli.AverageTypeOfCattlePerHolding),
+			p.Sprintf("%.2f", hli.AverageTypeOfCattlePerHolding),
 		)
 	}
 

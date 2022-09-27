@@ -43,12 +43,12 @@ func (srv *Server) FormatHouseholdLandFisheryInformation(division, district, upa
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
-	<th>Land</th>
-	<th>Number of reporting holdings</th>
-	<th>Number of farm holdings</th>
+	<th>Fishery Land</th>
+	<th>Number of Reporting Holdings</th>
+	<th>Number of Farm Holdings</th>
 	<th>Total Area (acres)</th>
-	<th>Total farm holding area (acres)</th>
-	<th>Average area (acres) per farm holding</th>
+	<th>Total Farm Holding area (acres)</th>
+	<th>Average area (acres) per Farm Holding</th>
 	</tr>
 	</thead>
 	<tbody>

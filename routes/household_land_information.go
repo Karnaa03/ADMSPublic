@@ -43,7 +43,7 @@ func (srv *Server) FormatHouseholdLandInformation(division, district, upazilla, 
 	<table id="datatable-buttons" class="table table-striped">
 	<thead>
 	<tr>
-	<th>Report</th>
+	<th>Land</th>
 	<th>Number of reporting holdings</th>
 	<th>Number of farm holdings</th>
 	<th>Total Area (acres)</th>

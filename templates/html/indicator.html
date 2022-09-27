@@ -153,7 +153,7 @@
                                 </div>
                                 <div id="printableArea">
                                 <div class="x_content">
-                                    Data for table name : {{.QueryType}}
+                                    <div id="test">Data for table name : {{.QueryType}}</div>
                                     <table id="datatable-buttons" class="table table-striped">
                                         <thead>
                                             <tr>
@@ -203,6 +203,12 @@
      window.print();
     //document.body.style.display = "block";
 }
+ 
+$('#test').html(function (i, text)
+{
+    var atext=text.replaceAll('&lt;', '<').replaceAll('&gt;', '>');
+    return atext;
+});
 </script>
 
 <script>
